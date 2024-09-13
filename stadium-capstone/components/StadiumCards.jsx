@@ -1,22 +1,35 @@
 import "./StadiumCards.css"
 import { useState, useEffect } from "react";
-// import { fetchAllBooks } from "../API";
 import { useNavigate } from "react-router-dom";
+// import { createStadiums } from "../../prisma/seed.js";
 
-export default function Books({ stadiums, setStadiums }) {
+export default function StadiumCards({stadiums, setStadiums}) {
   const [searchParam, setSearchParam] = useState("");
   const navigate = useNavigate();
+
+  async function fetchAllStadiums() {
+    try {
+      const response = await fetch("http://localhost:3000/api/stadiums");
+      const result = await response.json();
+      // console.log(result);
+      return result;
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  fetchAllStadiums()
 
   useEffect(() => {
     async function getAllStadiums() {
       const APIResponse = await fetchAllStadiums();
-      setStadiums(APIResponse.stadiums);
+      // console.log(APIResponse);
+      setStadiums(APIResponse)
     }
     getAllStadiums();
   }, []);
 
   const stadiumsToDisplay = searchParam
-    ? stadiums.filter((book) => stadium.title.toLowerCase().includes(searchParam))
+    ? stadiums.filter((stadium) => stadium.title.toLowerCase().includes(searchParam))
     : stadiums;
 
   return (
@@ -36,12 +49,14 @@ export default function Books({ stadiums, setStadiums }) {
         {stadiumsToDisplay.map((stadium) => {
           return (
             <h3 key={stadium.id}>
-              <img
-                src={stadium.imageURL}
+              {/* <img
+                src={stadium.imageOutsideURL}
                 onClick={() => navigate(`/stadiums/${stadium.id}/`)}
-              />
+              /> */}
               <br />
-              {stadium.title}
+              {stadium.name}
+              {stadium.teamName}
+              {stadium.state}
             </h3>
           );
         })}
