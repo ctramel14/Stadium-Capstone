@@ -1,16 +1,18 @@
 const { PrismaClient } = require("@prisma/client");
-const { visitedStadium } = require(".");
+const { visitedStadium, stadium } = require(".");
 const prisma = new PrismaClient();
 
 const createStadiums = async () => {
   try {
     const stadiums = [
       {
-        name: "Stadium 1",
-        teamName: "Team 1",
-        division: "Division 1",
-        zipCode: 12345,
+        name: "",
+        teamName: "Arizona Diamondbacks",
+        division: "National League West",
+        address: "1234 Main St",
+        city: "San Diego",
         state: "CA",
+        zipCode: 12345,
         capacity: 50000,
         openYear: 1974,
         imageOutsideURL: "imageOutsideURL1",
@@ -20,8 +22,10 @@ const createStadiums = async () => {
         name: "Stadium 2",
         teamName: "Team 2",
         division: "Division 2",
-        zipCode: 54321,
+        address: "5678 Main St",
+        city: "New York",
         state: "NY",
+        zipCode: 54321,
         capacity: 60000,
         openYear: 1984,
         imageOutsideURL: "imageOutsideURL2",
@@ -31,8 +35,10 @@ const createStadiums = async () => {
         name: "Stadium 3",
         teamName: "Team 3",
         division: "Division 3",
-        zipCode: 67890,
+        address: "9101 Main St",
+        city: "Houston",
         state: "TX",
+        zipCode: 67890,
         capacity: 70000,
         openYear: 1994,
         imageOutsideURL: "imageOutsideURL3",
@@ -42,8 +48,10 @@ const createStadiums = async () => {
         name: "Stadium 4",
         teamName: "Team 4",
         division: "Division 4",
-        zipCode: 19876,
+        address: "1123 Main St",
+        city: "Miami",
         state: "FL",
+        zipCode: 19876,
         capacity: 45678,
         openYear: 1974,
         imageOutsideURL: "imageOutsideURL4",
@@ -157,12 +165,102 @@ const createVisitedStadiums = async () => {
   }
 };
 
+const createRestaurants = async () => {
+  try {
+    const restaurants = [
+      {
+        name: "Restaurant 1",
+        cuisine: "Italian",
+        address: "1234 Main St",
+        city: "San Diego",
+        state: "CA",
+        zipCode: 12345,
+        stadiumId: 1,
+      },
+      {
+        name: "Restaurant 2",
+        cuisine: "Mexican",
+        address: "5678 Main St",
+        city: "San Diego",  
+        state: "CA",
+        zipCode: 12346,
+        stadiumId: 2,
+      },
+      {
+        name: "Restaurant 3",
+        cuisine: "American",
+        address: "9101 Main St",
+        city: "San Diego",
+        state: "CA",
+        zipCode: 12347,
+        stadiumId: 3,
+      },
+      {
+        name: "Restaurant 4",
+        cuisine: "Japanese",
+        address: "1123 Main St",
+        city: "San Diego",
+        state: "CA",
+        zipCode: 12348,
+        stadiumId: 4,
+      }
+    ];
+    await prisma.restaurant.createMany({ data: restaurants });
+  } catch (error) {
+    console.error("Error creating restaurants:", error);
+  }
+}
+
+const createHotels = async () => {
+  try {
+    const hotels = [
+      {
+        name: "Hotel 1",
+        address: "1234 Main St",
+        city: "San Diego",
+        state: "CA",
+        zipCode: 12345,
+        stadiumId: 1,
+      },
+      {
+        name: "Hotel 2",
+        address: "5678 Main St",
+        city: "San Diego",  
+        state: "CA",
+        zipCode: 12346,
+        stadiumId: 2,
+      },
+      {
+        name: "Hotel 3",
+        address: "9101 Main St",
+        city: "San Diego",
+        state: "CA",
+        zipCode: 12347,
+        stadiumId: 3,
+      },
+      {
+        name: "Hotel 4",
+        address: "1123 Main St",
+        city: "San Diego",
+        state: "CA",
+        zipCode: 12348,
+        stadiumId: 4,
+      }
+    ];
+    await prisma.hotel.createMany({ data: hotels });
+  } catch (error) {
+    console.error("Error creating hotels:", error);
+  }
+}
+
 const main = async () => {
   await createStadiums();
   await createUsers();
   await createReviews();
   await createComments();
   await createVisitedStadiums();
+  await createRestaurants();
+  await createHotels();
   await prisma.$disconnect();
 };
 
