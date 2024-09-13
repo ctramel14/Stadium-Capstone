@@ -1,0 +1,74 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Stadium {
+  id              Int              @id @default(autoincrement())
+  name            String
+  teamName        String
+  capacity        Int
+  openYear        Int
+  division        String
+  zipCode         Int
+  state           String
+  imageOutsideURL String
+  imageInsideURL  String
+  reviews         Review[]
+  visitedStadiums VisitedStadium[]  
+}
+
+model User {
+  id              Int              @id @default(autoincrement())
+  firstName       String
+  lastName        String
+  email           String
+  username        String
+  password        String
+  administrator   Boolean          @default(false)
+  reviews         Review[]
+  comments        Comment[]
+  visitedStadiums VisitedStadium[]
+}
+
+model Review {
+  id               Int             @id @default(autoincrement())
+  date             DateTime
+  rating           Int
+  comment          String
+  userId           Int
+  user             User            @relation(fields: [userId], references: [id])
+  stadiumId        Int
+  stadium          Stadium         @relation(fields: [stadiumId], references: [id])
+  comments         Comment[]
+  // visitedStadiumId Int?
+  // VisitedStadium   VisitedStadium? @relation(fields: [visitedStadiumId], references: [id])
+}
+
+model Comment {
+  id       Int    @id @default(autoincrement())
+  reviewId Int
+  review   Review @relation(fields: [reviewId], references: [id])
+  content  String
+  userId   Int
+  user     User   @relation(fields: [userId], references: [id])
+}
+
+model VisitedStadium {
+  id        Int      @id @default(autoincrement())
+  stadiumId Int
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
+  stadium   Stadium  @relation(fields: [stadiumId], references: [id])
+  // reviews   Review[]
+}
