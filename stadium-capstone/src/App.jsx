@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import './App.css'
-import { STADIUM_INFO } from "./stadiumData";
 import StadiumCards from "../components/StadiumCards";
 import SingleCard from '../components/SingleCard';
 import NavigationBar from '../components/NavigationBar';
@@ -8,12 +7,25 @@ import { Route, Routes } from 'react-router-dom';
 import Login from '../components/Login';
 import Register from '../components/Register'
 import ContactForm from '../components/ContactForm'
+import Account from '../components/Account'
+// import prisma from '../../prisma/seed.js'
 
 function App() {
   const [token, setToken] = useState(null);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [stadiums, setStadiums] = useState([]);
+
+
+
+  //   useEffect(() => {
+  //   async function getAllStadiums() {
+  //     const APIResponse = await fetchAllStadiums();
+  //     setStadiums(APIResponse.stadiums);
+  //   }
+  //   getAllStadiums();
+  // }, []);
+
   return (
     <>
     <NavigationBar />
@@ -40,11 +52,11 @@ function App() {
         />
       <Route path="/contactform" element={<ContactForm />} />
     </Routes>
-    <div className="stadiums-grid-container">
+    {/* <div className="stadiums-grid-container">
         {STADIUM_INFO.map((stadiumItem) => (
           <StadiumCards {...stadiumItem} />
         ))}
-      </div>
+      </div> */}
     </>
   );
 }
