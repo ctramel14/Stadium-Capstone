@@ -20,12 +20,16 @@ model Stadium {
   capacity        Int
   openYear        Int
   division        String
-  zipCode         Int
+  address         String
+  city            String
   state           String
+  zipCode         Int
   imageOutsideURL String
   imageInsideURL  String
   reviews         Review[]
-  visitedStadiums VisitedStadium[]  
+  visitedStadiums VisitedStadium[]
+  restaurant      Restaurant[]
+  hotel           Hotel[]
 }
 
 model User {
@@ -42,17 +46,15 @@ model User {
 }
 
 model Review {
-  id               Int             @id @default(autoincrement())
-  date             DateTime
-  rating           Int
-  comment          String
-  userId           Int
-  user             User            @relation(fields: [userId], references: [id])
-  stadiumId        Int
-  stadium          Stadium         @relation(fields: [stadiumId], references: [id])
-  comments         Comment[]
-  // visitedStadiumId Int?
-  // VisitedStadium   VisitedStadium? @relation(fields: [visitedStadiumId], references: [id])
+  id        Int       @id @default(autoincrement())
+  date      DateTime
+  rating    Int
+  comment   String
+  userId    Int
+  user      User      @relation(fields: [userId], references: [id])
+  stadiumId Int
+  stadium   Stadium   @relation(fields: [stadiumId], references: [id])
+  comments  Comment[]
 }
 
 model Comment {
@@ -65,10 +67,32 @@ model Comment {
 }
 
 model VisitedStadium {
-  id        Int      @id @default(autoincrement())
+  id        Int     @id @default(autoincrement())
   stadiumId Int
   userId    Int
-  user      User     @relation(fields: [userId], references: [id])
-  stadium   Stadium  @relation(fields: [stadiumId], references: [id])
-  // reviews   Review[]
+  user      User    @relation(fields: [userId], references: [id])
+  stadium   Stadium @relation(fields: [stadiumId], references: [id])
+}
+
+model Restaurant {
+  id        Int     @id @default(autoincrement())
+  name      String
+  cuisine   String
+  address   String
+  city      String
+  state     String
+  zipCode   Int
+  stadiumId Int
+  stadium   Stadium @relation(fields: [stadiumId], references: [id])
+}
+
+model Hotel {
+  id        Int     @id @default(autoincrement())
+  name      String
+  address   String
+  city      String
+  state     String
+  zipCode   Int
+  stadiumId Int
+  stadium   Stadium @relation(fields: [stadiumId], references: [id])
 }

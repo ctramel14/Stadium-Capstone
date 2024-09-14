@@ -11,6 +11,11 @@ app.use(require("morgan")("dev"));
 app.get("/api/stadiums", async (req, res, next) => {
   try {
     const stadiums = await prisma.stadium.findMany({
+      // select: {
+      //   name: true,
+      //   teamName: true,
+      //   city: true,
+      // }
       include: {
         visitedStadiums: {
           include: {
