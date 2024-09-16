@@ -101,7 +101,7 @@ app.get("/api/reviews", async (req, res, next) => {
   }
 });
 
-// get all info (including comments) on specific review with certain id
+// get all info (including comments) on specific review with certain id - (NOT SURE IF NEEDED)
 app.get("/api/reviews/:id", async (req, res, next) => {
   const id = +req.params.id;
   try {
@@ -121,7 +121,7 @@ app.get("/api/reviews/:id", async (req, res, next) => {
   }
 });
 
-// get all comments
+// get all comments - (NOT SURE IF NEEDED)
 app.get("/api/comments", async (req, res, next) => {
   try {
     const comments = await prisma.comment.findMany();
@@ -178,6 +178,24 @@ app.post("/api/users/register", async (req, res, next) => {
       administrator = false,
     } = req.body;
 
+    // Check if the username already exists
+    const existingUserByUsername = await prisma.user.findUnique({
+      where: { username },
+    });
+
+    if (existingUserByUsername) {
+      return res.status(400).json({ error: "Username already exists" });
+    }
+
+    // Check if the email already exists
+    const existingUserByEmail = await prisma.user.findUnique({
+      where: { email },
+    });
+
+    if (existingUserByEmail) {
+      return res.status(400).json({ error: "Email already exists" });
+    }
+
     // Hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -191,7 +209,6 @@ app.post("/api/users/register", async (req, res, next) => {
         administrator,
       },
     });
-
     // Generate a token
     const token = jwt.sign({ userId: newUser.id }, SECRET_KEY, {
       expiresIn: "1h",
