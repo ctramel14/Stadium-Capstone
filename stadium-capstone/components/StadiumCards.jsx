@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 // import { createStadiums } from "../../prisma/seed.js";
 
+//fetching all stadiums
 export default function StadiumCards({stadiums, setStadiums}) {
   const [searchParam, setSearchParam] = useState("");
   const navigate = useNavigate();
@@ -28,6 +29,8 @@ export default function StadiumCards({stadiums, setStadiums}) {
     getAllStadiums();
   }, []);
 
+  //search functionality
+
   const stadiumsToDisplay = searchParam
     ? stadiums.filter((stadium) => stadium.title.toLowerCase().includes(searchParam))
     : stadiums;
@@ -49,10 +52,10 @@ export default function StadiumCards({stadiums, setStadiums}) {
         {stadiumsToDisplay.map((stadium) => {
           return (
             <h3 key={stadium.id}>
-              {/* <img
+              <img
                 src={stadium.imageOutsideURL}
                 onClick={() => navigate(`/stadiums/${stadium.id}/`)}
-              /> */}
+              />
               <br />
               {stadium.name}
               {stadium.teamName}

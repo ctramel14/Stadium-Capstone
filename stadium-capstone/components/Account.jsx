@@ -9,7 +9,7 @@ export default function Account({ token, email }) {
   useEffect(() => {
     async function getToken() {
       try {
-        const response = await fetch(`/users/me`, {
+        const response = await fetch(`http://localhost:3000/api/users/me`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -25,7 +25,7 @@ export default function Account({ token, email }) {
 
     async function visitedStadiums() {
       try {
-        const response = await fetch(`/visited-stadiums`, {
+        const response = await fetch(`http://localhost:3000/api/visitedstadium`, {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,

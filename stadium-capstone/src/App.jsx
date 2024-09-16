@@ -10,11 +10,15 @@ import ContactForm from '../components/ContactForm'
 import Account from '../components/Account'
 // import prisma from '../../prisma/seed.js'
 
+//setting state here to make passing props between components easier
 function App() {
   const [token, setToken] = useState(null);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [stadiums, setStadiums] = useState([]);
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("")
+  const [username, setUsername] = useState("")
 
 
 
@@ -31,7 +35,7 @@ function App() {
     <NavigationBar />
     <Routes>
       <Route path="/"  element={<StadiumCards stadiums={stadiums} setStadiums={setStadiums} />} />
-      <Route path="/cards/:id" element={<SingleCard token={token} />} />
+      <Route path="/stadiums/:id" element={<SingleCard token={token} />} />
       <Route path='/users/login' element={<Login 
       setToken={setToken}
       email={email}
@@ -45,6 +49,12 @@ function App() {
       setEmail={setEmail}
       password={password}
       setPassword={setPassword}
+      firstName={firstName}
+      setFirstName={setFirstName}
+      lastName={lastName}
+      setLastName={setLastName}
+      username={username}
+      setUsername={setUsername}
       />} />
       <Route
       path="/account"
