@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const PORT = 3000;
 const prisma = require("./prisma");
-require('dotenv').config();
+require("dotenv").config();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const SECRET_KEY = process.env.SECRET_KEY;
@@ -47,7 +47,7 @@ app.get("/api/stadiums/:id", async (req, res, next) => {
             user: true,
           },
         },
-      }
+      },
     });
     res.json(stadiums);
   } catch (err) {
@@ -191,6 +191,12 @@ app.post("/api/users/register", async (req, res, next) => {
         administrator,
       },
     });
+
+    // Generate a token
+    const token = jwt.sign({ userId: newUser.id }, SECRET_KEY, {
+      expiresIn: "1h",
+    });
+    console.log(token);
     res.status(201).json(newUser);
   } catch (err) {
     next(err);
@@ -211,7 +217,10 @@ app.post("/api/users/login", async (req, res, next) => {
     if (!isPasswordValid) {
       return res.status(401).json({ error: "Invalid password" });
     }
-    const token = jwt.sign({ userId: user.id }, SECRET_KEY, { expiresIn: '1h' });
+    const token = jwt.sign({ userId: user.id }, SECRET_KEY, {
+      expiresIn: "1h",
+    });
+    console.log(token);
     res.json({ token });
   } catch (err) {
     next(err);
@@ -219,30 +228,35 @@ app.post("/api/users/login", async (req, res, next) => {
 });
 
 // add new visited stadium to a user with certain id
-app.post("/api/users/:userId/visitedstadiums/:stadiumId", async (req, res, next) => {
-  const userId = +req.params.userId;
-  const stadiumId = +req.params.stadiumId;
-  try {
-    // Check if the user and stadium exist
-    const user = await prisma.user.findUnique({ where: { id: userId } });
-    const stadium = await prisma.stadium.findUnique({ where: { id: stadiumId }});
-    if (!user || !stadium) {
-      return res.status(404).json({ error: "User or Stadium not found" });
-    }
-    // Associate the user with the stadium
-    await prisma.visitedStadium.create({
-      // where: { id: userId },
-      data: {
-        userId,
-        stadiumId,
-      },
-    });
+app.post(
+  "/api/users/:userId/visitedstadiums/:stadiumId",
+  async (req, res, next) => {
+    const userId = +req.params.userId;
+    const stadiumId = +req.params.stadiumId;
+    try {
+      // Check if the user and stadium exist
+      const user = await prisma.user.findUnique({ where: { id: userId } });
+      const stadium = await prisma.stadium.findUnique({
+        where: { id: stadiumId },
+      });
+      if (!user || !stadium) {
+        return res.status(404).json({ error: "User or Stadium not found" });
+      }
+      // Associate the user with the stadium
+      await prisma.visitedStadium.create({
+        // where: { id: userId },
+        data: {
+          userId,
+          stadiumId,
+        },
+      });
 
-    res.status(201).json({ message: "Stadium added to user's list" });
-  } catch (err) {
-    next(err);
+      res.status(201).json({ message: "Stadium added to user's list" });
+    } catch (err) {
+      next(err);
+    }
   }
-});
+);
 
 // add new review to a stadium with certain id
 app.post("/api/stadium/:id/reviews", async (req, res, next) => {
@@ -251,7 +265,9 @@ app.post("/api/stadium/:id/reviews", async (req, res, next) => {
   try {
     //Validate
     if (!rating || !comment || !userId) {
-      return res.status(400).json({ message: "Rating, comment, and userId are required." });
+      return res
+        .status(400)
+        .json({ message: "Rating, comment, and userId are required." });
     }
 
     await prisma.review.create({
@@ -275,9 +291,11 @@ app.post("/api/reviews/:id/comments", async (req, res, next) => {
   const id = +req.params.id;
   const { content, userId } = req.body;
   try {
-    // Validate 
+    // Validate
     if (!content || !userId) {
-      return res.status(400).json({ message: "Content and userId are required." });
+      return res
+        .status(400)
+        .json({ message: "Content and userId are required." });
     }
 
     await prisma.comment.create({
@@ -301,7 +319,7 @@ app.delete("/api/reviews/:id", async (req, res, next) => {
   try {
     const id = +req.params.id;
 
-    await prisma.comment.deleteMany({where: {reviewId: id} });
+    await prisma.comment.deleteMany({ where: { reviewId: id } });
     await prisma.review.delete({ where: { id } });
     res.sendStatus(204);
   } catch (error) {
@@ -320,24 +338,27 @@ app.delete("/api/comments/:id", async (req, res, next) => {
   }
 });
 
-// delete a data in visited stadium where exact combo of stadiumid 
-app.delete("/api/user/:userId/visitedstadium/:stadiumId", async (req, res, next) => {
-  const userId = +req.params.userId; 
-  const stadiumId = +req.params.stadiumId;
+// delete a data in visited stadium where exact combo of stadiumid
+app.delete(
+  "/api/user/:userId/visitedstadium/:stadiumId",
+  async (req, res, next) => {
+    const userId = +req.params.userId;
+    const stadiumId = +req.params.stadiumId;
 
-  try {
-    await prisma.visitedStadium.deleteMany({
-      where: {
-        userId: userId,
-        stadiumId: stadiumId,
-      },
-    });
+    try {
+      await prisma.visitedStadium.deleteMany({
+        where: {
+          userId: userId,
+          stadiumId: stadiumId,
+        },
+      });
 
-    res.sendStatus(204);
-  } catch (error) {
-    next(error);
+      res.sendStatus(204);
+    } catch (error) {
+      next(error);
+    }
   }
-});
+);
 
 // delete a user and all data related to this user
 app.delete("/api/user/:id", async (req, res, next) => {
@@ -427,7 +448,7 @@ app.delete("/api/stadium/:id", async (req, res, next) => {
       },
     });
 
-    res.status(204).send(); 
+    res.status(204).send();
   } catch (err) {
     next(err);
   }
@@ -438,8 +459,8 @@ app.delete("/api/stadium/:id", async (req, res, next) => {
 // update a review with certain id
 app.put("/api/review/:id", async (req, res, next) => {
   try {
-    const reviewId = +req.params.id; 
-    const { rating, comment } = req.body; 
+    const reviewId = +req.params.id;
+    const { rating, comment } = req.body;
 
     // update review
     const updatedReview = await prisma.review.update({
@@ -447,15 +468,15 @@ app.put("/api/review/:id", async (req, res, next) => {
         id: reviewId,
       },
       data: {
-        rating: rating,         
-        comment: comment,       
-        date: new Date(), 
+        rating: rating,
+        comment: comment,
+        date: new Date(),
       },
     });
 
-    res.status(200).json(updatedReview); 
+    res.status(200).json(updatedReview);
   } catch (err) {
-      next(err);
+    next(err);
   }
 });
 
@@ -463,7 +484,7 @@ app.put("/api/review/:id", async (req, res, next) => {
 app.put("/api/comment/:id", async (req, res, next) => {
   try {
     const commentId = +req.params.id;
-    const { content } = req.body; 
+    const { content } = req.body;
 
     // Validate
     if (!content) {
@@ -480,12 +501,11 @@ app.put("/api/comment/:id", async (req, res, next) => {
       },
     });
 
-    res.status(200).json(updatedComment); 
+    res.status(200).json(updatedComment);
   } catch (err) {
     next(err);
   }
 });
-
 
 // Simple error handling middleware
 app.use((err, req, res, next) => {
