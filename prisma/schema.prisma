@@ -16,10 +16,10 @@ datasource db {
 model Stadium {
   id              Int              @id @default(autoincrement())
   name            String
-  teamName        String
+  teamName        String 
   capacity        Int
-  openYear        Int
-  division        String
+  openYear        Int 
+  division        String 
   address         String
   city            String
   state           String
@@ -36,8 +36,8 @@ model User {
   id              Int              @id @default(autoincrement())
   firstName       String
   lastName        String
-  email           String
-  username        String
+  email           String           @unique
+  username        String           @unique
   password        String
   administrator   Boolean          @default(false)
   reviews         Review[]
