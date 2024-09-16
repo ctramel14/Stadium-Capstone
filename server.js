@@ -163,8 +163,8 @@ app.post("/api/stadiums", async (req, res, next) => {
   }
 });
 
-// add new user
-app.post("/api/users", async (req, res, next) => {
+// add new user in register page
+app.post("/api/users/register", async (req, res, next) => {
   try {
     const {
       firstName,
