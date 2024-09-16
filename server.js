@@ -1,8 +1,11 @@
 const express = require("express");
 const app = express();
 const PORT = 3000;
-
 const prisma = require("./prisma");
+require('dotenv').config();
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const SECRET_KEY = process.env.SECRET_KEY;
 
 app.use(express.json());
 app.use(require("morgan")("dev"));
@@ -163,7 +166,7 @@ app.post("/api/stadiums", async (req, res, next) => {
   }
 });
 
-// add new user in register page
+// Register a new user
 app.post("/api/users/register", async (req, res, next) => {
   try {
     const {
@@ -174,13 +177,17 @@ app.post("/api/users/register", async (req, res, next) => {
       password,
       administrator = false,
     } = req.body;
+
+    // Hash the password
+    const hashedPassword = await bcrypt.hash(password, 10);
+
     const newUser = await prisma.user.create({
       data: {
         firstName,
         lastName,
         email,
         username,
-        password,
+        password: hashedPassword,
         administrator,
       },
     });
@@ -190,20 +197,22 @@ app.post("/api/users/register", async (req, res, next) => {
   }
 });
 
-// add new user in login page
+// Login a user
 app.post("/api/users/login", async (req, res, next) => {
   try {
     const { username, password } = req.body;
     const user = await prisma.user.findFirst({
-      where: {
-        username,
-        password,
-      },
+      where: { username },
     });
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
-    res.json(user);
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) {
+      return res.status(401).json({ error: "Invalid password" });
+    }
+    const token = jwt.sign({ userId: user.id }, SECRET_KEY, { expiresIn: '1h' });
+    res.json({ token });
   } catch (err) {
     next(err);
   }
@@ -216,9 +225,7 @@ app.post("/api/users/:userId/visitedstadiums/:stadiumId", async (req, res, next)
   try {
     // Check if the user and stadium exist
     const user = await prisma.user.findUnique({ where: { id: userId } });
-    const stadium = await prisma.stadium.findUnique({
-      where: { id: stadiumId },
-    });
+    const stadium = await prisma.stadium.findUnique({ where: { id: stadiumId }});
     if (!user || !stadium) {
       return res.status(404).json({ error: "User or Stadium not found" });
     }

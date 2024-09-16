@@ -1,6 +1,7 @@
 const { PrismaClient } = require("@prisma/client");
 const { visitedStadium, stadium } = require(".");
 const prisma = new PrismaClient();
+const bcrypt = require('bcrypt');
 
 // STADIUMS
 const createStadiums = async () => {
@@ -442,7 +443,13 @@ const createUsers = async () => {
         email: "eve@email.com",
       },
     ];
+
+    // Hash passwords
+    for (const user of users) {
+      user.password = await bcrypt.hash(user.password, 10);
+    }
     await prisma.user.createMany({ data: users });
+    console.log("Users created successfully");
   } catch (error) {
     console.error("Error creating users:", error);
   }
