@@ -15,16 +15,16 @@ export default function Register({
 }) {
   async function handleSubmit(e) {
     e.preventDefault();
-    console.log(username, lastName, email);
+    console.log(username, lastName, email, password);
     
     try {
-      const result = await fetch("http://localhost:3000/api/users", {
+      const result = await fetch("http://localhost:3000/api/users/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password, firstName, lastName, username }),
       });
       const json = await result.json();
-      console.log(json.token);
+      console.log(json);
       setToken(json.token)
     } catch (error) {
       console.error(error);

@@ -8,7 +8,8 @@ import Login from '../components/Login';
 import Register from '../components/Register'
 import ContactForm from '../components/ContactForm'
 import Account from '../components/Account'
-// import prisma from '../../prisma/seed.js'
+import LogOut from "../components/LogOut";
+
 
 //setting state here to make passing props between components easier
 function App() {
@@ -20,16 +21,6 @@ function App() {
   const [lastName, setLastName] = useState("")
   const [username, setUsername] = useState("")
 
-
-
-  //   useEffect(() => {
-  //   async function getAllStadiums() {
-  //     const APIResponse = await fetchAllStadiums();
-  //     setStadiums(APIResponse.stadiums);
-  //   }
-  //   getAllStadiums();
-  // }, []);
-
   return (
     <>
     <NavigationBar />
@@ -38,8 +29,8 @@ function App() {
       <Route path="/stadiums/:id" element={<SingleCard token={token} />} />
       <Route path='/users/login' element={<Login 
       setToken={setToken}
-      email={email}
-      setEmail={setEmail}
+      username={username}
+      setUsername={setUsername}
       password={password}
       setPassword={setPassword}
       />} />
@@ -62,11 +53,11 @@ function App() {
         />
       <Route path="/contactform" element={<ContactForm />} />
     </Routes>
-    {/* <div className="stadiums-grid-container">
-        {STADIUM_INFO.map((stadiumItem) => (
-          <StadiumCards {...stadiumItem} />
-        ))}
-      </div> */}
+    {token ? (
+        <LogOut setToken={setToken} />
+      ) : (
+        <h4>Register or Log-in for full functionality!</h4>
+      )}
     </>
   );
 }

@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 
 export default function Login({
   setToken,
-  email,
-  setEmail,
+  username,
+  setUsername,
   password,
   setPassword,
 }) {
@@ -12,16 +12,19 @@ export default function Login({
   async function handleSubmit(e) {
     e.preventDefault();
 
+    console.log(password);
+    
     try {
       const result = await fetch(`http://localhost:3000/api/users/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ username, password }),
       });
 
       const json = await result.json();
+      console.log(json);
       setToken(json.token);
       navigate("/");
     } catch (error) {
@@ -35,12 +38,12 @@ export default function Login({
         <h2>Log-in</h2>
         <label>
           <input
-            id="email-input"
-            minLength="8"
-            value={email}
-            placeholder="Email"
+            id="username-input"
+            minLength="2"
+            value={username}
+            placeholder="Username"
             required
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) => setUsername(e.target.value)}
           />
         </label>
         <label>
