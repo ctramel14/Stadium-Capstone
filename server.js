@@ -190,6 +190,25 @@ app.post("/api/users/register", async (req, res, next) => {
   }
 });
 
+// add new user in login page
+app.post("/api/users/login", async (req, res, next) => {
+  try {
+    const { username, password } = req.body;
+    const user = await prisma.user.findFirst({
+      where: {
+        username,
+        password,
+      },
+    });
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+    res.json(user);
+  } catch (err) {
+    next(err);
+  }
+});
+
 // add new visited stadium to a user with certain id
 app.post("/api/users/:userId/visitedstadiums/:stadiumId", async (req, res, next) => {
   const userId = +req.params.userId;
