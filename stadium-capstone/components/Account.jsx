@@ -5,7 +5,7 @@ export default function Account({ token, email, firstName }) {
   const [visited, setVisited] = useState([]);
   const message = `Please log in to see visited stadiums`;
   const noStadium = `No stadiums visited yet`;
-  console.log(email);
+
   
 //fetch token
   useEffect(() => {
@@ -21,32 +21,35 @@ export default function Account({ token, email, firstName }) {
         await response.json();
       } catch (error) {
         console.error(error);
-      }
+      }   console.log(firstName);
     }
     getToken();
-
+    console.log(firstName);
 //view visited stadiums
 
-    // async function visitedStadiums() {
-    //   try {
-    //     const response = await fetch(`http://localhost:3000/api/visitedstadium`, {
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //         Authorization: `Bearer ${token}`,
-    //       },
-    //     });
-    //     const result = await response.json();
-    //     if (result.visited != 0) {
-    //       setVisited(result.visited);
-    //     } else {
-    //       setVisited(!visited);
-    //     }
-    //   } catch (error) {
-    //     console.error(error);
-    //   }
-    // }
-    // visitedStadiums();
+    async function visitedStadiums() {
+      try {
+        const response = await fetch(`http://localhost:3000/api/users`, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        const result = await response.json();
+        if (result.visited != 0) {
+          setVisited(result.visited);
+        } else {
+          setVisited(!visited);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    visitedStadiums();
   }, []);
+
+  console.log();
+  
 
 //Basically to undo a stadium you may have clicked that you visited but didn't mean to. Function needs reworking from bookbuddy
 
@@ -82,14 +85,14 @@ export default function Account({ token, email, firstName }) {
               {visited.map((stadium) => {
                 return (
                   <h3 key={stadium.id} className="account-stadium">
-                    <img src={stadium.imageURL} /> <br />
-                    {stadium.title} <br />
-                    <button
+                    <img src={stadium.insideImageURL} /> <br />
+                    {stadium.name} <br />
+                    {/* <button
                       className="checkin"
                       onClick={() => checkinStadium(stadium.id)}
                     >
                       Check-in
-                    </button>
+                    </button> */}
                   </h3>
                 );
               })}
