@@ -32,7 +32,7 @@ export default function StadiumCards({stadiums, setStadiums}) {
   //search functionality
 
   const stadiumsToDisplay = searchParam
-    ? stadiums.filter((stadium) => stadium.title.toLowerCase().includes(searchParam))
+    ? stadiums.filter((stadium) => stadium.teamName.toLowerCase().includes(searchParam))
     : stadiums;
 
   return (
@@ -43,7 +43,7 @@ export default function StadiumCards({stadiums, setStadiums}) {
             id="searchfield"
             type="text"
             className="searchInput"
-            placeholder="Search by Stadium"
+            placeholder="Search by Team"
             onChange={(e) => setSearchParam(e.target.value.toLowerCase())}
           />
         </label>

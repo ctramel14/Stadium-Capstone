@@ -10,3 +10,5 @@ export default function Logout({ setToken }) {
       </>
     );
   }
+
+  //error on the route
