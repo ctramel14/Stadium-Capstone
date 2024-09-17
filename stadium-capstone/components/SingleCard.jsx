@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 export default function SingleCard ({ token }) {
     const [stadium, setStadium] = useState([]);
     const [success, setSuccess] = useState("");
+    const [reviews, setReviews] = useState([])
     let { id } = useParams();
 
 
@@ -13,14 +14,28 @@ export default function SingleCard ({ token }) {
           try {
             const response = await fetch(`http://localhost:3000/api/stadiums/${id}`);
             const result = await response.json();
-            console.log(result);
-            
+            // console.log(result.reviews);
+            // setReviews(result.reviews)
             setStadium(result);
+            // console.log(reviews);
+            
           } catch (error) {
             console.error(error);
           }
         }
         getStadium();
+
+        async function getReviews() {
+          try {
+            const response = await fetch(`http://localhost:3000/api/reviews/${id}`)
+            const result = await response.json();
+            console.log(result.comment);
+            setReviews(result.comment)
+          } catch (error) {
+            console.error();
+          }
+        }
+        getReviews();
       }, []);
 
       //function to select a stadium as visited
@@ -47,6 +62,7 @@ export default function SingleCard ({ token }) {
           <h4>{stadium.name}</h4>
           <h5>{stadium.teamname}</h5>
           <h6>{stadium.state}</h6>
+          <h6>{reviews}</h6>
           <img src={stadium.imageOutsideURL} className="singlestadium" /> <br />
         </div>
         {token ? (
