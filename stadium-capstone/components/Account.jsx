@@ -1,15 +1,17 @@
 import { useState, useEffect } from "react";
-// import { checkin, URL } from "../API";
 
-export default function Account({ token, email }) {
+
+export default function Account({ token, email, firstName }) {
   const [visited, setVisited] = useState([]);
   const message = `Please log in to see visited stadiums`;
   const noStadium = `No stadiums visited yet`;
-
+  console.log(email);
+  
+//fetch token
   useEffect(() => {
     async function getToken() {
       try {
-        const response = await fetch(`http://localhost:3000/api/users/me`, {
+        const response = await fetch(`http://localhost:3000/api/users`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -23,26 +25,30 @@ export default function Account({ token, email }) {
     }
     getToken();
 
-    async function visitedStadiums() {
-      try {
-        const response = await fetch(`http://localhost:3000/api/visitedstadium`, {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        const result = await response.json();
-        if (result.visited != 0) {
-          setVisited(result.visited);
-        } else {
-          setVisited(!visited);
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    }
-    visitedStadiums();
+//view visited stadiums
+
+    // async function visitedStadiums() {
+    //   try {
+    //     const response = await fetch(`http://localhost:3000/api/visitedstadium`, {
+    //       headers: {
+    //         "Content-Type": "application/json",
+    //         Authorization: `Bearer ${token}`,
+    //       },
+    //     });
+    //     const result = await response.json();
+    //     if (result.visited != 0) {
+    //       setVisited(result.visited);
+    //     } else {
+    //       setVisited(!visited);
+    //     }
+    //   } catch (error) {
+    //     console.error(error);
+    //   }
+    // }
+    // visitedStadiums();
   }, []);
+
+//Basically to undo a stadium you may have clicked that you visited but didn't mean to. Function needs reworking from bookbuddy
 
   async function checkinStadium(id) {
     // await checkin(id, token);
@@ -60,18 +66,20 @@ export default function Account({ token, email }) {
     // }
   }
 
+  //trying to display first name of user, but not getting anything
+
   return (
     <>
       {!token ? (
         <h3 className="message" >{message}</h3>
       ) : (
         <div>
-          <h2>Welcome {email}!</h2>
+          <h2>Welcome {firstName}!</h2>
           {!visited ? (
             <h4>{noStadium}</h4>
           ) : (
             <div>
-              {reserved.map((stadium) => {
+              {visited.map((stadium) => {
                 return (
                   <h3 key={stadium.id} className="account-stadium">
                     <img src={stadium.imageURL} /> <br />

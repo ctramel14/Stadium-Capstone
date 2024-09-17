@@ -23,7 +23,7 @@ function App() {
 
   return (
     <>
-    <NavigationBar />
+    <NavigationBar token={token} />
     <Routes>
       <Route path="/"  element={<StadiumCards stadiums={stadiums} setStadiums={setStadiums} />} />
       <Route path="/stadiums/:id" element={<SingleCard token={token} />} />
@@ -48,10 +48,11 @@ function App() {
       setUsername={setUsername}
       />} />
       <Route
-      path="/account"
-      element={<Account token={token} email={email} />}
+      path="/users/me"
+      element={<Account token={token} firstName={firstName} email={email} />}
         />
       <Route path="/contactform" element={<ContactForm />} />
+      {/* <Route path="/users/logout" /> */}
     </Routes>
     {token ? (
         <LogOut setToken={setToken} />
