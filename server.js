@@ -82,6 +82,8 @@ app.get("/api/users/:id", async (req, res, next) => {
             stadium: true,
           },
         },
+        reviews: true,
+        comments: true,
       },
     });
     res.json(users);
@@ -324,6 +326,26 @@ app.post("/api/reviews/:id/comments", async (req, res, next) => {
     });
 
     res.status(201).json({ message: "Comment added to review" });
+  } catch (err) {
+    next(err);
+  }
+});
+
+// Contact Us
+app.post("/api/contactus", async (req, res, next) => {
+  const { name, email, message } = req.body;
+  try {
+    // Validate
+    if (!name || !email || !message) {
+      return res
+        .status(400)
+        .json({ message: "Name, email, and message are required." });
+    }
+
+    // Send email to admin
+    // await sendEmailToAdmin(name, email, message);
+
+    res.status(201).json({ message: "Message sent" });
   } catch (err) {
     next(err);
   }
