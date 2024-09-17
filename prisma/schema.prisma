@@ -16,10 +16,10 @@ datasource db {
 model Stadium {
   id              Int              @id @default(autoincrement())
   name            String
-  teamName        String 
+  teamName        String
   capacity        Int
-  openYear        Int 
-  division        String 
+  openYear        Int
+  division        String
   address         String
   city            String
   state           String
@@ -95,4 +95,11 @@ model Hotel {
   zipCode   Int
   stadiumId Int
   stadium   Stadium @relation(fields: [stadiumId], references: [id])
+}
+
+model ContactUs {
+  id      Int    @id @default(autoincrement())
+  name    String
+  email   String
+  message String
 }
