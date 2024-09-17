@@ -1,4 +1,4 @@
-// import { URL } from "../API";
+//register page, passing in props from App.jsx
 
 export default function Register({
   setToken,
@@ -6,18 +6,26 @@ export default function Register({
   setEmail,
   password,
   setPassword,
+  firstName,
+  setFirstName,
+  lastName,
+  setLastName,
+  username,
+  setUsername
 }) {
   async function handleSubmit(e) {
     e.preventDefault();
-
+    console.log(username, lastName, email, password);
+    
     try {
-      const result = await fetch(`/users/register`, {
+      const result = await fetch("http://localhost:3000/api/users/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ email, password, firstName, lastName, username }),
       });
       const json = await result.json();
-      setToken(json.token);
+      console.log(json);
+      setToken(json.token)
     } catch (error) {
       console.error(error);
     }
@@ -27,6 +35,36 @@ export default function Register({
     <>
       <form id="register" onSubmit={handleSubmit}>
         <h2>Register</h2>
+        <label>
+          <input
+            id="firstname-input"
+            minLength="2"
+            value={firstName}
+            placeholder="First name"
+            required
+            onChange={(e) => setFirstName(e.target.value)}
+          />
+        </label>
+        <label>
+          <input
+            id="lastname-input"
+            minLength="2"
+            value={lastName}
+            placeholder="Last name"
+            required
+            onChange={(e) => setLastName(e.target.value)}
+          />
+        </label>
+        <label>
+          <input
+            id="username-input"
+            minLength="2"
+            value={username}
+            placeholder="Username"
+            required
+            onChange={(e) => setUsername(e.target.value)}
+          />
+        </label>
         <label>
           <input
             id="email-input"

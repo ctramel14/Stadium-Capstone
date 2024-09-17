@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function Fetch() {
+export default function ContactForm() {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
 
@@ -10,7 +10,7 @@ export default function Fetch() {
   function submit(e) {
     e.preventDefault();
 
-    fetch("/Contactform", {
+    fetch("http://localhost:3000/api/Contactform", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

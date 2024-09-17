@@ -8,34 +8,29 @@ import Login from '../components/Login';
 import Register from '../components/Register'
 import ContactForm from '../components/ContactForm'
 import Account from '../components/Account'
-// import prisma from '../../prisma/seed.js'
+import LogOut from "../components/LogOut";
 
+
+//setting state here to make passing props between components easier
 function App() {
   const [token, setToken] = useState(null);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [stadiums, setStadiums] = useState([]);
-
-
-
-  //   useEffect(() => {
-  //   async function getAllStadiums() {
-  //     const APIResponse = await fetchAllStadiums();
-  //     setStadiums(APIResponse.stadiums);
-  //   }
-  //   getAllStadiums();
-  // }, []);
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("")
+  const [username, setUsername] = useState("")
 
   return (
     <>
-    <NavigationBar />
+    <NavigationBar token={token} />
     <Routes>
       <Route path="/"  element={<StadiumCards stadiums={stadiums} setStadiums={setStadiums} />} />
-      <Route path="/cards/:id" element={<SingleCard token={token} />} />
+      <Route path="/stadiums/:id" element={<SingleCard token={token} />} />
       <Route path='/users/login' element={<Login 
       setToken={setToken}
-      email={email}
-      setEmail={setEmail}
+      username={username}
+      setUsername={setUsername}
       password={password}
       setPassword={setPassword}
       />} />
@@ -45,18 +40,25 @@ function App() {
       setEmail={setEmail}
       password={password}
       setPassword={setPassword}
+      firstName={firstName}
+      setFirstName={setFirstName}
+      lastName={lastName}
+      setLastName={setLastName}
+      username={username}
+      setUsername={setUsername}
       />} />
       <Route
-      path="/account"
-      element={<Account token={token} email={email} />}
+      path="/users/me"
+      element={<Account token={token} firstName={firstName} email={email} />}
         />
       <Route path="/contactform" element={<ContactForm />} />
+      {/* <Route path="/users/logout" /> */}
     </Routes>
-    {/* <div className="stadiums-grid-container">
-        {STADIUM_INFO.map((stadiumItem) => (
-          <StadiumCards {...stadiumItem} />
-        ))}
-      </div> */}
+    {token ? (
+        <LogOut setToken={setToken} />
+      ) : (
+        <h4>Register or Log-in for full functionality!</h4>
+      )}
     </>
   );
 }
