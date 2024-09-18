@@ -1,32 +1,31 @@
 import { useState } from "react";
 
 export default function ContactForm() {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
 
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState("");
 
-  function submit(e) {
+  async function submit(e) {
     e.preventDefault();
 
-    fetch("http://localhost:3000/api/Contactform", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json"
-      },
-      body: JSON.stringify({ email: email, message: message })
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        if (res.code === 200) {
-          setSubmitted(true);
-        } else {
-          setError(res.message);
-        }
-      })
-      .catch((error) => setError(error));
+    try {
+      const result = await fetch("http://localhost:3000/api/contactus", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({ name: name, email: email, message: message }),
+      });
+      setSubmitted(true);
+      const json = await result.json();
+      console.log(json.name);
+    } catch (error) {
+      console.error();
+    }
   }
 
   if (error) {
@@ -39,7 +38,16 @@ export default function ContactForm() {
 
   return (
     <form onSubmit={submit}>
-      <label htmlFor="email">Email</label>
+      <label>Name</label>
+      <input
+        id="name"
+        type="name"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        required
+      />
+
+      <label>Email</label>
       <input
         id="email"
         type="email"
@@ -48,7 +56,7 @@ export default function ContactForm() {
         required
       />
 
-      <label htmlFor="message">Message</label>
+      <label>Message</label>
       <textarea
         id="message"
         value={message}
