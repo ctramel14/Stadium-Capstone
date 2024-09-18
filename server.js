@@ -10,12 +10,19 @@ const SECRET_KEY = process.env.SECRET_KEY;
 app.use(express.json());
 app.use(require("morgan")("dev"));
 
+const cors = require("cors");
+app.use(
+  cors({
+    origin: "http://localhost:5173", // Only allow your frontend origin
+    credentials: true, // Allow credentials such as Authorization headers or cookies
+  })
+);
 // Add middleware to check if the user is authenticated
 // Except api/stadiums
 app.use(
   async (req, res, next) => {
     console.log(req.path);
-    if (req.path === "/api/stadiums" || req.path === "/login" || req.path === "/register") {
+    if (req.path === "/api/stadiums" || req.path === "/login" || req.path === "/register" || req.path === "/api/users" || req.path === `/api/stadiums/${req.params.id}` || req.path === `/api/reviews/${req.params.id}`) {
       return next();
     }
   const authHeader = req.headers.authorization;

@@ -9,13 +9,14 @@ export default function Login({
   setPassword,
 }) {
   const navigate = useNavigate();
+
   async function handleSubmit(e) {
     e.preventDefault();
 
     console.log(password);
     
     try {
-      const result = await fetch(`http://localhost:3000/api/users/login`, {
+      const result = await fetch(`http://localhost:3000/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -26,7 +27,8 @@ export default function Login({
       const json = await result.json();
       console.log(json);
       setToken(json.token);
-      navigate("/");
+      // alert('You have successfully logged in!');
+      // navigate("/");
     } catch (error) {
       console.error(error);
     }

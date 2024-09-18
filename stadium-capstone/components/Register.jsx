@@ -1,4 +1,5 @@
 //register page, passing in props from App.jsx
+import { useNavigate } from "react-router-dom";
 
 export default function Register({
   setToken,
@@ -13,19 +14,23 @@ export default function Register({
   username,
   setUsername
 }) {
+  const navigate = useNavigate();
+
   async function handleSubmit(e) {
     e.preventDefault();
     console.log(username, lastName, email, password);
     
     try {
-      const result = await fetch("http://localhost:3000/api/users/register", {
+      const result = await fetch("http://localhost:3000/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password, firstName, lastName, username }),
       });
       const json = await result.json();
       console.log(json);
-      setToken(json.token)
+      setToken(json.token);
+      // alert('You have successfully logged in!');
+      // navigate("/users/login");
     } catch (error) {
       console.error(error);
     }

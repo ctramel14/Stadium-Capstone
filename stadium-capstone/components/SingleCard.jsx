@@ -10,7 +10,12 @@ export default function SingleCard ({ token }) {
     useEffect(() => {
       async function getStadium() {
         try {
-          const response = await fetch(`http://localhost:3000/api/stadiums/${id}`);
+          const response = await fetch(`http://localhost:3000/api/stadiums/${id}`,{
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`
+            },
+          });
           const result = await response.json();
 
           if (Array.isArray(result.reviews)) {
@@ -18,7 +23,12 @@ export default function SingleCard ({ token }) {
 
             const reviewsWithComments = await Promise.all(
               reviewIds.map(async (reviewId) => {
-                const reviewResponse = await fetch(`http://localhost:3000/api/reviews/${reviewId}`);
+                const reviewResponse = await fetch(`http://localhost:3000/api/reviews/${reviewId}`,{
+                  headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`
+                  },
+                });
                 const reviewResult = await reviewResponse.json();
                 return {
                   ...reviewResult
