@@ -9,6 +9,7 @@ export default function Login({
   setPassword,
 }) {
   const navigate = useNavigate();
+
   async function handleSubmit(e) {
     e.preventDefault();
 
@@ -26,7 +27,8 @@ export default function Login({
       const json = await result.json();
       console.log(json);
       setToken(json.token);
-      navigate("/");
+      // alert('You have successfully logged in!');
+      // navigate("/");
     } catch (error) {
       console.error(error);
     }

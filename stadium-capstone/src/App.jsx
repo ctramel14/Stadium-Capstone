@@ -29,6 +29,7 @@ function App() {
       <Route path="/stadiums/:id" element={<SingleCard token={token} />} />
       <Route path='/users/login' element={<Login 
       setToken={setToken}
+      token={token}
       username={username}
       setUsername={setUsername}
       password={password}
@@ -52,11 +53,12 @@ function App() {
       element={<Account token={token} firstName={firstName} email={email} />}
         />
       <Route path="/contactform" element={<ContactForm />} />
-      {/* <Route path="/users/logout" /> */}
+      {/* <Route path="/users/logout" element={<LogOut setToken={setToken} />} /> */}
+      {token && (
+          <Route path="/users/logout" element={<LogOut setToken={setToken} />} />
+        )}
     </Routes>
-    {token ? (
-        <LogOut setToken={setToken} />
-      ) : (
+    {!token && (
         <h4>Register or Log-in for full functionality!</h4>
       )}
     </>
