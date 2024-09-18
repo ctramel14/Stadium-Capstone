@@ -10,8 +10,29 @@ const SECRET_KEY = process.env.SECRET_KEY;
 app.use(express.json());
 app.use(require("morgan")("dev"));
 
-// Get Requests
+// Add middleware to check if the user is authenticated
+// Except api/stadiums
+app.use(
+  async (req, res, next) => {
+    console.log(req.path);
+    if (req.path === "/api/stadiums" || req.path === "/login" || req.path === "/register") {
+      return next();
+    }
+  const authHeader = req.headers.authorization;
+  if (!authHeader) {
+    return res.status(401).json({ error: "Authorization header is required" });
+  }
+  const token = authHeader.split(" ")[1];
+  try {
+    const payload = jwt.verify(token, SECRET_KEY);
+    req.userId = payload.userId;
+  } catch (err) {
+    console.error(err);
+  }
+  next();
+});
 
+// Get Requests
 // get stadium
 app.get("/api/stadiums", async (req, res, next) => {
   try {
@@ -54,6 +75,38 @@ app.get("/api/stadiums/:id", async (req, res, next) => {
     next(err);
   }
 });
+// Get hotels for a specific stadium
+app.get("/api/stadiums/:id/hotels", async (req, res, next) => {
+  const id = +req.params.id;
+  try {
+    const hotels = await prisma.stadium.findFirst({
+      where: { id },
+      include: {
+        hotel: true,
+      },
+    });
+    res.json(hotels);
+  } catch (err) {
+    next(err);
+  }
+});
+
+// Get restaurants for a specific stadium
+app.get("/api/stadiums/:id/restaurants", async (req, res, next) => {
+  const id = +req.params.id;
+  try {
+    const restaurants = await prisma.stadium.findFirst({
+      where: { id },
+      include: {
+        restaurant: true,
+      },
+    });
+    res.json(restaurants);
+  } catch (err) {
+    next(err);
+  }
+});
+
 
 // get all user info
 app.get("/api/users", async (req, res, next) => {
@@ -169,7 +222,7 @@ app.post("/api/stadiums", async (req, res, next) => {
 });
 
 // Register a new user
-app.post("/api/users/register", async (req, res, next) => {
+app.post("/register", async (req, res, next) => {
   try {
     const {
       firstName,
@@ -223,7 +276,7 @@ app.post("/api/users/register", async (req, res, next) => {
 });
 
 // Login a user
-app.post("/api/users/login", async (req, res, next) => {
+app.post("/login", async (req, res, next) => {
   try {
     const { username, password } = req.body;
     const user = await prisma.user.findFirst({
@@ -344,7 +397,13 @@ app.post("/api/contactus", async (req, res, next) => {
 
     // Send email to admin
     // await sendEmailToAdmin(name, email, message);
-
+    await prisma.contactUs.create({
+      data: {
+        name: name,
+        email: email,
+        message: message,
+      },
+    });
     res.status(201).json({ message: "Message sent" });
   } catch (err) {
     next(err);
