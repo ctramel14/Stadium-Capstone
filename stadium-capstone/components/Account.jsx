@@ -1,43 +1,51 @@
 import { useState, useEffect } from "react";
 
 
-export default function Account({ token, email, firstName }) {
+export default function Account({ token, email, firstName, userId }) {
   const [visited, setVisited] = useState([]);
   const message = `Please log in to see visited stadiums`;
   const noStadium = `No stadiums visited yet`;
-
+  console.log(userId);
+  
   
 //fetch token
   useEffect(() => {
     async function getToken() {
       try {
-        const response = await fetch(`http://localhost:3000/api/users`, {
+        const response = await fetch(`http://localhost:3000/api/users/${userId}`, { 
           method: "GET",
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
         });
-        await response.json();
+        const result = await response.json();
+        console.log(result);
+        console.log(userId);
+        
       } catch (error) {
         console.error(error);
-      }   console.log(firstName);
+      } 
     }
     getToken();
-    console.log(firstName);
+    // console.log(firstName);
 //view visited stadiums
 
     async function visitedStadiums() {
       try {
-        const response = await fetch(`http://localhost:3000/api/users`, {
+        const response = await fetch(`http://localhost:3000/api/users/${userId}`, {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
         });
         const result = await response.json();
+        // console.log(result.visitedStadiums);
         if (result.visited != 0) {
-          setVisited(result.visited);
+          // getting information to pass over into visitedStadiums
+          const stads = result.visitedStadiums;
+          const vStads = stads.map(visited => visited.stadium);
+          setVisited(vStads)
         } else {
           setVisited(!visited);
         }
@@ -48,7 +56,7 @@ export default function Account({ token, email, firstName }) {
     visitedStadiums();
   }, []);
 
-  console.log();
+  // console.log();
   
 
 //Basically to undo a stadium you may have clicked that you visited but didn't mean to. Function needs reworking from bookbuddy
@@ -84,9 +92,11 @@ export default function Account({ token, email, firstName }) {
             <div>
               {visited.map((stadium) => {
                 return (
-                  <h3 key={stadium.id} className="account-stadium">
-                    <img src={stadium.insideImageURL} /> <br />
-                    {stadium.name} <br />
+                  <h3 key={stadium.stadiumId} className="account-stadium">
+                    <img src={stadium.imageOutsideURL} /> <br />
+                    {stadium.name}
+                    {stadium.stadiumId}
+                     <br />
                     {/* <button
                       className="checkin"
                       onClick={() => checkinStadium(stadium.id)}

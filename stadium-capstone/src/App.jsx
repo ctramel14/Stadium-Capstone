@@ -20,13 +20,14 @@ function App() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("")
   const [username, setUsername] = useState("")
+  const [userId, setUserId] = useState("")
 
   return (
     <>
     <NavigationBar token={token} />
     <Routes>
       <Route path="/"  element={<StadiumCards stadiums={stadiums} setStadiums={setStadiums} />} />
-      <Route path="/stadiums/:id" element={<SingleCard token={token} />} />
+      <Route path="/stadiums/:id" element={<SingleCard token={token} userId={userId} />} />
       <Route path='/users/login' element={<Login 
       setToken={setToken}
       token={token}
@@ -34,6 +35,10 @@ function App() {
       setUsername={setUsername}
       password={password}
       setPassword={setPassword}
+      firstName={firstName}
+      setFirstName={setFirstName}
+      userId={userId}
+      setUserId={setUserId}
       />} />
       <Route path="/users/register" element={<Register 
       setToken={setToken}
@@ -47,10 +52,12 @@ function App() {
       setLastName={setLastName}
       username={username}
       setUsername={setUsername}
+      userId={userId}
+      setUserId={setUserId}
       />} />
       <Route
       path="/users/me"
-      element={<Account token={token} firstName={firstName} email={email} />}
+      element={<Account token={token} firstName={firstName} email={email} userId={userId} />}
         />
       <Route path="/contactform" element={<ContactForm />} />
       {/* <Route path="/users/logout" element={<LogOut setToken={setToken} />} /> */}

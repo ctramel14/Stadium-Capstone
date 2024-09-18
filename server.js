@@ -300,7 +300,7 @@ app.post("/login", async (req, res, next) => {
       expiresIn: "1h",
     });
     console.log(token);
-    res.json({ token });
+    res.json({ token, user });
   } catch (err) {
     next(err);
   }

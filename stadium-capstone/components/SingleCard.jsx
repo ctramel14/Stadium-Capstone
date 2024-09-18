@@ -1,16 +1,43 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
-export default function SingleCard ({ token }) {
+export default function SingleCard ({ token, userId }) {
     const [stadium, setStadium] = useState({});
     const [success, setSuccess] = useState("");
     const [reviews, setReviews] = useState([]); 
     let { id } = useParams();
-
+  console.log(userId);
+  
     useEffect(() => {
+      async function getToken() {
+        console.log(userId);
+        try {
+          const response = await fetch(`http://localhost:3000/api/users/${userId}`, {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          const result = await response.json();
+          console.log(result);
+          
+        } catch (error) {
+          console.error(error);
+        }   console.log(token);
+      }
+      getToken();
+      // console.log(id);
+
       async function getStadium() {
         try {
-          const response = await fetch(`http://localhost:3000/api/stadiums/${id}`);
+
+          const response = await fetch(`http://localhost:3000/api/stadiums/${id}`,{
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`
+            },
+          });
           const result = await response.json();
 
           if (Array.isArray(result.reviews)) {
@@ -18,7 +45,13 @@ export default function SingleCard ({ token }) {
 
             const reviewsWithComments = await Promise.all(
               reviewIds.map(async (reviewId) => {
-                const reviewResponse = await fetch(`http://localhost:3000/api/reviews/${reviewId}`);
+
+                const reviewResponse = await fetch(`http://localhost:3000/api/reviews/${reviewId}`,{
+                  headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`
+                  },
+                });
                 const reviewResult = await reviewResponse.json();
                 return {
                   ...reviewResult
@@ -41,14 +74,15 @@ export default function SingleCard ({ token }) {
 
     async function visited() {
       try {
-        await fetch(`http://localhost:3000/api/stadiums/${id}`, {
-          method: "PATCH",
+        await fetch(`http://localhost:3000/api/users/${userId}/visitedstadiums/${id}`, {
+          method: "POST",
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
-          // body: JSON.stringify({ available: false }), need to add to visitedStadiums here
+          body: JSON.stringify({ visited: true })
         });
+        console.log(userId, id, stadium.name)
         setSuccess(`Visited ${stadium.name}!`);
       } catch (error) {
         console.error(error);
@@ -66,7 +100,7 @@ export default function SingleCard ({ token }) {
         </div>
         {token ? (
           <button className="visited" onClick={() => visited(stadium.id)}>
-            Add to Visited Stadiums
+            Select as Visited
           </button>
         ) : (
           <h4></h4>

@@ -12,23 +12,28 @@ export default function Register({
   lastName,
   setLastName,
   username,
-  setUsername
+  setUsername,
+  userId,
+  setUserId
 }) {
   const navigate = useNavigate();
 
   async function handleSubmit(e) {
     e.preventDefault();
-    console.log(username, lastName, email, password);
+    console.log(username, lastName, email, password, userId);
     
     try {
       const result = await fetch("http://localhost:3000/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password, firstName, lastName, username }),
+        body: JSON.stringify({ email, password, firstName, lastName, username, userId }),
       });
       const json = await result.json();
       console.log(json);
       setToken(json.token);
+      setUserId(json.id)
+      console.log(userId);
+      
       // alert('You have successfully logged in!');
       // navigate("/users/login");
     } catch (error) {
