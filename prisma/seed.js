@@ -17,8 +17,8 @@ const createStadiums = async () => {
         zipCode: 85004,
         capacity: 48519,
         openYear: 1998,
-        imageOutsideURL: "imageOutsideURL1",
-        imageInsideURL: "imageInsideURL1",
+        imageOutsideURL: "https://sportsnaut.com/wp-content/uploads/2022/09/Screen-Shot-2022-09-21-at-7.39.04-PM.png",
+        imageInsideURL: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Reserve_A-10_Warthogs_Flyover_2023_World_Series_%288099146%29.jpg/1280px-Reserve_A-10_Warthogs_Flyover_2023_World_Series_%288099146%29.jpg",
       },
       {
         name: "Truist Park",
