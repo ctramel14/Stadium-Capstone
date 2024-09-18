@@ -31,7 +31,7 @@ const createStadiums = async () => {
         capacity: 41084,
         openYear: 2017,
         imageOutsideURL: "https://www.usanova.com/wp-content/uploads/2021/10/Untitled-5.jpg",
-        imageInsideURL: "imageInsideURL2",
+        imageInsideURL: "https://travelcobb.org/wp-content/uploads/2023/01/Truist-PArk_-updated-image.png",
       },
       {
         name: "Camden Yards",
@@ -44,7 +44,7 @@ const createStadiums = async () => {
         capacity: 45971,
         openYear: 1992,
         imageOutsideURL: "https://d2uqqhmijd5j2z.cloudfront.net/files/130133/original/Camden_Yards_entrance.JPG?1482169604",
-        imageInsideURL: "imageInsideURL3",
+        imageInsideURL: "https://upload.wikimedia.org/wikipedia/commons/d/d8/Camden_Yards.jpg",
       },
       {
         name: "Fenway Park",
@@ -57,7 +57,7 @@ const createStadiums = async () => {
         capacity: 37755,
         openYear: 1912,
         imageOutsideURL: "https://media.nbcboston.com/2021/08/fenway-park-05900xx6720-4480-0-0.jpg?quality=85&strip=all&resize=1200%2C675",
-        imageInsideURL: "imageInsideURL4",
+        imageInsideURL: "https://ballparkratings.com/wp-content/uploads/IMG_1852-scaled.jpeg",
       },
       {
         name: "Wrigley Field",
@@ -70,7 +70,7 @@ const createStadiums = async () => {
         capacity: 41649,
         openYear: 1914,
         imageOutsideURL: "https://interactive.wttw.com/sites/default/files/cbl-lakeview-wrigleyville-hero_01.jpg",
-        imageInsideURL: "imageInsideURL5",
+        imageInsideURL: "https://www.ballparksofbaseball.com/wp-content/uploads/2016/03/wrig23main.jpg",
       },
       {
         name: "Guaranteed Rate Field",
@@ -83,7 +83,7 @@ const createStadiums = async () => {
         capacity: 40615,
         openYear: 1991,
         imageOutsideURL: "https://ballparkratings.com/wp-content/uploads/1-1-8-3.jpeg",
-        imageInsideURL: "imageInsideURL6",
+        imageInsideURL: "https://upload.wikimedia.org/wikipedia/commons/e/e2/U.S._Cellular_Field_%2830972191694%29.jpg",
       },
       {
         name: "Great American Ball Park",
@@ -96,7 +96,7 @@ const createStadiums = async () => {
         capacity: 42271,
         openYear: 2003,
         imageOutsideURL: "https://www.ballparksofbaseball.com/wp-content/uploads/2016/03/gab15952.png",
-        imageInsideURL: "imageInsideURL7",
+        imageInsideURL: "https://www.ballparksofbaseball.com/wp-content/uploads/2016/03/gab23main.jpg",
       },
       {
         name: "Progressive Field",
@@ -109,7 +109,7 @@ const createStadiums = async () => {
         capacity: 34830,
         openYear: 1994,
         imageOutsideURL: "https://ballparkratings.com/wp-content/uploads/32407150_981859368638745_8809335080691433472_n.jpeg",
-        imageInsideURL: "imageInsideURL8",
+        imageInsideURL: "https://baseballinstadiums.com/wp-content/uploads/2021/05/Crains-Cleveland.jpg",
       },
       {
         name: "Coors Field",
@@ -122,7 +122,7 @@ const createStadiums = async () => {
         capacity: 50398,
         openYear: 1995,
         imageOutsideURL: "https://cdn.vox-cdn.com/thumbor/5Bf7nINE9kn3wppcPg_E-x41fWE=/1400x1050/filters:format(jpeg)/cdn.vox-cdn.com/uploads/chorus_asset/file/15999241/shutterstock_1150908299.jpg",
-        imageInsideURL: "imageInsideURL9",
+        imageInsideURL: "https://www.ballparksofbaseball.com/wp-content/uploads/2016/03/coors23main.jpg",
       },
       {
         name: "Comerica Park",
@@ -135,7 +135,7 @@ const createStadiums = async () => {
         capacity: 41083,
         openYear: 2000,
         imageOutsideURL: "https://whitecon.com/wp-content/uploads/2019/11/whitecon.com-comerica-park-001.jpg",
-        imageInsideURL: "imageInsideURL10",
+        imageInsideURL: "https://www.michigan.org/sites/default/files/listing_images/profile/5071/18716fd060acb259b217d3ab7af5f1ec_comerica-park_opening-day_detroit-tigers_22.jpg",
       },
       {
         name: "Minute Maid Park",
@@ -148,7 +148,7 @@ const createStadiums = async () => {
         capacity: 41000,
         openYear: 2000,
         imageOutsideURL: "http://images.prismic.io/bounce/37f8e1f8-7438-44ec-af68-2ff45dfb4be7_pedro-cambron-G8bOC9tzUfo-unsplash.jpg?auto=format,compress",
-        imageInsideURL: "imageInsideURL11",
+        imageInsideURL: "https://www.houstonfield.com/wp-content/uploads/2019/05/Minute-Maid-Park.jpg",
       },
       {
         name: "Kauffman Stadium",
@@ -161,7 +161,7 @@ const createStadiums = async () => {
         capacity: 37903,
         openYear: 1973,
         imageOutsideURL: "http://npr.brightspotcdn.com/9b/9b/e4b503184fc9bc10f68091913b65/kauffman-26.jpg",
-        imageInsideURL: "imageInsideURL12",
+        imageInsideURL: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Kauffman2017.jpg/1200px-Kauffman2017.jpg",
       },
       {
         name: "Angel Stadium",
@@ -174,7 +174,7 @@ const createStadiums = async () => {
         capacity: 45050,
         openYear: 1966,
         imageOutsideURL: "http://watkinslandmark.com/wp-content/uploads/2017/10/angelsStadium.jpg",
-        imageInsideURL: "imageInsideURL13",
+        imageInsideURL: "https://upload.wikimedia.org/wikipedia/commons/4/4a/Angelstadiummarch2019.jpg",
       },
       {
         name: "Dodger Stadium",
@@ -187,7 +187,7 @@ const createStadiums = async () => {
         capacity: 56000,
         openYear: 1962,
         imageOutsideURL: "https://cloudfront-us-east-2.images.arcpublishing.com/reuters/4GJ6BOKUCBORRFDQGYWM4UACBI.jpg",
-        imageInsideURL: "imageInsideURL14",
+        imageInsideURL: "https://cdn.vox-cdn.com/thumbor/0s4vgVtUydDdkjkTYXvSwQqnPrs=/194x0:5420x2736/fit-in/1200x630/cdn.vox-cdn.com/uploads/chorus_asset/file/9520505/Dodger_Stadium.jpg",
       },
       {
         name: "loanDepot Park",
@@ -200,7 +200,7 @@ const createStadiums = async () => {
         capacity: 37000,
         openYear: 2012,
         imageOutsideURL: "http://uni-engineer.com/wp-content/uploads/2021/07/marlins-slide-6.jpg",
-        imageInsideURL: "imageInsideURL15",
+        imageInsideURL: "https://img.mlbstatic.com/mlb-images/image/private/t_16x9/t_w2208/mlb/sttvo7bwdvtjbqubstgx.jpg",
       },
       {
         name: "American Family Field",
@@ -213,7 +213,7 @@ const createStadiums = async () => {
         capacity: 41900,
         openYear: 2001,
         imageOutsideURL: "https://media.bizj.us/view/img/11911195/amfam-stadium-sign-1*1200xx4418-2485-41-0.jpg",
-        imageInsideURL: "imageInsideURL16",
+        imageInsideURL: "https://i0.wp.com/www.perfuzion.com/wp-content/uploads/2021/05/051321-CardinalsBrewers13-scaled.jpg?ssl=1",
       },
       {
         name: "Target Field",
@@ -226,7 +226,7 @@ const createStadiums = async () => {
         capacity: 39504,
         openYear: 2010,
         imageOutsideURL: "https://i0.wp.com/circletocircle.blog/wp-content/uploads/2018/05/target_082311_ext1.jpg?ssl=1",
-        imageInsideURL: "imageInsideURL17",
+        imageInsideURL: "https://thebusinessdownload.com/wp-content/uploads/2022/08/j4u6qrngbjmg4amoqfhq.jpeg",
       },
       {
         name: "Citi Field",
@@ -239,7 +239,7 @@ const createStadiums = async () => {
         capacity: 41922,
         openYear: 2009,
         imageOutsideURL: "https://populous.com/uploads/2018/01/CitiField_Populous.jpeg",
-        imageInsideURL: "imageInsideURL18",
+        imageInsideURL: "https://i0.wp.com/thesportsfanproject.com/wp-content/uploads/2023/07/citi-field-overview.jpg?resize=636%2C479&ssl=1",
       },
       {
         name: "Yankee Stadium",
@@ -252,7 +252,7 @@ const createStadiums = async () => {
         capacity: 46537,
         openYear: 2009,
         imageOutsideURL: "https://pjmechanical.com/site/user/images/yankee_stadium.jpg",
-        imageInsideURL: "imageInsideURL19",
+        imageInsideURL: "https://www.newyorkbyrail.com/wp-content/uploads/2017/07/Yankee_Stadium__Bronx_NY__NYC__New_York_By_Rail.jpg",
       },
       {
         name: "Oakland Coliseum",
@@ -265,7 +265,7 @@ const createStadiums = async () => {
         capacity: 63000,
         openYear: 1966,
         imageOutsideURL: "https://img.mlbstatic.com/mlb-images/image/private/t_16x9/t_w2208/mlb/gq1j3kwwibteyx2n1eiy.jpg",
-        imageInsideURL: "imageInsideURL20",
+        imageInsideURL: "https://i.guim.co.uk/img/media/76e819dd799079089ae6fae61184a611a227c87d/0_264_5860_[…]ity=85&auto=format&fit=crop&s=64616131ae1f220e85f3e11e7d3bb652",
       },
       {
         name: "Citizens Bank Park",
@@ -277,8 +277,8 @@ const createStadiums = async () => {
         zipCode: 19148,
         capacity: 42901,
         openYear: 2004,
-        imageOutsideURL: "imageOutsideURL21",
-        imageInsideURL: "imageInsideURL21",
+        imageOutsideURL: "https://mediaim.expedia.com/destination/2/560fd4121fe281de07cf0526e3f7151d.jpg",
+        imageInsideURL: "https://i.etsystatic.com/6245917/r/il/54ad1a/2408162434/il_fullxfull.2408162434_3f5w.jpg",
       },
       {
         name: "PNC Park",
@@ -290,8 +290,8 @@ const createStadiums = async () => {
         zipCode: 15212,
         capacity: 38747,
         openYear: 2001,
-        imageOutsideURL: "imageOutsideURL22",
-        imageInsideURL: "imageInsideURL22",
+        imageOutsideURL: "https://a.travel-assets.com/findyours-php/viewfinder/images/res70/473000/473767-Pnc-Park.jpg",
+        imageInsideURL: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Pittsburgh_Pirates_park_%28Un[…]sh%29.jpg/640px-Pittsburgh_Pirates_park_%28Unsplash%29.jpg",
       },
       {
         name: "Petco Park",
@@ -303,8 +303,8 @@ const createStadiums = async () => {
         zipCode: 92101,
         capacity: 42445,
         openYear: 2004,
-        imageOutsideURL: "imageOutsideURL23",
-        imageInsideURL: "imageInsideURL23",
+        imageOutsideURL: "https://blog.ticketmaster.com/wp-content/uploads/step-inside-petco-park-1024x614.jpg",
+        imageInsideURL: "https://a57.foxnews.com/static.foxnews.com/foxnews.com/content/uploads/2022/08/1200/675/Petco.jpg?ve=1&tl=1",
       },
       // {
       //   name: "Oracle Park",
