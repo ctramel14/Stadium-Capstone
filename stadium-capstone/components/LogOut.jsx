@@ -1,14 +1,21 @@
+import { useNavigate } from 'react-router-dom';
+
 export default function Logout({ setToken }) {
-    async function handleSubmit(e) {
-      e.preventDefault();
-      setToken(null);
-    }
-  
-    return (
-      <>
-        <button onClick={handleSubmit}>Log Out</button>
-      </>
-    );
+  const navigate = useNavigate();
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    setToken(null);
+
+    alert('You have successfully logged out!');
+    navigate('/');
   }
+
+  return (
+    <>
+      <button onClick={handleSubmit}>Log Out</button>
+    </>
+  );
+}
 
   //error on the route
