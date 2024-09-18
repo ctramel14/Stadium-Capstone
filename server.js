@@ -15,7 +15,7 @@ app.use(require("morgan")("dev"));
 app.use(
   async (req, res, next) => {
     console.log(req.path);
-    if (req.path === "/api/stadiums" || req.path === "/login" || req.path === "/register") {
+    if (req.path === "/api/stadiums" || req.path === "/login" || req.path === "/register" || req.path === "/api/users") {
       return next();
     }
   const authHeader = req.headers.authorization;
