@@ -15,7 +15,7 @@ export default function Login({
     console.log(password);
     
     try {
-      const result = await fetch(`http://localhost:3000/api/users/login`, {
+      const result = await fetch(`http://localhost:3000/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

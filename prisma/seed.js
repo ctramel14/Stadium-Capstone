@@ -30,7 +30,7 @@ const createStadiums = async () => {
         zipCode: 30339,
         capacity: 41084,
         openYear: 2017,
-        imageOutsideURL: "imageOutsideURL2",
+        imageOutsideURL: "https://www.usanova.com/wp-content/uploads/2021/10/Untitled-5.jpg",
         imageInsideURL: "imageInsideURL2",
       },
       {
@@ -43,7 +43,7 @@ const createStadiums = async () => {
         zipCode: 21201,
         capacity: 45971,
         openYear: 1992,
-        imageOutsideURL: "imageOutsideURL3",
+        imageOutsideURL: "https://d2uqqhmijd5j2z.cloudfront.net/files/130133/original/Camden_Yards_entrance.JPG?1482169604",
         imageInsideURL: "imageInsideURL3",
       },
       {
@@ -56,7 +56,7 @@ const createStadiums = async () => {
         zipCode: 2215,
         capacity: 37755,
         openYear: 1912,
-        imageOutsideURL: "imageOutsideURL4",
+        imageOutsideURL: "https://media.nbcboston.com/2021/08/fenway-park-05900xx6720-4480-0-0.jpg?quality=85&strip=all&resize=1200%2C675",
         imageInsideURL: "imageInsideURL4",
       },
       {
@@ -69,7 +69,7 @@ const createStadiums = async () => {
         zipCode: 60613,
         capacity: 41649,
         openYear: 1914,
-        imageOutsideURL: "imageOutsideURL5",
+        imageOutsideURL: "https://interactive.wttw.com/sites/default/files/cbl-lakeview-wrigleyville-hero_01.jpg",
         imageInsideURL: "imageInsideURL5",
       },
       {
@@ -82,7 +82,7 @@ const createStadiums = async () => {
         zipCode: 60616,
         capacity: 40615,
         openYear: 1991,
-        imageOutsideURL: "imageOutsideURL6",
+        imageOutsideURL: "https://ballparkratings.com/wp-content/uploads/1-1-8-3.jpeg",
         imageInsideURL: "imageInsideURL6",
       },
       {
@@ -95,7 +95,7 @@ const createStadiums = async () => {
         zipCode: 45202,
         capacity: 42271,
         openYear: 2003,
-        imageOutsideURL: "imageOutsideURL7",
+        imageOutsideURL: "https://www.ballparksofbaseball.com/wp-content/uploads/2016/03/gab15952.png",
         imageInsideURL: "imageInsideURL7",
       },
       {
@@ -108,7 +108,7 @@ const createStadiums = async () => {
         zipCode: 44115,
         capacity: 34830,
         openYear: 1994,
-        imageOutsideURL: "imageOutsideURL8",
+        imageOutsideURL: "https://ballparkratings.com/wp-content/uploads/32407150_981859368638745_8809335080691433472_n.jpeg",
         imageInsideURL: "imageInsideURL8",
       },
       {
@@ -121,7 +121,7 @@ const createStadiums = async () => {
         zipCode: 80205,
         capacity: 50398,
         openYear: 1995,
-        imageOutsideURL: "imageOutsideURL9",
+        imageOutsideURL: "https://cdn.vox-cdn.com/thumbor/5Bf7nINE9kn3wppcPg_E-x41fWE=/1400x1050/filters:format(jpeg)/cdn.vox-cdn.com/uploads/chorus_asset/file/15999241/shutterstock_1150908299.jpg",
         imageInsideURL: "imageInsideURL9",
       },
       {
@@ -134,7 +134,7 @@ const createStadiums = async () => {
         zipCode: 48201,
         capacity: 41083,
         openYear: 2000,
-        imageOutsideURL: "imageOutsideURL10",
+        imageOutsideURL: "https://whitecon.com/wp-content/uploads/2019/11/whitecon.com-comerica-park-001.jpg",
         imageInsideURL: "imageInsideURL10",
       },
       {
@@ -147,7 +147,7 @@ const createStadiums = async () => {
         zipCode: 77002,
         capacity: 41000,
         openYear: 2000,
-        imageOutsideURL: "imageOutsideURL11",
+        imageOutsideURL: "http://images.prismic.io/bounce/37f8e1f8-7438-44ec-af68-2ff45dfb4be7_pedro-cambron-G8bOC9tzUfo-unsplash.jpg?auto=format,compress",
         imageInsideURL: "imageInsideURL11",
       },
       {
@@ -160,7 +160,7 @@ const createStadiums = async () => {
         zipCode: 64129,
         capacity: 37903,
         openYear: 1973,
-        imageOutsideURL: "imageOutsideURL12",
+        imageOutsideURL: "http://npr.brightspotcdn.com/9b/9b/e4b503184fc9bc10f68091913b65/kauffman-26.jpg",
         imageInsideURL: "imageInsideURL12",
       },
       {
@@ -173,7 +173,7 @@ const createStadiums = async () => {
         zipCode: 92806,
         capacity: 45050,
         openYear: 1966,
-        imageOutsideURL: "imageOutsideURL13",
+        imageOutsideURL: "http://watkinslandmark.com/wp-content/uploads/2017/10/angelsStadium.jpg",
         imageInsideURL: "imageInsideURL13",
       },
       {
@@ -186,7 +186,7 @@ const createStadiums = async () => {
         zipCode: 90012,
         capacity: 56000,
         openYear: 1962,
-        imageOutsideURL: "imageOutsideURL14",
+        imageOutsideURL: "https://cloudfront-us-east-2.images.arcpublishing.com/reuters/4GJ6BOKUCBORRFDQGYWM4UACBI.jpg",
         imageInsideURL: "imageInsideURL14",
       },
       {
@@ -199,7 +199,7 @@ const createStadiums = async () => {
         zipCode: 33125,
         capacity: 37000,
         openYear: 2012,
-        imageOutsideURL: "imageOutsideURL15",
+        imageOutsideURL: "http://uni-engineer.com/wp-content/uploads/2021/07/marlins-slide-6.jpg",
         imageInsideURL: "imageInsideURL15",
       },
       {
@@ -212,7 +212,7 @@ const createStadiums = async () => {
         zipCode: 53214,
         capacity: 41900,
         openYear: 2001,
-        imageOutsideURL: "imageOutsideURL16",
+        imageOutsideURL: "https://media.bizj.us/view/img/11911195/amfam-stadium-sign-1*1200xx4418-2485-41-0.jpg",
         imageInsideURL: "imageInsideURL16",
       },
       {
@@ -225,7 +225,7 @@ const createStadiums = async () => {
         zipCode: 55403,
         capacity: 39504,
         openYear: 2010,
-        imageOutsideURL: "imageOutsideURL17",
+        imageOutsideURL: "https://i0.wp.com/circletocircle.blog/wp-content/uploads/2018/05/target_082311_ext1.jpg?ssl=1",
         imageInsideURL: "imageInsideURL17",
       },
       {
@@ -238,7 +238,7 @@ const createStadiums = async () => {
         zipCode: 11368,
         capacity: 41922,
         openYear: 2009,
-        imageOutsideURL: "imageOutsideURL18",
+        imageOutsideURL: "https://populous.com/uploads/2018/01/CitiField_Populous.jpeg",
         imageInsideURL: "imageInsideURL18",
       },
       {
@@ -251,7 +251,7 @@ const createStadiums = async () => {
         zipCode: 10451,
         capacity: 46537,
         openYear: 2009,
-        imageOutsideURL: "imageOutsideURL19",
+        imageOutsideURL: "https://pjmechanical.com/site/user/images/yankee_stadium.jpg",
         imageInsideURL: "imageInsideURL19",
       },
       {
@@ -264,7 +264,7 @@ const createStadiums = async () => {
         zipCode: 94621,
         capacity: 63000,
         openYear: 1966,
-        imageOutsideURL: "imageOutsideURL20",
+        imageOutsideURL: "https://img.mlbstatic.com/mlb-images/image/private/t_16x9/t_w2208/mlb/gq1j3kwwibteyx2n1eiy.jpg",
         imageInsideURL: "imageInsideURL20",
       },
       {
