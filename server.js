@@ -22,7 +22,9 @@ app.use(
 app.use(
   async (req, res, next) => {
     console.log(req.path);
+
     if (req.path === "/api/stadiums" || req.path === "/login" || req.path === "/register" || req.path === "/api/users" || req.path === `/api/stadiums/${req.params.id}` || req.path === `/api/reviews/${req.params.id}`) {
+
       return next();
     }
   const authHeader = req.headers.authorization;
