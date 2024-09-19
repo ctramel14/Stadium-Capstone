@@ -1,15 +1,14 @@
-import { useState } from 'react'
-import './App.css'
+import { useState } from "react";
+import "./App.css";
 import StadiumCards from "../components/StadiumCards";
-import SingleCard from '../components/SingleCard';
-import NavigationBar from '../components/NavigationBar';
-import { Route, Routes } from 'react-router-dom';
-import Login from '../components/Login';
-import Register from '../components/Register'
-import ContactForm from '../components/ContactForm'
-import Account from '../components/Account'
+import SingleCard from "../components/SingleCard";
+import NavigationBar from "../components/NavigationBar";
+import { Route, Routes } from "react-router-dom";
+import Login from "../components/Login";
+import Register from "../components/Register";
+import ContactForm from "../components/ContactForm";
+import Account from "../components/Account";
 import LogOut from "../components/LogOut";
-
 
 //setting state here to make passing props between components easier
 function App() {
@@ -18,59 +17,84 @@ function App() {
   const [password, setPassword] = useState("");
   const [stadiums, setStadiums] = useState([]);
   const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("")
-  const [username, setUsername] = useState("")
-  const [userId, setUserId] = useState("")
+  const [lastName, setLastName] = useState("");
+  const [username, setUsername] = useState("");
+  const [userId, setUserId] = useState("");
 
   return (
     <>
-    <NavigationBar token={token} />
-    <Routes>
-      <Route path="/"  element={<StadiumCards stadiums={stadiums} setStadiums={setStadiums} />} />
-      <Route path="/stadiums/:id" element={<SingleCard token={token} userId={userId} />} />
-      <Route path='/users/login' element={<Login 
-      setToken={setToken}
-      token={token}
-      username={username}
-      setUsername={setUsername}
-      password={password}
-      setPassword={setPassword}
-      firstName={firstName}
-      setFirstName={setFirstName}
-      userId={userId}
-      setUserId={setUserId}
-      />} />
-      <Route path="/users/register" element={<Register 
-      setToken={setToken}
-      email={email}
-      setEmail={setEmail}
-      password={password}
-      setPassword={setPassword}
-      firstName={firstName}
-      setFirstName={setFirstName}
-      lastName={lastName}
-      setLastName={setLastName}
-      username={username}
-      setUsername={setUsername}
-      userId={userId}
-      setUserId={setUserId}
-      />} />
-      <Route
-      path="/users/me"
-      element={<Account token={token} firstName={firstName} email={email} userId={userId} />}
+      <NavigationBar token={token} />
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <StadiumCards stadiums={stadiums} setStadiums={setStadiums} />
+          }
         />
-      <Route path="/contactform" element={<ContactForm />} />
-      {/* <Route path="/users/logout" element={<LogOut setToken={setToken} />} /> */}
-      {token && (
-          <Route path="/users/logout" element={<LogOut setToken={setToken} />} />
+        <Route
+          path="/stadiums/:id"
+          element={<SingleCard token={token} userId={userId} />}
+        />
+        <Route
+          path="/users/login"
+          element={
+            <Login
+              setToken={setToken}
+              token={token}
+              username={username}
+              setUsername={setUsername}
+              password={password}
+              setPassword={setPassword}
+              firstName={firstName}
+              setFirstName={setFirstName}
+              userId={userId}
+              setUserId={setUserId}
+            />
+          }
+        />
+        <Route
+          path="/users/register"
+          element={
+            <Register
+              setToken={setToken}
+              email={email}
+              setEmail={setEmail}
+              password={password}
+              setPassword={setPassword}
+              firstName={firstName}
+              setFirstName={setFirstName}
+              lastName={lastName}
+              setLastName={setLastName}
+              username={username}
+              setUsername={setUsername}
+              userId={userId}
+              setUserId={setUserId}
+            />
+          }
+        />
+        <Route
+          path="/users/me"
+          element={
+            <Account
+              token={token}
+              firstName={firstName}
+              email={email}
+              userId={userId}
+            />
+          }
+        />
+        <Route path="/contactform" element={<ContactForm />} />
+        {/* <Route path="/users/logout" element={<LogOut setToken={setToken} />} /> */}
+        {token && (
+          <Route
+            path="/users/logout"
+            element={<LogOut setToken={setToken} />}
+          />
         )}
-    </Routes>
-    {!token && (
-        <h4>Register or Log-in for full functionality!</h4>
-      )}
+      </Routes>
+      {!token && <h4>Register or Log-in for full functionality!</h4>}
     </>
   );
 }
 
 export default App;
-
