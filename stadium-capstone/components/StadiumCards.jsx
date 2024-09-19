@@ -1,10 +1,10 @@
-import "./StadiumCards.css"
+import "./StadiumCards.css";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 // import { createStadiums } from "../../prisma/seed.js";
 
 //fetching all stadiums
-export default function StadiumCards({stadiums, setStadiums}) {
+export default function StadiumCards({ stadiums, setStadiums }) {
   const [searchParam, setSearchParam] = useState("");
   const navigate = useNavigate();
 
@@ -18,13 +18,13 @@ export default function StadiumCards({stadiums, setStadiums}) {
       console.error(error);
     }
   }
-  fetchAllStadiums()
+  fetchAllStadiums();
 
   useEffect(() => {
     async function getAllStadiums() {
       const APIResponse = await fetchAllStadiums();
       // console.log(APIResponse);
-      setStadiums(APIResponse)
+      setStadiums(APIResponse);
     }
     getAllStadiums();
   }, []);
@@ -32,7 +32,9 @@ export default function StadiumCards({stadiums, setStadiums}) {
   //search functionality
 
   const stadiumsToDisplay = searchParam
-    ? stadiums.filter((stadium) => stadium.teamName.toLowerCase().includes(searchParam))
+    ? stadiums.filter((stadium) =>
+        stadium.teamName.toLowerCase().includes(searchParam)
+      )
     : stadiums;
 
   return (
@@ -48,32 +50,31 @@ export default function StadiumCards({stadiums, setStadiums}) {
           />
         </label>
       </div>
-      <div className="stadium-card">
+      <div className="stadiums-grid-container">
         {stadiumsToDisplay.map((stadium) => {
           return (
-            <h3 key={stadium.id}>
+            <div className="stadium-card" key={stadium.id}>
               <img
                 src={stadium.imageOutsideURL}
-                onClick={() => navigate(`/stadiums/${stadium.id}/`)}
+                alt={`${stadium.name} outside view`}
               />
               <br />
-              {stadium.name}
-              {stadium.teamName}
-              {stadium.state}
-            </h3>
+              <strong>
+                <h2>{stadium.name}</h2>
+              </strong>
+              <p>{stadium.teamName}</p>
+              <p>{stadium.state}</p>
+              <button onClick={() => navigate(`/stadiums/${stadium.id}/`)}>
+                Find Out More
+              </button>
+              <button>Already Visited</button>
+            </div>
           );
         })}
       </div>
     </>
   );
 }
-
-
-
-
-
-
-
 
 // export default function StadiumCards({
 //   ballpark,
@@ -95,5 +96,3 @@ export default function StadiumCards({stadiums, setStadiums}) {
 //     </div>
 //   );
 // }
-
-

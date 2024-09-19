@@ -1,102 +1,98 @@
-
 .stadium-card {
-    display: flex;
-    flex-direction: column;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 16px;
-    margin: 16px;
-    width: 300px;
-    background-color: blue;
-    color: white;
-    text-align: center;
-    position: relative;
-    &>*{z-index: 2;}
-    .img {
-      position: absolute;
-      z-index: 1;
-      max-width: 200px;
-      max-height: 200px;
-      top: 0;
-      left: 0;
-      opacity: 0.35;
-      background-position: center;
-      background-size: cover;
-      background-repeat: no-repeat;
-    }
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 16px;
+  margin: 16px;
+  width: 300px;
+  background-color: tan;
+  gap: 10px;
+  color: white;
+  text-align: center;
+  position: relative;
+  & > * {
+    z-index: 2;
   }
-
-  img {
+  .img {
+    position: absolute;
+    z-index: 1;
     max-width: 200px;
     max-height: 200px;
+    top: 0;
+    left: 0;
+    opacity: 0.35;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
   }
+}
+.stadium-card h2 {
+  margin-top: 0;
+  font-size: 1.5em;
+  letter-spacing: 2px;
+  cursor: pointer;
+}
 
-  .stadiums-grid-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    grid-template-rows: auto;
-    gap: 1rem;
-    justify-content: center;
-    justify-items: center;
-    padding: 10px;
-    background-color: #f4f4f4;
-  }
+.stadiums-grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  grid-template-rows: auto;
+  gap: 1rem;
+  justify-content: center;
+  justify-items: center;
+  padding: 20px;
+  background-color: #113311;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='223' height='223' viewBox='0 0 20 20'%3E%3Cg fill-opacity='0.5'%3E%3Cpolygon fill='%23242' points='20 10 10 0 0 0 20 20'/%3E%3Cpolygon fill='%23242' points='0 10 0 20 10 20'/%3E%3C/g%3E%3C/svg%3E");
+}
 
-  button {
-    border-radius: 10px;
-    border: 1px solid transparent;
-    padding: 0.6em 1.2em;
-    margin: 5px;
-    font-size: 15px;
-    font-weight: 500;
-    font-family: inherit;
-    background-color: white;
-    color: black;
-    cursor: pointer;
-    transition: border-color 0.25s;
-  }
+button {
+  border-radius: 10px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  margin: 5px;
+  font-size: 15px;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: white;
+  color: black;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
 
-  button:hover {
-    border-color: #646cff;
-  }
-  button:focus,
-  button:focus-visible {
-    outline: 4px auto -webkit-focus-ring-color;
-  }
+button:hover {
+  border-color: #646cff;
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
 
+.stadium-card p {
+  margin: 8px 0;
+}
 
-  .stadium-card h2 {
-    margin-top: 0;
-    font-size: 1.5em;
-    letter-spacing: 2px;
-  }
-  
-  .stadium-card p {
-    margin: 8px 0;
-  }
-
-  .stadium-card-0 {
-    background-color: #18294c;
-  }
-  .stadium-card-0 h2 {
-    color: #ffc42e;
-  }
-  .stadium-card-1 {
-    background-color: #ce1141
-  }
-  .stadium-card-1 h2 {
-    color: #003263;
-  }
-  .stadium-card-2 {
-    background-color: #b72126
-  }
-  .stadium-card-2 h2 {
-   color: white;
-  }
-  .stadium-card-3 {
-    background-color: #e04502
-  }
-  .stadium-card-3 h2 {
-    color: #0d0d0d;
-  }
-
+.stadium-card-0 {
+  background-color: #18294c;
+}
+.stadium-card-0 h2 {
+  color: #ffc42e;
+}
+.stadium-card-1 {
+  background-color: #ce1141;
+}
+.stadium-card-1 h2 {
+  color: #003263;
+}
+.stadium-card-2 {
+  background-color: #b72126;
+}
+.stadium-card-2 h2 {
+  color: white;
+}
+.stadium-card-3 {
+  background-color: #e04502;
+}
+.stadium-card-3 h2 {
+  color: #0d0d0d;
+}
