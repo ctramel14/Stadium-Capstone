@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 export default function SingleCard({ token, userId }) {
   const [stadium, setStadium] = useState({});
@@ -7,11 +7,9 @@ export default function SingleCard({ token, userId }) {
   const [reviews, setReviews] = useState([]);
   const [rating, setRating] = useState("");
   const [comment, setComment] = useState("");
-  const [reply, setReply] = useState("");
-  const [reviewSuccess, setReviewSuccess] = useState("");
-  const [replySuccess, setReplySuccess] = useState("");
+  const [reviewSuccess, setReviewSuccess] = useState(null);
   let { id } = useParams();
-  // console.log(userId);
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function getToken() {
@@ -33,7 +31,6 @@ export default function SingleCard({ token, userId }) {
       }
     }
     getToken();
-    // console.log(id);
 
     async function getStadium() {
       try {
@@ -80,7 +77,7 @@ export default function SingleCard({ token, userId }) {
       }
     }
     getStadium();
-  }, [id], [reviews]);
+  }, [id]);
 
   // visit a stadium
 
@@ -105,7 +102,7 @@ export default function SingleCard({ token, userId }) {
   }
 
   //posting a review
-  
+
   async function sendReview(e) {
     e.preventDefault();
 
@@ -132,45 +129,8 @@ export default function SingleCard({ token, userId }) {
       const result = await response.json();
       console.log(idInt, userId, rating);
       console.log(result);
-      setReviewSuccess({
-        // comment: comment,
-        // userId: userId,
-        // rating: parseInt(rating)        ignore this, i'm being dumb
-      });
+      setReviewSuccess(true);
       console.log(reviewSuccess);
-      
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  // posting a comment
-
-  async function reviewComment(e) {
-    e.preventDefault();
-    const reviewId = reviews.map((review) => review.id);
-    console.log(reviewId);
-
-    try {
-      const response = await fetch(
-        `http://localhost:3000/api/reviews/${reviewId}/comments`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({
-            content: reply,
-            userId: userId,
-            reviewId: reviewId,
-          }),
-        }
-      );
-      const result = await response.json();
-      console.log(reply, userId, reviewId);
-      console.log(result);
-      setReplySuccess(`${reply}`);
     } catch (error) {
       console.error(error);
     }
@@ -201,35 +161,31 @@ export default function SingleCard({ token, userId }) {
                 <h5>Review by User {review.userId}</h5>
                 <p>Rating: {review.rating}</p>
                 <p>{review.comment}</p>
-                {/* {reviewSuccess && <h6>{reviewSuccess}</h6>} */}
+                <button
+                  onClick={() => navigate(`/stadiums/reviews/${review.id}`)}
+                  type="submit"
+                >
+                Reply
+                </button>
                 <div className="comments">
                   {review.comments.map((comment) => (
                     <p key={comment.id}>Reply: {comment.content}</p>
                   ))}
-                  {replySuccess && <p>Reply: {replySuccess}</p>}
                 </div>
-                {token ? (
-                  <form onSubmit={reviewComment}>
-                    <label>Reply</label>
-                    <input
-                      id="reply"
-                      type="reply"
-                      value={reply}
-                      onChange={(e) => setReply(e.target.value)}
-                      required
-                    />
-                    <button type="submit">Send Reply</button>
-                  </form>
-                ) : (
-                  <h6></h6>
-                )}
               </div>
             ))
           ) : (
             <p>No reviews available.</p>
           )}
         </div>
-        {token ? (
+        {reviewSuccess ? (
+                  <div>
+                  <h5>Review by User {userId}</h5>
+                  <p>Rating: {rating}</p>
+                <p>{comment}</p>
+                </div>
+                ) : (<h6></h6>)}
+        {token && !reviewSuccess ? (
           <form onSubmit={sendReview}>
             <label>Rating</label>
             <input

@@ -9,6 +9,7 @@ import Register from "../components/Register";
 import ContactForm from "../components/ContactForm";
 import Account from "../components/Account";
 import LogOut from "../components/LogOut";
+import Reviews from "../components/Reviews";
 
 //setting state here to make passing props between components easier
 function App() {
@@ -84,6 +85,10 @@ function App() {
           }
         />
         <Route path="/contactform" element={<ContactForm />} />
+        <Route path="/stadiums/reviews/:id" element={<Reviews 
+        token={token}
+        userId={userId}
+        />} />
         {/* <Route path="/users/logout" element={<LogOut setToken={setToken} />} /> */}
         {token && (
           <Route
