@@ -362,8 +362,10 @@ const createStadiums = async () => {
         zipCode: 94107,
         capacity: 42300,
         openYear: 2000,
-        imageOutsideURL: "imageOutsideURL24",
-        imageInsideURL: "imageInsideURL24",
+        imageOutsideURL:
+          "https://a.travel-assets.com/findyours-php/viewfinder/images/res70/475000/475766-San-Francisco-City.jpg",
+        imageInsideURL:
+          "https://www.mercurynews.com/wp-content/uploads/2020/07/SJM-L-GIANTS-0722-45.jpg?w=515",
       },
       {
         name: "T-Mobile Park",
@@ -375,8 +377,10 @@ const createStadiums = async () => {
         zipCode: 98134,
         capacity: 47943,
         openYear: 1999,
-        imageOutsideURL: "imageOutsideURL25",
-        imageInsideURL: "imageInsideURL25",
+        imageOutsideURL:
+          "https://images.axios.com/UPzZ4ha_l6bAS5Svrk3_sIgNVTE=/0x291:4128x2613/1920x1080/2024/08/15/1723681153647.jpg",
+        imageInsideURL:
+          "https://media.king5.com/assets/KING/images/e1411816-e373-43ae-b16d-94b74b2fc244/e1411816-e373-43ae-b16d-94b74b2fc244_1920x1080.jpg",
       },
       {
         name: "Busch Stadium",
@@ -388,8 +392,10 @@ const createStadiums = async () => {
         zipCode: 63102,
         capacity: 46000,
         openYear: 2006,
-        imageOutsideURL: "imageOutsideURL26",
-        imageInsideURL: "imageInsideURL26",
+        imageOutsideURL:
+          "https://images.discotech.me/venue/1556/8ed4da47-9d26-413b-aa21-240823397194.jpg",
+        imageInsideURL:
+          "https://npr.brightspotcdn.com/dims4/default/0265f91/2147483647/strip/true/crop/3000x2000+0+0/resize/880x587!/quality/90/?url=http%3A%2F%2Fnpr-brightspot.s3.amazonaws.com%2F20%2F69%2F2627068e454080d5ebc82eb86ea4%2F033023-bm-cards-13.JPG",
       },
       {
         name: "Tropicana Field",
@@ -401,8 +407,10 @@ const createStadiums = async () => {
         zipCode: 33705,
         capacity: 42735,
         openYear: 1990,
-        imageOutsideURL: "imageOutsideURL27",
-        imageInsideURL: "imageInsideURL27",
+        imageOutsideURL:
+          "https://npr.brightspotcdn.com/dims4/default/164165e/2147483647/strip/true/crop/4032x3024+0+0/resize/880x660!/quality/90/?url=http%3A%2F%2Fnpr-brightspot.s3.amazonaws.com%2F47%2F85%2F31336f5a4211b6eeedb34fd2af32%2Ftropicana-field-exterior-gate-1.jpg",
+        imageInsideURL:
+          "https://nbcsports.brightspotcdn.com/dims4/default/3602dee/2147483647/strip/true/crop/8090x4551+0+5/resize/1440x810!/quality/90/?url=https%3A%2F%2Fnbc-sports-production-nbc-sports.s3.us-east-1.amazonaws.com%2Fbrightspot%2F65%2F72%2Fad08b442ef33c0dc6bddfd9bb5c6%2Fgettyimages-982397518-e1542223869990.jpg",
       },
       {
         name: "Globe Life Field",
@@ -414,8 +422,10 @@ const createStadiums = async () => {
         zipCode: 76011,
         capacity: 40300,
         openYear: 2020,
-        imageOutsideURL: "imageOutsideURL28",
-        imageInsideURL: "imageInsideURL28",
+        imageOutsideURL:
+          "https://img.mlbstatic.com/mlb-images/image/private/t_4x1/t_w1536/mlb/ilvrq9o63imq1pxiujq5.jpg",
+        imageInsideURL:
+          "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/GlobeLifeField2021.jpg/1200px-GlobeLifeField2021.jpg",
       },
       {
         name: "Rogers Centre",
@@ -427,8 +437,10 @@ const createStadiums = async () => {
         zipCode: 11111,
         capacity: 49286,
         openYear: 1989,
-        imageOutsideURL: "imageOutsideURL29",
-        imageInsideURL: "imageInsideURL29",
+        imageOutsideURL:
+          "https://showoneproductions.ca/wp-content/uploads/2016/10/Rogers-Centre.jpg",
+        imageInsideURL:
+          "https://img.mlbstatic.com/mlb-images/image/private/t_16x9/t_w1536/mlb/yqni9fpriindvjpbiy26.jpg",
       },
       {
         name: "Nationals Park",
@@ -440,8 +452,10 @@ const createStadiums = async () => {
         zipCode: 20003,
         capacity: 41546,
         openYear: 2008,
-        imageOutsideURL: "imageOutsideURL30",
-        imageInsideURL: "imageInsideURL30",
+        imageOutsideURL:
+          "https://baseballparks.com//images/Washington/WashNat1.jpg",
+        imageInsideURL:
+          "https://substackcdn.com/image/fetch/f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fbucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com%2Fpublic%2Fimages%2Fb2ea596c-eb94-42d4-9afa-98cbb5e2c0f3_2048x1105.jpeg",
       },
     ];
     await prisma.stadium.createMany({ data: stadiums });
