@@ -143,7 +143,7 @@ export default function SingleCard({ token, userId }) {
           <h4>{stadium.name}</h4>
           <h5>{stadium.teamname}</h5>
           <h6>{stadium.state}</h6>
-          <img src={stadium.imageOutsideURL} className="singlestadium" /> <br />
+          <img src={stadium.imageInsideURL} className="singlestadium" /> <br />
         </div>
         {token ? (
           <button className="visited" onClick={() => visited(stadium.id)}>
