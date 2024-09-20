@@ -1,0 +1,31 @@
+#id {
+  border: 2px solid black;
+  border-radius: 50px;
+  padding: 5px;
+  font-family: inherit;
+  text-align: center;
+  color: black;
+  font-weight: bold;
+}
+
+#contact {
+  display: flex;
+  flex-direction: column;
+}
+
+#name {
+  width: 15%;
+}
+
+#email {
+  width: 15%;
+}
+
+#message {
+  width: 25%;
+  height: fit-content;
+}
+
+#submit {
+  max-width: 25%;
+}

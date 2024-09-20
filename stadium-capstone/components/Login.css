@@ -1,0 +1,30 @@
+.submit {
+  border: 2px solid black;
+  border-radius: 50px;
+  padding: 5px;
+  font-family: inherit;
+  text-align: center;
+  color: black;
+  font-weight: bold;
+  width: 10%;
+  margin-top: 5px;
+}
+
+body {
+  background-color: #90b58a;
+}
+
+button:hover {
+  border-color: #646cff;
+  background-color: #009aff;
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+#login {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}

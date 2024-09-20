@@ -1,6 +1,7 @@
 // import { URL } from "../API";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import "./Login.css";
 
 export default function Login({
   setToken,
@@ -10,7 +11,7 @@ export default function Login({
   setPassword,
   setFirstName,
   userId,
-  setUserId
+  setUserId,
 }) {
   const navigate = useNavigate();
 
@@ -18,8 +19,7 @@ export default function Login({
     e.preventDefault();
 
     console.log(userId);
-    
-    
+
     try {
       const result = await fetch(`http://localhost:3000/login`, {
         method: "POST",
@@ -30,11 +30,11 @@ export default function Login({
       });
 
       const json = await result.json();
-      const newId = json.user.id
-      const name = json.user.firstName
+      const newId = json.user.id;
+      const name = json.user.firstName;
       setToken(json.token);
-      setUserId(newId)
-      setFirstName(name)
+      setUserId(newId);
+      setFirstName(name);
       console.log(userId, name);
       // alert('You have successfully logged in!');
       // navigate("/");
@@ -68,10 +68,9 @@ export default function Login({
           />
         </label>
         <button className="submit" type="submit">
-          Submit
+          Login
         </button>
       </form>
-      <br />
     </>
   );
 }
