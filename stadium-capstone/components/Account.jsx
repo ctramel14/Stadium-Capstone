@@ -15,6 +15,8 @@ export default function Account({ token, email, firstName, userId }) {
   const message = `Please log in to see your account details.`;
   const noStadium = `No stadiums visited yet`;
 
+
+
   useEffect(() => {
     if (!token || !userId) return;
 
@@ -152,15 +154,48 @@ export default function Account({ token, email, firstName, userId }) {
       {!token ? (
         <h3 className="message">{message}</h3>
       ) : (
-        <div>
+        <div className="account-page-wrapper">
           <h2>Welcome, {firstName}!</h2>
           <h3>Username: {username}</h3>
 
+          <h4>Your Visited Stadiums:</h4>
+          {visited.length > 0 ? (
+            <div className="visited-grid-container">
+              {visited.map((stadium) => (
+                <div key={stadium.id} className="visited-cards">
+                  <img src={stadium.imageOutsideURL} alt={stadium.name} />
+                  <strong>
+                    <h2>{stadium.name}</h2>
+                  </strong>
+                  <p>{stadium.teamName}</p>
+                  <button onClick={() => deleteVisitedStadium(stadium.id)}>
+                    Remove
+                  </button>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <p>{noStadium}</p>
+          )}
+
           <h4>Your Reviews:</h4>
           {reviews.length > 0 ? (
-            reviews.map((review) => (
-              <div key={review.id} className="user-review">
+            <table className="reviews-table">
+              <thead>
+                <tr className="table-headers">
+                  <th>Stadium</th>
+                  <th>Rating</th>
+                  <th>Review</th>
+                  <th>Date</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody className="table-body">
+            {reviews.map((review) => (
+              <tr key={review.id}>
+              {/* <div key={review.id} className="user-review"> */}
                 {editingReview === review.id ? (
+                  <td colSpan="5">
                   <form onSubmit={(e) => editReview(e, review.id)}>
                     <label>
                       Rating:
@@ -195,12 +230,14 @@ export default function Account({ token, email, firstName, userId }) {
                       Cancel
                     </button>
                   </form>
+                  </td>
                 ) : (
                   <>
-                    <p>Stadium: {review.stadium.name}</p>
-                    <p>Rating: {review.rating}</p>
-                    <p>Review: {review.comment}</p>
-                    <p>Date: {new Date(review.date).toLocaleDateString()}</p>
+                    <td><p>Stadium: {review.stadium.name}</p></td>
+                    <td><p>Rating: {review.rating}</p></td>
+                    <td><p>Review: {review.comment}</p></td>
+                    <td><p>Date: {new Date(review.date).toLocaleDateString()}</p></td>
+                    <td>
                     <button
                       onClick={() => {
                         setEditingReview(review.id);
@@ -215,10 +252,14 @@ export default function Account({ token, email, firstName, userId }) {
                     <button onClick={() => deleteReview(review.id)}>
                       Delete Review
                     </button>
+                    </td>
                   </>
-                )}
-              </div>
-            ))
+                  )}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            
           ) : (
             <p>No reviews written yet.</p>
           )}
@@ -266,23 +307,6 @@ export default function Account({ token, email, firstName, userId }) {
             ))
           ) : (
             <p>No replies written yet.</p>
-          )}
-
-          <h4>Your Visited Stadiums:</h4>
-          {visited.length > 0 ? (
-            <div>
-              {visited.map((stadium) => (
-                <div key={stadium.id} className="visited-stadium">
-                  <img src={stadium.imageOutsideURL} alt={stadium.name} />
-                  <p>{stadium.name}</p>
-                  <button onClick={() => deleteVisitedStadium(stadium.id)}>
-                    Remove from Visited
-                  </button>
-                </div>
-              ))}
-            </div>
-          ) : (
-            <p>{noStadium}</p>
           )}
         </div>
       )}
