@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
-export default function SingleCard({ token, userId }) {
+export default function SingleCard({ token, userId, username }) {
   const [stadium, setStadium] = useState({});
   const [success, setSuccess] = useState("");
   const [reviews, setReviews] = useState([]);
@@ -67,6 +67,7 @@ export default function SingleCard({ token, userId }) {
           );
 
           setReviews(reviewsWithComments);
+          console.log(reviewsWithComments);
         } else {
           setReviews([]);
         }
@@ -123,11 +124,12 @@ export default function SingleCard({ token, userId }) {
             date: new Date(),
             userId: userId,
             stadiumId: idInt,
+            username: username,
           }),
         }
       );
       const result = await response.json();
-      console.log(idInt, userId, rating);
+      console.log(idInt, userId, rating, username);
       console.log(result);
       setReviewSuccess(true);
       console.log(reviewSuccess);
@@ -135,7 +137,6 @@ export default function SingleCard({ token, userId }) {
       console.error(error);
     }
   }
-
   return (
     <>
       <div className="single">
@@ -158,20 +159,19 @@ export default function SingleCard({ token, userId }) {
           {Array.isArray(reviews) && reviews.length > 0 ? (
             reviews.map((review) => (
               <div key={review.id} className="review">
-                <h5>Review by User {review.userId}</h5>
-                <p>Rating: {review.rating}</p>
-                <p>{review.comment}</p>
+                <div className="reviewuser">
+                  {Object.keys(review.user).map((key, index) => (
+                    <p key={index}>Review by: {review.user[key]}</p>
+                  ))}
+                  <p>Rating: {review.rating}/10</p>
+                  <p>{review.comment}</p>
+                </div>
                 <button
                   onClick={() => navigate(`/stadiums/reviews/${review.id}`)}
                   type="submit"
                 >
-                Reply
+                  Reply
                 </button>
-                <div className="comments">
-                  {review.comments.map((comment) => (
-                    <p key={comment.id}>Reply: {comment.content}</p>
-                  ))}
-                </div>
               </div>
             ))
           ) : (
@@ -179,12 +179,14 @@ export default function SingleCard({ token, userId }) {
           )}
         </div>
         {reviewSuccess ? (
-                  <div>
-                  <h5>Review by User {userId}</h5>
-                  <p>Rating: {rating}</p>
-                <p>{comment}</p>
-                </div>
-                ) : (<h6></h6>)}
+          <div>
+            <p>Review by {username}</p>
+            <p>Rating: {rating}/10</p>
+            <p>{comment}</p>
+          </div>
+        ) : (
+          <h6></h6>
+        )}
         {token && !reviewSuccess ? (
           <form onSubmit={sendReview}>
             <label>Rating</label>
