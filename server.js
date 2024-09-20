@@ -19,12 +19,18 @@ app.use(
 
 // Add middleware to check if the user is authenticated
 // Except api/stadiums
-app.use(
-  async (req, res, next) => {
-    console.log(req.path);
-    if (req.path === "/api/stadiums" || req.path === "/login" || req.path === "/register" || req.path === "/api/users" || req.path === `/api/stadiums/${req.params.id}` || req.path === `/api/reviews/${req.params.id}`) {
-      return next();
-    }
+app.use(async (req, res, next) => {
+  console.log(req.path);
+  if (
+    req.path === "/api/stadiums" ||
+    req.path === "/login" ||
+    req.path === "/register" ||
+    req.path === "/api/users" ||
+    req.path === `/api/stadiums/${req.params.id}` ||
+    req.path === `/api/reviews/${req.params.id}`
+  ) {
+    return next();
+  }
   const authHeader = req.headers.authorization;
   if (!authHeader) {
     return res.status(401).json({ error: "Authorization header is required" });
@@ -114,7 +120,6 @@ app.get("/api/stadiums/:id/restaurants", async (req, res, next) => {
   }
 });
 
-
 // get all user info
 app.get("/api/users", async (req, res, next) => {
   try {
@@ -144,14 +149,14 @@ app.get("/api/users/:id", async (req, res, next) => {
         },
         reviews: {
           include: {
-            stadium: true, 
+            stadium: true,
           },
         },
         comments: {
           include: {
             review: {
               include: {
-                stadium: true, 
+                stadium: true,
               },
             },
           },
@@ -182,9 +187,18 @@ app.get("/api/reviews/:id", async (req, res, next) => {
     const reviews = await prisma.review.findFirst({
       where: { id },
       include: {
+        user: {
+          select: {
+            username: true,
+          },
+        },
         comments: {
           include: {
-            user: true,
+            user: {
+              select: {
+                username: true,
+              },
+            },
           },
         },
       },

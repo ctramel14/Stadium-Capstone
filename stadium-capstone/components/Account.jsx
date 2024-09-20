@@ -7,8 +7,11 @@ export default function Account({ token, email, firstName, userId }) {
   const [username, setUsername] = useState("");
   const [editingReview, setEditingReview] = useState(null);
   const [editingComment, setEditingComment] = useState(null);
-  const [reviewContent, setReviewContent] = useState({ rating: '', comment: '' });
-  const [commentContent, setCommentContent] = useState('');
+  const [reviewContent, setReviewContent] = useState({
+    rating: "",
+    comment: "",
+  });
+  const [commentContent, setCommentContent] = useState("");
   const message = `Please log in to see your account details.`;
   const noStadium = `No stadiums visited yet`;
 
@@ -17,13 +20,16 @@ export default function Account({ token, email, firstName, userId }) {
 
     async function fetchUserData() {
       try {
-        const response = await fetch(`http://localhost:3000/api/users/${userId}`, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const response = await fetch(
+          `http://localhost:3000/api/users/${userId}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
         const result = await response.json();
 
         setVisited(result.visitedStadiums.map((v) => v.stadium));
@@ -40,13 +46,16 @@ export default function Account({ token, email, firstName, userId }) {
 
   async function deleteVisitedStadium(stadiumId) {
     try {
-      await fetch(`http://localhost:3000/api/user/${userId}/visitedstadium/${stadiumId}`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      await fetch(
+        `http://localhost:3000/api/user/${userId}/visitedstadium/${stadiumId}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       setVisited((prev) => prev.filter((stadium) => stadium.id !== stadiumId));
     } catch (error) {
       console.error(error);
@@ -86,21 +95,26 @@ export default function Account({ token, email, firstName, userId }) {
   async function editReview(e, reviewId) {
     e.preventDefault();
     try {
-      const response = await fetch(`http://localhost:3000/api/review/${reviewId}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          rating: reviewContent.rating,
-          comment: reviewContent.comment
-        }),
-      });
+      const response = await fetch(
+        `http://localhost:3000/api/review/${reviewId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            rating: reviewContent.rating,
+            comment: reviewContent.comment,
+          }),
+        }
+      );
       const updatedReview = await response.json();
-      setReviews((prev) => prev.map((review) => (review.id === reviewId ? updatedReview : review)));
+      setReviews((prev) =>
+        prev.map((review) => (review.id === reviewId ? updatedReview : review))
+      );
       setEditingReview(null);
-      setReviewContent({ rating: '', comment: '' });
+      setReviewContent({ rating: "", comment: "" });
     } catch (error) {
       console.error(error);
     }
@@ -109,18 +123,25 @@ export default function Account({ token, email, firstName, userId }) {
   async function editComment(e, commentId) {
     e.preventDefault();
     try {
-      const response = await fetch(`http://localhost:3000/api/comment/${commentId}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ content: commentContent }),
-      });
+      const response = await fetch(
+        `http://localhost:3000/api/comment/${commentId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ content: commentContent }),
+        }
+      );
       const updatedComment = await response.json();
-      setComments((prev) => prev.map((comment) => (comment.id === commentId ? updatedComment : comment)));
+      setComments((prev) =>
+        prev.map((comment) =>
+          comment.id === commentId ? updatedComment : comment
+        )
+      );
       setEditingComment(null);
-      setCommentContent('');
+      setCommentContent("");
     } catch (error) {
       console.error(error);
     }
@@ -146,18 +167,33 @@ export default function Account({ token, email, firstName, userId }) {
                       <input
                         type="number"
                         value={reviewContent.rating}
-                        onChange={(e) => setReviewContent({ ...reviewContent, rating: e.target.value })}
+                        onChange={(e) =>
+                          setReviewContent({
+                            ...reviewContent,
+                            rating: e.target.value,
+                          })
+                        }
                       />
                     </label>
                     <label>
                       Review:
                       <textarea
                         value={reviewContent.comment}
-                        onChange={(e) => setReviewContent({ ...reviewContent, comment: e.target.value })}
+                        onChange={(e) =>
+                          setReviewContent({
+                            ...reviewContent,
+                            comment: e.target.value,
+                          })
+                        }
                       />
                     </label>
                     <button type="submit">Save</button>
-                    <button type="button" onClick={() => setEditingReview(null)}>Cancel</button>
+                    <button
+                      type="button"
+                      onClick={() => setEditingReview(null)}
+                    >
+                      Cancel
+                    </button>
                   </form>
                 ) : (
                   <>
@@ -165,11 +201,20 @@ export default function Account({ token, email, firstName, userId }) {
                     <p>Rating: {review.rating}</p>
                     <p>Review: {review.comment}</p>
                     <p>Date: {new Date(review.date).toLocaleDateString()}</p>
-                    <button onClick={() => {
-                      setEditingReview(review.id);
-                      setReviewContent({ rating: review.rating, comment: review.comment });
-                    }}>Edit Review</button>
-                    <button onClick={() => deleteReview(review.id)}>Delete Review</button>
+                    <button
+                      onClick={() => {
+                        setEditingReview(review.id);
+                        setReviewContent({
+                          rating: review.rating,
+                          comment: review.comment,
+                        });
+                      }}
+                    >
+                      Edit Review
+                    </button>
+                    <button onClick={() => deleteReview(review.id)}>
+                      Delete Review
+                    </button>
                   </>
                 )}
               </div>
@@ -192,20 +237,29 @@ export default function Account({ token, email, firstName, userId }) {
                       />
                     </label>
                     <button type="submit">Save</button>
-                    <button type="button" onClick={() => setEditingComment(null)}>Cancel</button>
+                    <button
+                      type="button"
+                      onClick={() => setEditingComment(null)}
+                    >
+                      Cancel
+                    </button>
                   </form>
                 ) : (
                   <>
-                    <p>
-                      Stadium: {comment.review.stadium.name}
-                    </p>
+                    <p>Stadium: {comment.review.stadium.name}</p>
                     <p>Reply: {comment.content}</p>
                     <p>Date: {new Date(comment.date).toLocaleDateString()}</p>
-                    <button onClick={() => {
-                      setEditingComment(comment.id);
-                      setCommentContent(comment.content);
-                    }}>Edit Reply</button>
-                    <button onClick={() => deleteComment(comment.id)}>Delete Reply</button>
+                    <button
+                      onClick={() => {
+                        setEditingComment(comment.id);
+                        setCommentContent(comment.content);
+                      }}
+                    >
+                      Edit Reply
+                    </button>
+                    <button onClick={() => deleteComment(comment.id)}>
+                      Delete Reply
+                    </button>
                   </>
                 )}
               </div>
