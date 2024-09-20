@@ -59,6 +59,7 @@ model Review {
 
 model Comment {
   id       Int    @id @default(autoincrement())
+  date     DateTime 
   reviewId Int
   review   Review @relation(fields: [reviewId], references: [id])
   content  String

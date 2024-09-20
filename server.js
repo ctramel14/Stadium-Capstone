@@ -142,8 +142,20 @@ app.get("/api/users/:id", async (req, res, next) => {
             stadium: true,
           },
         },
-        reviews: true,
-        comments: true,
+        reviews: {
+          include: {
+            stadium: true, 
+          },
+        },
+        comments: {
+          include: {
+            review: {
+              include: {
+                stadium: true, 
+              },
+            },
+          },
+        },
       },
     });
     res.json(users);
@@ -382,6 +394,7 @@ app.post("/api/reviews/:id/comments", async (req, res, next) => {
         content: content,
         userId: userId,
         reviewId: id,
+        date: new Date(),
       },
     });
 
@@ -603,6 +616,7 @@ app.put("/api/comment/:id", async (req, res, next) => {
       },
       data: {
         content: content,
+        date: new Date(),
       },
     });
 
