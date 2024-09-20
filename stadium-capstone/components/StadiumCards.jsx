@@ -83,8 +83,13 @@ export default function StadiumCards({ stadiums, setStadiums }) {
           />
         </label>
       </div>
-      <h1>Will You Visit Every Stadium?</h1>
-      <h3>Select 'Explore' to see more information, or 'Visited' to add it to your visited list.</h3>
+      <header className="stadiums-page-header">
+        <h1>Will You Visit Every Stadium?</h1>
+        <h3>
+          Select 'Explore' to see more information, or 'Visited' to add it to
+          your visited list.
+        </h3>
+      </header>
       <div className="stadiums-grid-container">
         {stadiumsToDisplay.map((stadium) => (
           <div

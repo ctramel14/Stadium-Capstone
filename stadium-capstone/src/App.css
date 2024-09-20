@@ -19,3 +19,28 @@
   justify-content: space-around;
   font-size: 1.2em;
 }
+
+button {
+  border-radius: 16px;
+  border: 1px solid transparent;
+  padding: 0.6em 2em;
+  margin: 5px;
+  font-size: 17px;
+  font-weight: 500;
+  font-family: inherit;
+  letter-spacing: 1px;
+  background-color: #0051b6;
+  color: white;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+
+button:hover {
+  border-color: #646cff;
+  background-color: #009aff;
+}
+
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
