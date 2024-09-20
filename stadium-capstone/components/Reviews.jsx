@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
-export default function Reviews({ token, userId }) {
+export default function Reviews({ token, userId, username }) {
   const [review, setReview] = useState("");
   const [reply, setReply] = useState("");
+  const [comments, setComments] = useState([])
   const [replySuccess, setReplySuccess] = useState("");
+  const [user, setUser] = useState({})
   let { id } = useParams();
   let navigate = useNavigate();
 
@@ -39,9 +41,13 @@ export default function Reviews({ token, userId }) {
           }
         );
         const result = await response.json();
-        console.log(result.comment);
-        setReview(result.comment);
-        console.log(review);
+        console.log(result.comments);
+        setReview(result);
+        console.log(result.comments);
+        const commenter = result.comments;
+        // console.log(commenter[user]);
+        setUser(commenter.user)
+        setComments(result.comments);
       } catch (error) {
         console.error(error);
       }
@@ -77,7 +83,13 @@ export default function Reviews({ token, userId }) {
 
   return (
     <>
-      <h2>{review}</h2>
+      <h2>{review.comment} {review.rating}/10</h2>
+      <div className="comments">
+                  {comments.map((comment) => (
+                    <p key={comment.id}>{user}: {comment.content}</p>
+                  ))}
+                </div>
+                {replySuccess && <p>{username}: {replySuccess}</p>}
       {token ? (
         <form onSubmit={reviewComment}>
           <label>Reply</label>
@@ -93,7 +105,8 @@ export default function Reviews({ token, userId }) {
       ) : (
         <h6></h6>
       )}
-      {replySuccess && <button onClick={() => navigate(-1)}>Go back</button>}
+      <button onClick={() => navigate(-1)}>Go back</button>
+      
     </>
   );
 }

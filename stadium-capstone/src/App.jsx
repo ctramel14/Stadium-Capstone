@@ -34,7 +34,7 @@ function App() {
         />
         <Route
           path="/stadiums/:id"
-          element={<SingleCard token={token} userId={userId} />}
+          element={<SingleCard token={token} userId={userId} username={username} />}
         />
         <Route
           path="/users/login"
@@ -88,6 +88,7 @@ function App() {
         <Route path="/stadiums/reviews/:id" element={<Reviews 
         token={token}
         userId={userId}
+        username={username}
         />} />
         {/* <Route path="/users/logout" element={<LogOut setToken={setToken} />} /> */}
         {token && (
