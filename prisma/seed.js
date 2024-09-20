@@ -570,27 +570,55 @@ const createReviews = async () => {
 const createComments = async () => {
   try {
     const comments = [
-      { content: "Average stadium and food sucked", userId: 1, reviewId: 1 },
-      { content: "Great Stadium", userId: 2, reviewId: 2 },
-      { content: "Will be coming back", userId: 3, reviewId: 3 },
-      { content: "Seat was way too hard", userId: 1, reviewId: 4 },
-      {
-        content: "I thought I was going to a football game",
-        userId: 2,
+      { 
+        content: "Average stadium and food sucked", 
+        userId: 1, 
+        reviewId: 1,
+        date: new Date("2023-01-15") // Add the desired date here
+      },
+      { 
+        content: "Great Stadium", 
+        userId: 2, 
+        reviewId: 2,
+        date: new Date("2023-01-16")
+      },
+      { 
+        content: "Will be coming back", 
+        userId: 3, 
+        reviewId: 3,
+        date: new Date("2023-01-17")
+      },
+      { 
+        content: "Seat was way too hard", 
+        userId: 1, 
+        reviewId: 4,
+        date: new Date("2023-01-18")
+      },
+      { 
+        content: "I thought I was going to a football game", 
+        userId: 2, 
         reviewId: 5,
+        date: new Date("2023-01-19")
       },
-      {
-        content: "Hotdog was unreal, 10/10 reccommended",
-        userId: 3,
+      { 
+        content: "Hotdog was unreal, 10/10 recommended", 
+        userId: 3, 
         reviewId: 6,
+        date: new Date("2023-01-20")
       },
-      { content: "Go Padres!", userId: 1, reviewId: 1 },
+      { 
+        content: "Go Padres!", 
+        userId: 1, 
+        reviewId: 1,
+        date: new Date("2023-01-21")
+      },
     ];
     await prisma.comment.createMany({ data: comments });
   } catch (error) {
     console.error("Error creating comments:", error);
   }
 };
+
 // VISITED STADIUMS
 const createVisitedStadiums = async () => {
   try {
