@@ -73,6 +73,8 @@ model VisitedStadium {
   userId    Int
   user      User    @relation(fields: [userId], references: [id])
   stadium   Stadium @relation(fields: [stadiumId], references: [id])
+
+  @@unique([stadiumId, userId])
 }
 
 model Restaurant {
