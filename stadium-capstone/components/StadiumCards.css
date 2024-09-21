@@ -24,6 +24,7 @@
   margin: 16px;
   width: 320px;
   height: 320px;
+  cursor: pointer;
   font-family: "Roboto Condensed", sans-serif;
   color: white;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1);
@@ -50,7 +51,7 @@
   }
 }
 .stadium-card:hover {
-  transform: translateY(-10px); /* Move the card up slightly */
+  transform: translateY(-5px); /* Move the card up slightly */
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2), 0 12px 24px rgba(0, 0, 0, 0.2); /* Enhance shadow on hover */
 }
 .stadiums-page-header h1 {
@@ -78,6 +79,7 @@
 .stadium-card p {
   font-size: 1.8em;
   letter-spacing: 1.5px;
+  font-weight: 800;
 }
 .stadium-card-buttons {
   display: flex;

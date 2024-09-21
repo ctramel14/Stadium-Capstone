@@ -1,20 +1,30 @@
 /* Account Page */
 .account-page-wrapper {
-  /* display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center; */
-  padding: 20px;
-  background-color: #90b58a;
+  padding: 10px;
   color: white;
   font-family: "Roboto Condensed", sans-serif;
-  h1 {
+  h2 {
     font-size: 2.5em;
     margin-bottom: 0;
   }
-  h2 {
+  h3 {
     font-size: 1.5em;
     margin-top: 0;
+  }
+}
+body {
+  background-color: #90b58a;
+}
+.section-header {
+  font-size: 1.8em;
+  font-family: "Roboto Condensed", sans-serif;
+  color: #113311;
+  text-align: left;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  letter-spacing: 1px;
+  h3 {
+    margin: 0;
   }
 }
 .visited-grid-container {
@@ -22,8 +32,8 @@
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   grid-template-rows: auto;
   gap: 10px;
-  justify-content: center;
-  padding: 20px;
+  justify-items: center;
+  padding-bottom: 10px;
 }
 .visited-cards {
   display: flex;
@@ -33,9 +43,9 @@
   border: 2px solid #113311;
   border-radius: 16px;
   padding: 16px;
-  margin: 16px;
+  margin: 10px;
   width: 250px;
-  height: 250px;
+  height: 250px;;
   font-family: "Roboto Condensed", sans-serif;
   color: white;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1);
@@ -54,7 +64,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    opacity: 0.7;
+    opacity: 0.3;
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -63,17 +73,17 @@
 }
 .visited-cards h2 {
   margin-top: 0;
-  font-size: 1.5em;
+  font-size: 1.6em;
   letter-spacing: 2px;
-  /* cursor: pointer; */
   padding: 8px;
 }
 .visited-cards p {
   font-size: 1.2em;
   letter-spacing: 1.5px;
+  font-weight: 800;
 }
 .visited-cards:hover {
-  transform: translateY(-10px);
+  transform: translateY(-4px);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2), 0 12px 24px rgba(0, 0, 0, 0.2);
 }
 .visited-cards button {
@@ -81,7 +91,8 @@
   border: 1px solid transparent;
   padding: 0.6em 2em;
   margin: 5px;
-  font-size: 12px;
+  font-size: 14px;
+  width: fit-content;
   font-weight: 500;
   font-family: inherit;
   letter-spacing: 1px;
@@ -89,52 +100,91 @@
   color: white;
   cursor: pointer;
   transition: border-color 0.25s;
+  align-self: center;
 }
 .visited-cards button:hover {
   border-color: #646cff;
   background-color: #009aff;
 }
 .reviews-table {
-  display: flex;;
+  /* position: absolute; */
+  width: 100%;
+  padding: 10px;
+  table-layout: fixed;
+  border-spacing: 1rem;
+  text-align: left;
+  font-size: 1.3em;
+  background-color: #113311;
+  border-radius: 16px;
+  letter-spacing: 1.5px;
+}
+.table-headers {
+  font-size: 1.5em;
+  font-weight: bold;
+  text-align: left;
+}
+.comments-table {
+  width: 100%;
+  padding: 10px;
+  table-layout: fixed;
+  border-spacing: 1rem;
+  text-align: left;
+  font-size: 1.3em;
+  background-color: #113311;
+  border-radius: 16px;
+  letter-spacing: 1.5px;
+}
+.edit-form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.edit-form {
+  position: absolute;
+  z-index: 3;
+  padding: 20px;
+  border-radius: 16px;
+  /* top: 0;
+  left: 0; */
+  width: 380px;
+  height: 380px;
+  display: flex;
   flex-direction: column;
   justify-content: space-around;
-  font-size: 1.3em;
-  font-family: "Roboto Condensed", sans-serif;
-  color: white;
-  margin: 20px;
-  width: 100%;
+  align-items: left;
+  text-align: left;
+  background-color: #6d310a;
+  border: 1px solid #113311;
+  animation: pop-in 0.5s cubic-bezier(0.68, -0.55, 0.65, 0.52) forwards;
+  textarea {
+    width: 100%;
+    height: 100px;
+    margin-top: 10px;
+    border-radius: 8px;
+    font-size: 1em;
+    border: 1.5px solid #90b58a;
+    padding: 2px;
+  }
+  input {
+    width: 25%;
+    margin-top: 10px;
+    border-radius: 8px;
+    font-size: 1em;
+    border: 1.5px solid #90b58a;
+  }
+  h4 {
+    font-size: 1.2em;
+    margin: 0;
+    text-align: center;
+  }
+  p {
+    font-size: 1em;
+    margin: 0;
+  }
 }
-/* .reviews-table thead {
+.edit-form-buttons {
   display: flex;
-  flex-direction: row;
-  width: 100%;
-  justify-content: center;;
-  align-items: center;
-  font-size: 1.3em;
-} */
-.table-headers {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  font-size: 1.3em;
-  /* gap: 20px; */
-  width: 100%;
-}
-.table-body {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  font-size: 1.3em;
-  font-family: "Roboto Condensed", sans-serif;
-  color: white;
-  margin: 20px;
-  width: 100%;
-}
-.user-comment {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  font-size: 1.3em;
+  justify-content: space-around;;
 }
 
 
