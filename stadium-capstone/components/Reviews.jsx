@@ -90,7 +90,7 @@ export default function Reviews({ token, userId, username }) {
                   ))}
                 </div>
                 {replySuccess && <p>{username}: {replySuccess}</p>}
-      {token ? (
+      {token && !replySuccess ? (
         <form onSubmit={reviewComment}>
           <label>Reply</label>
           <input
@@ -105,7 +105,7 @@ export default function Reviews({ token, userId, username }) {
       ) : (
         <h6></h6>
       )}
-      <button onClick={() => navigate(-1)}>Go back</button>
+      <button onClick={() => navigate(-1)}>Back</button>
       
     </>
   );

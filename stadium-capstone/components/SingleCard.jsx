@@ -211,8 +211,8 @@ export default function SingleCard({ token, userId, username }) {
         ) : (
           <h6></h6>
         )}
+        <button onClick={() => navigate(-1)}>Back</button>
       </div>
-      <br />
     </>
   );
 }
