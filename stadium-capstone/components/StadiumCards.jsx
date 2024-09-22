@@ -72,22 +72,22 @@ export default function StadiumCards({ stadiums, setStadiums }) {
 
   return (
     <div className="bg-wrapper">
+      <header className="stadiums-page-header">
+        <h1>Will You Visit Every Ballpark?</h1>
+        <h3>
+          Select any ballpark for more information, or 'Visited' to add it to
+          your visited list.
       <div className="search">
         <label>
           <input
             id="searchfield"
             type="text"
             className="searchInput"
-            placeholder="Search by Team"
+            placeholder="Filter by Team..."
             onChange={(e) => setSearchParam(e.target.value.toLowerCase())}
           />
         </label>
       </div>
-      <header className="stadiums-page-header">
-        <h1>Will You Visit Every Ballpark?</h1>
-        <h3>
-          Select any ballpark for more information, or 'Visited' to add it to
-          your visited list.
         </h3>
       </header>
       <div className="stadiums-grid-container">

@@ -1,23 +1,27 @@
-.opener {
+
+
+.navbar-items {
   display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  min-height: 80vh;
-  width: auto;
-  text-align: center;
-  padding: 20px;
+  flex-direction: row;
+  width: 100%;
+  padding: 10px 20px;
   color: white;
+  gap: 40px;
+  font-size: 1.4em;
+  letter-spacing: 1.3px;
+  font-weight: 600;
+  font-family: 'Roboto', sans-serif;
+  padding: 0;
+  margin-top: 20px;
+  margin-left: 10px;
+  a {
+    color: #113311;
+    text-decoration: none;
+    transition: color 0.25s;
+  }
 }
-
-.openerBackground {
-  background-color: #b69747 ;
-}
-
-#navbar {
-  display: flex;
-  justify-content: space-around;
-  font-size: 1.2em;
+.navbar-items a:hover {
+  color: #0051b6;
 }
 
 button {

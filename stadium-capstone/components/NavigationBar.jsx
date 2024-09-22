@@ -5,16 +5,16 @@ export default function NavigationBar({ token }) {
   
   
   return (
-    <nav className="navbar" style={{ display: "flex", gap: "8px" }}>
+    <nav className="navbar-container">
       {token ? (
-        <div>
+        <div className="navbar-items">
           <Link to="/">Stadiums</Link>
           <Link to="/users/logout">LogOut</Link>
           <Link to="/users/me">Account</Link>
           <Link to="/contactform" >Contact Us</Link>
         </div>
       ) : (
-        <div>
+        <div className="navbar-items">
           <Link to="/">Stadiums</Link>
           <Link to="/users/login">Login</Link>
           <Link to="/users/register">Register</Link>
