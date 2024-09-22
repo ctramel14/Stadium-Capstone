@@ -115,6 +115,7 @@ body {
   text-align: left;
   font-size: 1.3em;
   background-color: #113311;
+  opacity: 0.9;
   border-radius: 16px;
   letter-spacing: 1.5px;
 }
@@ -131,6 +132,7 @@ body {
   text-align: left;
   font-size: 1.3em;
   background-color: #113311;
+  opacity: 0.9;
   border-radius: 16px;
   letter-spacing: 1.5px;
 }
