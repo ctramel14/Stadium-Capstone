@@ -1,5 +1,38 @@
 import { useState, useEffect } from "react";
 
+const stadiumColors = {
+  1: "rgb(156,41,59)",
+  2: "rgb(27,57,99)",
+  3: "rgb(233,124,77)",
+  4: "rgb(189,48,57)",
+  5: "rgb(40,67,138)",
+  6: "rgb(0,0,0)",
+  7: "rgb(195,56,55)",
+  8: "rgb(33,53,77)",
+  9: "rgb(65,22,122)",
+  10: "rgb(22,46,81)",
+  11: "rgb(227,131,72)",
+  12: "rgb(41,86,147)",
+  13: "rgb(184,53,57)",
+  14: "rgb(49,105,163)",
+  15: "rgb(80,171,223)",
+  16: "rgb(33,53,88)",
+  17: "rgb(28,59,103)",
+  18: "rgb(236,101,48)",
+  19: "rgb(40,54,87)",
+  20: "rgb(41,130,75)",
+  21: "rgb(216,70,67)",
+  22: "rgb(249,204,92)",
+  23: "rgb(63,54,48)",
+  24: "rgb(240,135,64)",
+  25: "rgb(50,107,108)",
+  26: "rgb(206,65,89)",
+  27: "rgb(36,62,105)",
+  28: "rgb(31,64,131)",
+  29: "rgb(51,90,150)",
+  30: "rgb(172,50,38)",
+};
+
 export default function Account({ token, email, firstName, userId }) {
   const [visited, setVisited] = useState([]);
   const [reviews, setReviews] = useState([]);
@@ -14,8 +47,6 @@ export default function Account({ token, email, firstName, userId }) {
   const [commentContent, setCommentContent] = useState("");
   const message = `Please log in to see your account details.`;
   const noStadium = `No stadiums visited yet`;
-
-
 
   useEffect(() => {
     if (!token || !userId) return;
@@ -155,14 +186,21 @@ export default function Account({ token, email, firstName, userId }) {
         <h3 className="message">{message}</h3>
       ) : (
         <div className="account-page-wrapper">
-          <h2>Welcome, {firstName}!</h2>
-          <h3>Username: {username}</h3>
-
-          <h4>Your Visited Stadiums:</h4>
+          <header className="section-header">
+            <h3>Welcome, {firstName}!</h3>
+            {/* <h3>Username: {username}</h3> */}
+          </header>
+          <header className="section-header">
+            <h3>Your Visited Stadiums</h3>
+          </header>
           {visited.length > 0 ? (
             <div className="visited-grid-container">
               {visited.map((stadium) => (
-                <div key={stadium.id} className="visited-cards">
+                <div
+                  key={stadium.id}
+                  className="visited-cards"
+                  style={{ backgroundColor: stadiumColors[stadium.id] }}
+                >
                   <img src={stadium.imageOutsideURL} alt={stadium.name} />
                   <strong>
                     <h2>{stadium.name}</h2>
@@ -177,13 +215,15 @@ export default function Account({ token, email, firstName, userId }) {
           ) : (
             <p>{noStadium}</p>
           )}
-
-          <h4>Your Reviews:</h4>
+          <header className="section-header">
+            <h3>Your Reviews</h3>
+          </header>
           {reviews.length > 0 ? (
             <table className="reviews-table">
               <thead>
                 <tr className="table-headers">
                   <th>Stadium</th>
+                  <th>Team</th>
                   <th>Rating</th>
                   <th>Review</th>
                   <th>Date</th>
@@ -191,120 +231,160 @@ export default function Account({ token, email, firstName, userId }) {
                 </tr>
               </thead>
               <tbody className="table-body">
-            {reviews.map((review) => (
-              <tr key={review.id}>
-              {/* <div key={review.id} className="user-review"> */}
-                {editingReview === review.id ? (
-                  <td colSpan="5">
-                  <form onSubmit={(e) => editReview(e, review.id)}>
-                    <label>
-                      Rating:
-                      <input
-                        type="number"
-                        value={reviewContent.rating}
-                        onChange={(e) =>
-                          setReviewContent({
-                            ...reviewContent,
-                            rating: e.target.value,
-                          })
-                        }
-                      />
-                    </label>
-                    <label>
-                      Review:
-                      <textarea
-                        value={reviewContent.comment}
-                        onChange={(e) =>
-                          setReviewContent({
-                            ...reviewContent,
-                            comment: e.target.value,
-                          })
-                        }
-                      />
-                    </label>
-                    <button type="submit">Save</button>
-                    <button
-                      type="button"
-                      onClick={() => setEditingReview(null)}
-                    >
-                      Cancel
-                    </button>
-                  </form>
-                  </td>
-                ) : (
-                  <>
-                    <td><p>Stadium: {review.stadium.name}</p></td>
-                    <td><p>Rating: {review.rating}</p></td>
-                    <td><p>Review: {review.comment}</p></td>
-                    <td><p>Date: {new Date(review.date).toLocaleDateString()}</p></td>
-                    <td>
-                    <button
-                      onClick={() => {
-                        setEditingReview(review.id);
-                        setReviewContent({
-                          rating: review.rating,
-                          comment: review.comment,
-                        });
-                      }}
-                    >
-                      Edit Review
-                    </button>
-                    <button onClick={() => deleteReview(review.id)}>
-                      Delete Review
-                    </button>
-                    </td>
-                  </>
-                  )}
+                {reviews.map((review) => (
+                  <tr key={review.id}>
+                    {/* <div key={review.id} className="user-review"> */}
+                    {editingReview === review.id ? (
+                      <td colSpan="6">
+                        <section className="edit-form-container">
+                          <form
+                            onSubmit={(e) => editReview(e, review.id)}
+                            className="edit-form"
+                          >
+                            <h4>Edit Review</h4>
+                            <p>Stadium: {review.stadium.name}</p>
+                            <label>
+                              Rating:
+                              <br />
+                              <input
+                                type="number"
+                                value={reviewContent.rating}
+                                max={10}
+                                min={0}
+                                onChange={(e) =>
+                                  setReviewContent({
+                                    ...reviewContent,
+                                    rating: e.target.value,
+                                  })
+                                }
+                              />
+                            </label>
+                            <label>
+                              Review:
+                              <textarea
+                                value={reviewContent.comment}
+                                onChange={(e) =>
+                                  setReviewContent({
+                                    ...reviewContent,
+                                    comment: e.target.value,
+                                  })
+                                }
+                              />
+                            </label>
+                            <div className="edit-form-buttons">
+                              <button type="submit">Save</button>
+                              <button
+                                type="button"
+                                onClick={() => setEditingReview(null)}
+                              >
+                                Cancel
+                              </button>
+                            </div>
+                          </form>
+                        </section>
+                      </td>
+                    ) : (
+                      <>
+                        <td>{review.stadium.name}</td>
+                        <td>{review.stadium.teamName}</td>
+                        <td>{review.rating} / 10</td>
+                        <td>{review.comment}</td>
+                        <td>{new Date(review.date).toLocaleDateString()}</td>
+                        <td>
+                          <button
+                            onClick={() => {
+                              setEditingReview(review.id);
+                              setReviewContent({
+                                rating: review.rating,
+                                comment: review.comment,
+                              });
+                            }}
+                          >
+                            Edit
+                          </button>
+                          <button onClick={() => deleteReview(review.id)}>
+                            Delete
+                          </button>
+                        </td>
+                      </>
+                    )}
                   </tr>
                 ))}
               </tbody>
             </table>
-            
           ) : (
             <p>No reviews written yet.</p>
           )}
-
-          <h4>Your Replies:</h4>
+          <header className="section-header">
+            <h3>Your Replies</h3>
+          </header>
           {comments.length > 0 ? (
-            comments.map((comment) => (
-              <div key={comment.id} className="user-comment">
-                {editingComment === comment.id ? (
-                  <form onSubmit={(e) => editComment(e, comment.id)}>
-                    <label>
-                      Reply:
-                      <textarea
-                        value={commentContent}
-                        onChange={(e) => setCommentContent(e.target.value)}
-                      />
-                    </label>
-                    <button type="submit">Save</button>
-                    <button
-                      type="button"
-                      onClick={() => setEditingComment(null)}
-                    >
-                      Cancel
-                    </button>
-                  </form>
-                ) : (
-                  <>
-                    <p>Stadium: {comment.review.stadium.name}</p>
-                    <p>Reply: {comment.content}</p>
-                    <p>Date: {new Date(comment.date).toLocaleDateString()}</p>
-                    <button
-                      onClick={() => {
-                        setEditingComment(comment.id);
-                        setCommentContent(comment.content);
-                      }}
-                    >
-                      Edit Reply
-                    </button>
-                    <button onClick={() => deleteComment(comment.id)}>
-                      Delete Reply
-                    </button>
-                  </>
-                )}
-              </div>
-            ))
+            <table className="comments-table">
+              <thead>
+                <tr className="table-headers">
+                  <th>Stadium</th>
+                  <th>Reply</th>
+                  <th>Date</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody className="table-body">
+                {comments.map((comment) => (
+                  <tr key={comment.id}>
+                    {/* <div key={comment.id} className="user-comment"> */}
+                    {editingComment === comment.id ? (
+                      <td colSpan="4">
+                        <section className="edit-form-container">
+                          <form
+                            onSubmit={(e) => editComment(e, comment.id)}
+                            className="edit-form"
+                          >
+                            <h4>Edit Reply</h4>
+                            <label>
+                              Reply:
+                              <textarea
+                                value={commentContent}
+                                onChange={(e) =>
+                                  setCommentContent(e.target.value)
+                                }
+                              />
+                            </label>
+                            <div className="edit-form-buttons">
+                              <button type="submit">Save</button>
+                              <button
+                                type="button"
+                                onClick={() => setEditingComment(null)}
+                              >
+                                Cancel
+                              </button>
+                            </div>
+                          </form>
+                        </section>
+                      </td>
+                    ) : (
+                      <>
+                        <td>{comment.review.stadium.name}</td>
+                        <td>{comment.content}</td>
+                        <td>{new Date(comment.date).toLocaleDateString()}</td>
+                        <td>
+                          <button
+                            onClick={() => {
+                              setEditingComment(comment.id);
+                              setCommentContent(comment.content);
+                            }}
+                          >
+                            Edit
+                          </button>
+                          <button onClick={() => deleteComment(comment.id)}>
+                            Delete
+                          </button>
+                        </td>
+                      </>
+                    )}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           ) : (
             <p>No replies written yet.</p>
           )}

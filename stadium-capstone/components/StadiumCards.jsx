@@ -84,9 +84,9 @@ export default function StadiumCards({ stadiums, setStadiums }) {
         </label>
       </div>
       <header className="stadiums-page-header">
-        <h1>Will You Visit Every Stadium?</h1>
+        <h1>Will You Visit Every Ballpark?</h1>
         <h3>
-          Select 'Explore' to see more information, or 'Visited' to add it to
+          Select any ballpark for more information, or 'Visited' to add it to
           your visited list.
         </h3>
       </header>
@@ -96,6 +96,7 @@ export default function StadiumCards({ stadiums, setStadiums }) {
             className="stadium-card"
             key={stadium.id}
             style={{ backgroundColor: stadiumColors[stadium.id] }}
+            onClick={() => navigate(`/stadiums/${stadium.id}/`)}
           >
             <img
               src={stadium.imageOutsideURL}
@@ -106,9 +107,6 @@ export default function StadiumCards({ stadiums, setStadiums }) {
             </strong>
             <p>{stadium.teamName}</p>
             <div className="stadium-card-buttons">
-              <button onClick={() => navigate(`/stadiums/${stadium.id}/`)}>
-                Explore
-              </button>
               <button>Visited</button>
             </div>
           </div>
