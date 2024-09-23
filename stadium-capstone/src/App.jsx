@@ -29,12 +29,19 @@ function App() {
         <Route
           path="/"
           element={
-            <StadiumCards stadiums={stadiums} setStadiums={setStadiums} />
+            <StadiumCards
+              stadiums={stadiums}
+              setStadiums={setStadiums}
+              token={token}
+              userId={userId}
+            />
           }
         />
         <Route
           path="/stadiums/:id"
-          element={<SingleCard token={token} userId={userId} username={username} />}
+          element={
+            <SingleCard token={token} userId={userId} username={username} />
+          }
         />
         <Route
           path="/users/login"
@@ -85,11 +92,12 @@ function App() {
           }
         />
         <Route path="/contactform" element={<ContactForm />} />
-        <Route path="/stadiums/reviews/:id" element={<Reviews 
-        token={token}
-        userId={userId}
-        username={username}
-        />} />
+        <Route
+          path="/stadiums/reviews/:id"
+          element={
+            <Reviews token={token} userId={userId} username={username} />
+          }
+        />
         {/* <Route path="/users/logout" element={<LogOut setToken={setToken} />} /> */}
         {token && (
           <Route
