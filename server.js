@@ -302,7 +302,7 @@ app.post("/register", async (req, res, next) => {
       expiresIn: "1h",
     });
     console.log(token);
-    res.status(201).json(newUser);
+    res.status(201).json({token, newUser});
   } catch (err) {
     next(err);
   }
