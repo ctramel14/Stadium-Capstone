@@ -1,5 +1,7 @@
 
-
+.navbar-container {
+  position: static;
+}
 .navbar-items {
   display: flex;
   flex-direction: row;

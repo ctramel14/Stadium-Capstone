@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import "./SingleCard.css";
 
 export default function SingleCard({ token, userId, username }) {
   const [stadium, setStadium] = useState({});
@@ -139,21 +140,45 @@ export default function SingleCard({ token, userId, username }) {
   }
   return (
     <>
-      <div className="single">
-        <div className="stadiuminfo">
-          <h4>{stadium.name}</h4>
-          <h5>{stadium.teamname}</h5>
-          <h6>{stadium.state}</h6>
-          <img src={stadium.imageInsideURL} className="singlestadium" /> <br />
-        </div>
-        {token ? (
-          <button className="visited" onClick={() => visited(stadium.id)}>
+      <div className="singleStadium-card-grid">
+        <div className="stadiumDetails">
+          <h2>{stadium.name}</h2>
+          <p>- Opened in {stadium.openYear} -</p>
+          <p>- Capacity: {stadium.capacity} -</p>
+          <p>- Team: {stadium.teamName} -</p>
+          <p>- Division: {stadium.division} -</p>
+          <p>Address: {stadium.address}, {stadium.city}, {stadium.state}, {stadium.zipCode}  </p>
+          {token ? (
+          <div className="visited-button">
+          <button onClick={() => visited(stadium.id)}>
             Select as Visited
           </button>
+          <button>Write a Review</button>
+          </div>
         ) : (
           <h4></h4>
         )}
+        </div>
+        <div className="singleStadium-card-image">
+          <img src={stadium.imageInsideURL} className="insideStadium-image" /> <br />
+        </div>
         {success && <h4>{success}</h4>}
+        <div className="restaurantsNearby">
+          Restaurants near the stadium
+          <ul>
+            <li>Restautant 1</li>
+            <li>Restaurant 2</li>
+            <li>Restaurant 3</li>
+          </ul>
+        </div>
+        <div className="hotelsNearby">
+          Hotels
+          <ul>
+            <li>Hotel 1</li>
+            <li>Hotel 2</li>
+            <li>Hotel 3</li>
+          </ul>
+        </div>
 
         <div className="reviews">
           {Array.isArray(reviews) && reviews.length > 0 ? (
@@ -164,7 +189,7 @@ export default function SingleCard({ token, userId, username }) {
                     <p key={index}>Review by: {review.user[key]}</p>
                   ))}
                   <p>Rating: {review.rating}/10</p>
-                  <p>{review.comment}</p>
+                  <p>"{review.comment}"</p>
                 </div>
                 <button
                   onClick={() => navigate(`/stadiums/reviews/${review.id}`)}
@@ -187,6 +212,7 @@ export default function SingleCard({ token, userId, username }) {
         ) : (
           <h6></h6>
         )}
+        <div className="reviewForm">
         {token && !reviewSuccess ? (
           <form onSubmit={sendReview}>
             <label>Rating</label>
@@ -211,6 +237,7 @@ export default function SingleCard({ token, userId, username }) {
         ) : (
           <h6></h6>
         )}
+        </div>
       </div>
       <br />
     </>
