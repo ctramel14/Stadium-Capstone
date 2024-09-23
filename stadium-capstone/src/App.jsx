@@ -10,6 +10,7 @@ import ContactForm from "../components/ContactForm";
 import Account from "../components/Account";
 import LogOut from "../components/LogOut";
 import Reviews from "../components/Reviews";
+import LoginModal from "../components/LoginModal";
 
 //setting state here to make passing props between components easier
 function App() {
@@ -21,10 +22,16 @@ function App() {
   const [lastName, setLastName] = useState("");
   const [username, setUsername] = useState("");
   const [userId, setUserId] = useState("");
+  const [loginSeen, setLoginSeen] = useState(false);
+
+  function toggleLogin() {    
+    setLoginSeen(!loginSeen);
+  }
 
   return (
     <>
-      <NavigationBar token={token} />
+      <NavigationBar token={token} toggleLogin={toggleLogin} />
+      {loginSeen ? <LoginModal toggle={toggleLogin} /> : null}
       <Routes>
         <Route
           path="/"
@@ -107,6 +114,7 @@ function App() {
         )}
       </Routes>
       {!token && <h4>Register or Log-in for full functionality!</h4>}
+      
     </>
   );
 }
