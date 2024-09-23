@@ -4,9 +4,9 @@ import { useParams, useNavigate } from "react-router-dom";
 export default function Reviews({ token, userId, username }) {
   const [review, setReview] = useState("");
   const [reply, setReply] = useState("");
-  const [comments, setComments] = useState([])
+  const [comments, setComments] = useState([]);
   const [replySuccess, setReplySuccess] = useState("");
-  const [user, setUser] = useState({})
+  const [user, setUser] = useState({});
   let { id } = useParams();
   let navigate = useNavigate();
 
@@ -43,10 +43,15 @@ export default function Reviews({ token, userId, username }) {
         const result = await response.json();
         console.log(result.comments);
         setReview(result);
-        console.log(result.comments);
-        const commenter = result.comments;
-        // console.log(commenter[user]);
-        setUser(commenter.user)
+        // const commenter = result.comments.map((a) => a.userId);
+        // const iterator = commenter.map((a) => a.username);
+        // console.log(commenter);
+        // for (const value of commenter) {
+        //   console.log(value);
+        //   let elements = document.getElementById(value);
+        //   elements.textContent = 'comment';
+        // }
+        setUser(result.userId);
         setComments(result.comments);
       } catch (error) {
         console.error(error);
@@ -83,13 +88,21 @@ export default function Reviews({ token, userId, username }) {
 
   return (
     <>
-      <h2>{review.comment} {review.rating}/10</h2>
+      <h2>
+        {review.comment} {review.rating}/10
+      </h2>
       <div className="comments">
-                  {comments.map((comment) => (
-                    <p key={comment.id}>{user}: {comment.content}</p>
-                  ))}
-                </div>
-                {replySuccess && <p>{username}: {replySuccess}</p>}
+        {comments.map((comment) => (
+          <p key={comment.id} id={comment.userId}>
+            {comment.userId}: {comment.content}
+          </p>
+        ))}
+      </div>
+      {replySuccess && (
+        <p>
+          {username}: {replySuccess}
+        </p>
+      )}
       {token && !replySuccess ? (
         <form onSubmit={reviewComment}>
           <label>Reply</label>
@@ -106,7 +119,6 @@ export default function Reviews({ token, userId, username }) {
         <h6></h6>
       )}
       <button onClick={() => navigate(-1)}>Back</button>
-      
     </>
   );
 }
