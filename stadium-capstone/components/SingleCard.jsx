@@ -177,6 +177,16 @@ export default function SingleCard({ token, userId, username }) {
       console.error(error);
     }
   }
+  function numberWithCommas(x) {
+    if (typeof x !== "number") {
+      return;
+    }
+    x = x.toString();
+    var pattern = /(-?\d+)(\d{3})/;
+    while (pattern.test(x))
+        x = x.replace(pattern, "$1,$2");
+    return x;
+}
   return (
     <>
       <div className="stadium-info-page">
@@ -188,7 +198,7 @@ export default function SingleCard({ token, userId, username }) {
           </div>
           <div className="stadium-facts">
             <p>Opened in {stadium.openYear}</p>|
-            <p>Capacity: {stadium.capacity}</p>|
+            <p>Capacity: {numberWithCommas(stadium.capacity)}</p>|
             <p>Division: {stadium.division}</p>|
             <p>
               Address: {stadium.address}, {stadium.city}, {stadium.state},{" "}
