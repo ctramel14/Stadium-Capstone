@@ -90,16 +90,14 @@ export default function Reviews({ token, userId, username }) {
       </h2>
       <div className="comments">
         {comments.map((comment) => (
-          <p key={comment.id} id={comment.userId}>
-            {
-            commenters
-            }: {comment.content}
-          </p>
+          <div key={comment.id}>
+            <strong>{comment.user.username}</strong>: {comment.content}
+          </div>
         ))}
       </div>
       {replySuccess && (
         <p>
-          {username}: {replySuccess}
+          <strong>{username}</strong>: {replySuccess}
         </p>
       )}
       {token && !replySuccess ? (
