@@ -1,9 +1,8 @@
-// import { URL } from "../API";
+import "./LoginModal.css";
 import { useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
-import "./Login.css";
 
-export default function Login({
+const LoginModal = ({
+  toggleLogin,
   setToken,
   username,
   setUsername,
@@ -12,13 +11,12 @@ export default function Login({
   setFirstName,
   userId,
   setUserId,
-}) {
-  const navigate = useNavigate();
-
+  setLoginSeen,
+  loginSeen,
+}) => {
   async function handleSubmit(e) {
     e.preventDefault();
-
-    console.log(userId);
+    setLoginSeen(!loginSeen);
 
     try {
       const result = await fetch(`http://localhost:3000/login`, {
@@ -45,9 +43,9 @@ export default function Login({
 
   return (
     <>
-      <form id="login" onSubmit={handleSubmit}>
-        <h2>Log-in</h2>
-        <label>
+      <form className="form" onSubmit={handleSubmit}>
+        <p className="form-title">Sign in to your account</p>
+        <div className="input-container">
           <input
             id="username-input"
             minLength="2"
@@ -56,8 +54,17 @@ export default function Login({
             required
             onChange={(e) => setUsername(e.target.value)}
           />
-        </label>
-        <label>
+          <span>
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"></path>
+            </svg>
+          </span>
+        </div>
+        <div className="input-container">
           <input
             id="password-input"
             minLength="6"
@@ -66,12 +73,27 @@ export default function Login({
             required
             onChange={(e) => setPassword(e.target.value)}
           />
-        </label>
+
+          <span>
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+              <path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+            </svg>
+          </span>
+        </div>
         <button className="submit" type="submit">
-          Login
+          Sign in
         </button>
+
+        <p className="signup-link">
+          No account?
+          <Link to="/users/register">Register</Link>
+        </p>
       </form>
     </>
   );
-}
+};
+
+export default LoginModal;
+
 
