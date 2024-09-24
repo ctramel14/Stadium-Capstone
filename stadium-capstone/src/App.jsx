@@ -24,14 +24,30 @@ function App() {
   const [userId, setUserId] = useState("");
   const [loginSeen, setLoginSeen] = useState(false);
 
-  function toggleLogin() {    
-    setLoginSeen(!loginSeen);
-  }
-
   return (
     <>
-      <NavigationBar token={token} toggleLogin={toggleLogin} />
-      {loginSeen ? <LoginModal toggle={toggleLogin} /> : null}
+      <NavigationBar
+        token={token}
+        loginSeen={loginSeen}
+        setLoginSeen={setLoginSeen}
+      />
+      {loginSeen ? (
+        <LoginModal
+          onClick={() => setLoginSeen(!loginSeen)}
+          setToken={setToken}
+          token={token}
+          username={username}
+          setUsername={setUsername}
+          password={password}
+          setPassword={setPassword}
+          firstName={firstName}
+          setFirstName={setFirstName}
+          userId={userId}
+          setUserId={setUserId}
+          setLoginSeen={setLoginSeen}
+          loginSeen={loginSeen}
+        />
+      ) : null}
       <Routes>
         <Route
           path="/"
@@ -114,7 +130,6 @@ function App() {
         )}
       </Routes>
       {!token && <h4>Register or Log-in for full functionality!</h4>}
-      
     </>
   );
 }
