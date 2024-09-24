@@ -14,13 +14,15 @@
 }
 body {
   background-color: whitesmoke;
+  margin: 0;
+  padding-top: 30px;
 }
 .section-header {
   font-size: 1.8em;
   font-family: "Roboto Condensed", sans-serif;
   color: #113311;
   text-align: left;
-  margin-top: 20px;
+  margin-top: 30px;
   margin-bottom: 20px;
   letter-spacing: 1px;
   h3 {
@@ -125,6 +127,7 @@ body {
   text-align: left;
 }
 .comments-table {
+  /* position: relative; */
   width: 100%;
   padding: 10px;
   table-layout: fixed;
@@ -135,6 +138,7 @@ body {
   opacity: 0.9;
   border-radius: 16px;
   letter-spacing: 1.5px;
+  z-index: -1000;
 }
 .edit-form-container {
   display: flex;
@@ -142,8 +146,8 @@ body {
   align-items: center;
 }
 .edit-form {
-  position: absolute;
-  z-index: 3;
+  /* position: absolute; */
+  z-index: 1000;
   padding: 20px;
   border-radius: 16px;
   /* top: 0;
@@ -154,8 +158,9 @@ body {
   flex-direction: column;
   justify-content: space-around;
   align-items: left;
+  /* opacity: 1; */
   text-align: left;
-  background-color: #6d310a;
+  background-color: #8d620f;
   border: 1px solid #113311;
   animation: pop-in 0.5s cubic-bezier(0.68, -0.55, 0.65, 0.52) forwards;
   textarea {
@@ -186,7 +191,7 @@ body {
 }
 .edit-form-buttons {
   display: flex;
-  justify-content: space-around;;
+  justify-content: space-around;
 }
 
 

@@ -1,5 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useLayoutEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+
 import "./SingleCard.css";
 
 export default function SingleCard({ token, userId, username }) {
@@ -9,8 +10,47 @@ export default function SingleCard({ token, userId, username }) {
   const [rating, setRating] = useState("");
   const [comment, setComment] = useState("");
   const [reviewSuccess, setReviewSuccess] = useState(null);
+  const [reviewId, setReviewId] = useState([])
   let { id } = useParams();
   const navigate = useNavigate();
+
+  const stadiumColors = {
+    1: "rgb(156,41,59)",
+    2: "rgb(27,57,99)",
+    3: "rgb(233,124,77)",
+    4: "rgb(189,48,57)",
+    5: "rgb(40,67,138)",
+    6: "rgb(0,0,0)",
+    7: "rgb(195,56,55)",
+    8: "rgb(33,53,77)",
+    9: "rgb(65,22,122)",
+    10: "rgb(22,46,81)",
+    11: "rgb(227,131,72)",
+    12: "rgb(41,86,147)",
+    13: "rgb(184,53,57)",
+    14: "rgb(49,105,163)",
+    15: "rgb(80,171,223)",
+    16: "rgb(33,53,88)",
+    17: "rgb(28,59,103)",
+    18: "rgb(236,101,48)",
+    19: "rgb(40,54,87)",
+    20: "rgb(41,130,75)",
+    21: "rgb(216,70,67)",
+    22: "rgb(249,204,92)",
+    23: "rgb(63,54,48)",
+    24: "rgb(240,135,64)",
+    25: "rgb(50,107,108)",
+    26: "rgb(206,65,89)",
+    27: "rgb(36,62,105)",
+    28: "rgb(31,64,131)",
+    29: "rgb(51,90,150)",
+    30: "rgb(172,50,38)",
+  };
+
+  useLayoutEffect(() => {
+    document.documentElement.scrollTo({ top:0, left:0, behavior: "instant" });
+    console.log("Effect has been run");
+}, []);
 
   useEffect(() => {
     async function getToken() {
@@ -45,6 +85,7 @@ export default function SingleCard({ token, userId, username }) {
           }
         );
         const result = await response.json();
+        setReviewId(result.reviews.map((review) => review.userId))
 
         if (Array.isArray(result.reviews)) {
           const reviewIds = result.reviews.map((review) => review.id);
@@ -97,7 +138,7 @@ export default function SingleCard({ token, userId, username }) {
         }
       );
       console.log(userId, id, stadium.name);
-      setSuccess(`Visited ${stadium.name}!`);
+      setSuccess(`Added ${stadium.name} to your visited stadiums!`);
     } catch (error) {
       console.error(error);
     }
@@ -130,41 +171,64 @@ export default function SingleCard({ token, userId, username }) {
         }
       );
       const result = await response.json();
-      console.log(idInt, userId, rating, username);
-      console.log(result);
+    
+      // console.log(idInt, userId, rating, username);
+      // console.log(result);
       setReviewSuccess(true);
       console.log(reviewSuccess);
     } catch (error) {
       console.error(error);
     }
   }
+  function numberWithCommas(x) {
+    if (typeof x !== "number") {
+      return;
+    }
+    x = x.toString();
+    var pattern = /(-?\d+)(\d{3})/;
+    while (pattern.test(x))
+        x = x.replace(pattern, "$1,$2");
+    return x;
+}
   return (
     <>
-      <div className="singleStadium-card-grid">
+      <div className="stadium-info-page">
         <div className="stadiumDetails">
           <h2>{stadium.name}</h2>
-          <p>- Opened in {stadium.openYear} -</p>
-          <p>- Capacity: {stadium.capacity} -</p>
-          <p>- Team: {stadium.teamName} -</p>
-          <p>- Division: {stadium.division} -</p>
-          <p>Address: {stadium.address}, {stadium.city}, {stadium.state}, {stadium.zipCode}  </p>
-          {token ? (
-          <div className="visited-button">
-          <button onClick={() => visited(stadium.id)}>
-            Select as Visited
-          </button>
-          <button>Write a Review</button>
+          <h3>{stadium.teamName}</h3>
+          <div className="singleStadium-card-image" style={{ backgroundColor: stadiumColors[stadium.id] }}>
+            <img src={stadium.imageInsideURL} className="insideStadium-image" />
           </div>
-        ) : (
-          <h4></h4>
+          <div className="stadium-facts">
+            <p>Opened in {stadium.openYear}</p>|
+            <p>Capacity: {numberWithCommas(stadium.capacity)}</p>|
+            <p>Division: {stadium.division}</p>|
+            <p>
+              Address: {stadium.address}, {stadium.city}, {stadium.state},{" "}
+              {stadium.zipCode}{" "}
+            </p>
+          </div>
+          {token ? (
+            <div className="single-page-buttons">
+              <button onClick={() => visited(stadium.id)}>
+                Select as Visited
+              </button>
+              <button>Write a Review</button>
+            </div>
+          ) : (
+            <h4></h4>
+          )}
+        </div>
+        {success && (
+          <div className="visited-success-message">
+            <h4>{success}</h4>
+            <div id="successButton">
+              <button onClick={() => setSuccess("")}>Clear</button>
+            </div>
+          </div>
         )}
-        </div>
-        <div className="singleStadium-card-image">
-          <img src={stadium.imageInsideURL} className="insideStadium-image" /> <br />
-        </div>
-        {success && <h4>{success}</h4>}
         <div className="restaurantsNearby">
-          Restaurants near the stadium
+          <h4>Restaurants near the stadium</h4>
           <ul>
             <li>Restautant 1</li>
             <li>Restaurant 2</li>
@@ -172,7 +236,7 @@ export default function SingleCard({ token, userId, username }) {
           </ul>
         </div>
         <div className="hotelsNearby">
-          Hotels
+          <h4>Hotels</h4>
           <ul>
             <li>Hotel 1</li>
             <li>Hotel 2</li>
@@ -204,7 +268,7 @@ export default function SingleCard({ token, userId, username }) {
           )}
         </div>
         {reviewSuccess ? (
-          <div>
+          <div className="individualReviews">
             <p>Review by {username}</p>
             <p>Rating: {rating}/10</p>
             <p>{comment}</p>
@@ -213,33 +277,34 @@ export default function SingleCard({ token, userId, username }) {
           <h6></h6>
         )}
         <div className="reviewForm">
-        {token && !reviewSuccess ? (
-          <form onSubmit={sendReview}>
-            <label>Rating</label>
-            <input
-              id="rating"
-              type="number"
-              max="10"
-              value={rating}
-              onChange={(e) => setRating(e.target.value)}
-              required
-            />
-            <label>comment</label>
-            <input
-              id="comment"
-              type="comment"
-              value={comment}
-              onChange={(e) => setComment(e.target.value)}
-              required
-            />
-            <button type="submit">Send</button>
-          </form>
-        ) : (
-          <h6></h6>
-        )}
-        <button onClick={() => navigate(-1)}>Back</button>
-      </div>
+          {token && !reviewId.includes(userId) ? (
+            <form onSubmit={sendReview}>
+              <label>Rating</label>
+              <input
+                id="rating"
+                type="number"
+                max="10"
+                value={rating}
+                onChange={(e) => setRating(e.target.value)}
+                required
+              />
+              <label>comment</label>
+              <input
+                id="comment"
+                type="comment"
+                value={comment}
+                onChange={(e) => setComment(e.target.value)}
+                required
+              />
+              <button type="submit">Send</button>
+            </form>
+          ) : (
+            <h6></h6>
+          )}
+          <button onClick={() => navigate(-1)}>Back</button>
         </div>
-    </>
-  );
-}
+      </div>
+   
+      </>
+      )
+  }

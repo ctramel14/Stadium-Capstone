@@ -17,7 +17,8 @@ export default function Login({
 
   async function handleSubmit(e) {
     e.preventDefault();
-    
+
+    console.log(userId);
 
     try {
       const result = await fetch(`http://localhost:3000/login`, {
