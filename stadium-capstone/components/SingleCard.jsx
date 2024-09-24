@@ -10,6 +10,7 @@ export default function SingleCard({ token, userId, username }) {
   const [rating, setRating] = useState("");
   const [comment, setComment] = useState("");
   const [reviewSuccess, setReviewSuccess] = useState(null);
+  const [reviewId, setReviewId] = useState([])
   let { id } = useParams();
   const navigate = useNavigate();
 
@@ -84,6 +85,7 @@ export default function SingleCard({ token, userId, username }) {
           }
         );
         const result = await response.json();
+        setReviewId(result.reviews.map((review) => review.userId))
 
         if (Array.isArray(result.reviews)) {
           const reviewIds = result.reviews.map((review) => review.id);
@@ -169,8 +171,9 @@ export default function SingleCard({ token, userId, username }) {
         }
       );
       const result = await response.json();
-      console.log(idInt, userId, rating, username);
-      console.log(result);
+    
+      // console.log(idInt, userId, rating, username);
+      // console.log(result);
       setReviewSuccess(true);
       console.log(reviewSuccess);
     } catch (error) {
@@ -274,7 +277,7 @@ export default function SingleCard({ token, userId, username }) {
           <h6></h6>
         )}
         <div className="reviewForm">
-          {token && !reviewSuccess ? (
+          {token && !reviewId.includes(userId) ? (
             <form onSubmit={sendReview}>
               <label>Rating</label>
               <input
@@ -301,6 +304,7 @@ export default function SingleCard({ token, userId, username }) {
           <button onClick={() => navigate(-1)}>Back</button>
         </div>
       </div>
-    </>
-  );
-}
+   
+      </>
+      )
+  }
