@@ -138,8 +138,8 @@ export default function SingleCard({ token, userId, username }) {
       console.error(error);
     }
   }
-  return (
-    <>
+  return( 
+<>
       <div className="singleStadium-card-grid">
         <div className="stadiumDetails">
           <h2>{stadium.name}</h2>
@@ -239,6 +239,7 @@ export default function SingleCard({ token, userId, username }) {
         )}
         <button onClick={() => navigate(-1)}>Back</button>
       </div>
-    </>
-  );
-}
+      </div>
+      </>
+      )
+  }
