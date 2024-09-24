@@ -57,6 +57,7 @@ export default function StadiumCards({ token, stadiums, setStadiums, userId }) {
 
   useEffect(() => {
     async function fetchUserData() {
+      if (!token) return;
       try {
         const response = await fetch(
           `http://localhost:3000/api/users/${userId}`,
