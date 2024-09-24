@@ -50,11 +50,13 @@ model Review {
   date      DateTime
   rating    Int
   comment   String
-  userId    Int
-  user      User      @relation(fields: [userId], references: [id])
+  userId    Int       
+  user      User      @relation(fields: [userId], references: [id]) 
   stadiumId Int
   stadium   Stadium   @relation(fields: [stadiumId], references: [id])
   comments  Comment[]
+
+  @@unique([userId, stadiumId])
 }
 
 model Comment {
