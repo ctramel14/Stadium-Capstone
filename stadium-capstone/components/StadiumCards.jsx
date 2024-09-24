@@ -57,6 +57,7 @@ export default function StadiumCards({ token, stadiums, setStadiums, userId }) {
 
   useEffect(() => {
     async function fetchUserData() {
+      if (!token) return;
       try {
         const response = await fetch(
           `http://localhost:3000/api/users/${userId}`,
@@ -155,9 +156,6 @@ export default function StadiumCards({ token, stadiums, setStadiums, userId }) {
             key={stadium.id}
             style={{ backgroundColor: "grey" }}
           >
-              <div className="stadium-card-buttons">
-                <button onClick={() => visited(stadium.id)}>Visited</button>
-              </div>
             <img
               src={stadium.imageOutsideURL}
               alt={`${stadium.name} outside view`}
@@ -171,6 +169,9 @@ export default function StadiumCards({ token, stadiums, setStadiums, userId }) {
             <p onClick={() => navigate(`/stadiums/${stadium.id}/`)}>
               {stadium.teamName}
             </p>
+              <div className="stadium-card-buttons">
+                <button onClick={() => visited(stadium.id)}>Visited</button>
+              </div>
           </div>
         ))}
       </div>

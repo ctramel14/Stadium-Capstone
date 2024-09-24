@@ -1,7 +1,7 @@
 /* CSS for the StadiumCards component */
 .bg-wrapper {
   background-color: #113311;
-
+  min-height: 100vh;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='223' height='223' viewBox='0 0 20 20'%3E%3Cg fill-opacity='0.5'%3E%3Cpolygon fill='%23242' points='20 10 10 0 0 0 20 20'/%3E%3Cpolygon fill='%23242' points='0 10 0 20 10 20'/%3E%3C/g%3E%3C/svg%3E");
 }
 .search {
