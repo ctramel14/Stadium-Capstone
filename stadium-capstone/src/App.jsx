@@ -24,7 +24,10 @@ function App() {
 
   return (
     <>
-      <NavigationBar token={token} />
+      <NavigationBar token={token}
+      loginSeen={loginSeen}
+      setLoginSeen={setLoginSeen} 
+      />
       <Routes>
         <Route
           path="/"
@@ -37,6 +40,24 @@ function App() {
             />
           }
         />
+         {loginSeen ? (
+        <LoginModal
+          onClick={() => setLoginSeen(!loginSeen)}
+          setToken={setToken}
+          token={token}
+          username={username}
+          setUsername={setUsername}
+          password={password}
+          setPassword={setPassword}
+          firstName={firstName}
+          setFirstName={setFirstName}
+          userId={userId}
+          setUserId={setUserId}
+          setLoginSeen={setLoginSeen}
+          loginSeen={loginSeen}
+        />
+      ) : null}
+
         <Route
           path="/stadiums/:id"
           element={
