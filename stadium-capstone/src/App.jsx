@@ -10,6 +10,7 @@ import ContactForm from "../components/ContactForm";
 import Account from "../components/Account";
 import LogOut from "../components/LogOut";
 import Reviews from "../components/Reviews";
+import LoginModal from "../components/LoginModal";
 
 //setting state here to make passing props between components easier
 function App() {
