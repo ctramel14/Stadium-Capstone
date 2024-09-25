@@ -1,9 +1,7 @@
 import { useState, useEffect, useLayoutEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-
-
 import "./SingleCard.css";
-
+//pulling states from main
 export default function SingleCard({ token, userId, username }) {
   const [stadium, setStadium] = useState({});
   const [success, setSuccess] = useState("");
@@ -15,10 +13,10 @@ export default function SingleCard({ token, userId, username }) {
   const [showInput, setShowInput] = useState(false);
   const [restaurant, setRestaurant] = useState([]);
   const [hotel, setHotel] = useState([]);
-  
+
   let { id } = useParams();
   const navigate = useNavigate();
-
+  //colors for stadiums alphabetically by team name
   const stadiumColors = {
     1: "rgb(156,41,59)",
     2: "rgb(27,57,99)",
@@ -51,15 +49,14 @@ export default function SingleCard({ token, userId, username }) {
     29: "rgb(51,90,150)",
     30: "rgb(172,50,38)",
   };
-
+  //for re-rendering after layout changes
   useLayoutEffect(() => {
     document.documentElement.scrollTo({ top: 0, left: 0, behavior: "instant" });
     console.log("Effect has been run");
   }, []);
-
+  //to check for a token to display based on whether user is logged in or not
   useEffect(() => {
     async function getToken() {
-      // console.log(userId);
       try {
         const response = await fetch(
           `http://localhost:3000/api/users/${userId}`,
@@ -71,13 +68,12 @@ export default function SingleCard({ token, userId, username }) {
             },
           }
         );
-        const result = await response.json();
       } catch (error) {
         console.error(error);
       }
     }
     getToken();
-
+    //fetch restaurants to display based on stadium
     async function getRestaurants() {
       try {
         const response = await fetch(
@@ -90,14 +86,13 @@ export default function SingleCard({ token, userId, username }) {
           }
         );
         const result = await response.json();
-        console.log(result.restaurant);
-        setRestaurant(result.restaurant)
-        
+        setRestaurant(result.restaurant);
       } catch (error) {
         console.error(error);
       }
-    } getRestaurants();
-
+    }
+    getRestaurants();
+    //fetch hotels to display based on stadium
     async function getHotels() {
       try {
         const response = await fetch(
@@ -110,15 +105,13 @@ export default function SingleCard({ token, userId, username }) {
           }
         );
         const result = await response.json();
-        console.log(result.hotel);
-        setHotel(result.hotel)
-        
+        setHotel(result.hotel);
       } catch (error) {
         console.error(error);
       }
-    } getHotels();
-    
-
+    }
+    getHotels();
+    //fetch stadium that user is on
     async function getStadium() {
       try {
         const response = await fetch(
@@ -131,13 +124,11 @@ export default function SingleCard({ token, userId, username }) {
           }
         );
         const result = await response.json();
-        console.log(result);
-        
         setReviewId(result.reviews.map((review) => review.userId));
-
+        //utilizing userId on a review to go to the appropriate page to reply to
         if (Array.isArray(result.reviews)) {
           const reviewIds = result.reviews.map((review) => review.id);
-
+          //fetch request to display reviews
           const reviewsWithComments = await Promise.all(
             reviewIds.map(async (reviewId) => {
               const reviewResponse = await fetch(
@@ -155,13 +146,10 @@ export default function SingleCard({ token, userId, username }) {
               };
             })
           );
-
           setReviews(reviewsWithComments);
-          console.log(reviewsWithComments);
         } else {
-          setReviews([]);
+          setReviews([]); //setting reviews state based on replies or not
         }
-
         setStadium(result);
       } catch (error) {
         console.error(error);
@@ -169,9 +157,7 @@ export default function SingleCard({ token, userId, username }) {
     }
     getStadium();
   }, [id]);
-
   // visit a stadium
-
   async function visited() {
     try {
       await fetch(
@@ -185,20 +171,16 @@ export default function SingleCard({ token, userId, username }) {
           body: JSON.stringify({ visited: true }),
         }
       );
-      console.log(userId, id, stadium.name);
-      setSuccess(`Added ${stadium.name} to your visited stadiums!`);
+      setSuccess(`Added ${stadium.name} to your visited stadiums!`); //setting message to display when clicking visited
     } catch (error) {
       console.error(error);
     }
   }
-
   //posting a review
-
   async function sendReview(e) {
     e.preventDefault();
 
     const idInt = parseInt(id);
-
     try {
       const response = await fetch(
         `http://localhost:3000/api/stadium/${id}/reviews`,
@@ -218,14 +200,13 @@ export default function SingleCard({ token, userId, username }) {
           }),
         }
       );
-      const result = await response.json();
-      setShowInput(showInput);
+      setShowInput(showInput); //changing states for conditional rendering in return
       setReviewSuccess(true);
-      console.log(reviewSuccess);
     } catch (error) {
       console.error(error);
     }
   }
+  //for displaying stadium capacity
   function numberWithCommas(x) {
     if (typeof x !== "number") {
       return;
@@ -235,7 +216,7 @@ export default function SingleCard({ token, userId, username }) {
     while (pattern.test(x)) x = x.replace(pattern, "$1,$2");
     return x;
   }
-  
+  //click handler for conditional rendering
   const handleClick = () => {
     setShowInput(!showInput);
   };
@@ -261,42 +242,43 @@ export default function SingleCard({ token, userId, username }) {
               {stadium.zipCode}{" "}
             </p>
           </div>
-          
-          {token && (
+
+          {token && ( //token check to display next information
             <div className="single-page-buttons">
               <button onClick={() => visited(stadium.id)}>
                 Select as Visited
               </button>
-              {!reviewId.includes(userId) && !reviewSuccess &&
-              <button onClick={handleClick} >
-              {showInput ? "Hide Input" : "Write Review"}
-                </button>}
-                {showInput && !reviewId.includes(userId) && !reviewSuccess &&
-                (<form className="review-form" onSubmit={sendReview}>
-              <label>Rating</label>
-              <input
-                id="rating"
-                type="number"
-                max="10"
-                value={rating}
-                onChange={(e) => setRating(e.target.value)}
-                required
-              />
-              <label>Review</label>
-              <input
-                id="comment"
-                type="comment"
-                value={comment}
-                onChange={(e) => setComment(e.target.value)}
-                required
-              />
-              <button type="submit">Send</button>
-            </form>) 
-            }
+              {!reviewId.includes(userId) && !reviewSuccess && ( //does not render button if user has posted previously, removes button if posted while on page
+                <button onClick={handleClick}>
+                  {showInput ? "Hide Input" : "Write Review"}
+                </button>
+              )}
+              {showInput && !reviewId.includes(userId) && !reviewSuccess && ( //shows review form if user hasn't posted previously
+                <form className="review-form" onSubmit={sendReview}>
+                  <label>Rating</label>
+                  <input
+                    id="rating"
+                    type="number"
+                    max="10"
+                    value={rating}
+                    onChange={(e) => setRating(e.target.value)}
+                    required
+                  />
+                  <label>Review</label>
+                  <input
+                    id="comment"
+                    type="comment"
+                    value={comment}
+                    onChange={(e) => setComment(e.target.value)}
+                    required
+                  />
+                  <button type="submit">Send</button>
+                </form>
+              )}
             </div>
           )}
         </div>
-        {success && (
+        {success && ( //visited stadium success message
           <div className="visited-success-message">
             <h4>{success}</h4>
             <div id="successButton">
@@ -306,27 +288,30 @@ export default function SingleCard({ token, userId, username }) {
         )}
         <div className="restaurantsNearby">
           <h4>Restaurants near the stadium</h4>
-        {restaurant.map((rest) => 
-        <div className="restaurant-card" key={rest.id} >
-          <h5>{rest.name}</h5>
-          <h6>{rest.address}</h6>
-          <h6>{rest.cuisine}</h6>
-        </div>
-        )}
+          {restaurant.map((rest) => (
+            <div className="restaurant-card" key={rest.id}>
+              <h5>{rest.name}</h5>
+              <h6>{rest.address}</h6>
+              <h6>{rest.cuisine}</h6>
+            </div>
+          ))}
         </div>
         <div className="hotelsNearby">
           <h4>Hotels</h4>
-          {hotel.map((hot) => 
-        <div className="restaurant-card" key={hot.id} >
-          <h5>{hot.name}</h5>
-          <h6>{hot.address}</h6>
-          <h6>{hot.zipCode}</h6>
+          {hotel.map((hot) => (
+            <div className="restaurant-card" key={hot.id}>
+              <h5>{hot.name}</h5>
+              <h6>{hot.address}</h6>
+              <h6>{hot.zipCode}</h6>
+            </div>
+          ))}
         </div>
-        )}
-        </div>
-
+        
         <div className="reviews">
-          {Array.isArray(reviews) && reviews.length > 0 ? (
+        {!reviews.length > 0 && !reviewSuccess && (
+              <p>No reviews available.</p>
+            )}
+          {Array.isArray(reviews) && reviews.length > 0 && (
             reviews.map((review) => (
               <div key={review.id} className="review">
                 <div className="reviewuser">
@@ -344,10 +329,9 @@ export default function SingleCard({ token, userId, username }) {
                 </button>
               </div>
             ))
-          ) : ( <p>No reviews available.</p>
-          )}
+          )} 
         </div>
-        {reviewSuccess && (
+        {reviewSuccess && ( //display new review
           <div className="individualReviews">
             <p>Review by {username}</p>
             <p>Rating: {rating}/10</p>
