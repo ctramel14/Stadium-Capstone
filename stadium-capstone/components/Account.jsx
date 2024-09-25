@@ -137,7 +137,7 @@ export default function Account({ token, email, firstName, userId }) {
             Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({
-            rating: reviewContent.rating,
+            rating: parseInt(reviewContent.rating),
             comment: reviewContent.comment,
           }),
         }
