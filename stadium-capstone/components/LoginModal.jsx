@@ -13,6 +13,7 @@ const LoginModal = ({
   setUserId,
   setLoginSeen,
   loginSeen,
+  setAdministrator, 
 }) => {
 async function handleSubmit(e) {
       e.preventDefault();
@@ -30,10 +31,12 @@ async function handleSubmit(e) {
         const json = await result.json();
         const newId = json.user.id;
         const name = json.user.firstName;
+        const admin = json.user.administrator;
         setToken(json.token);
         setUserId(newId);
         setFirstName(name);
-        console.log(userId, name);
+        setAdministrator(admin);
+        console.log(userId, name, admin);
         // alert('You have successfully logged in!');
         // navigate("/");
       } catch (error) {

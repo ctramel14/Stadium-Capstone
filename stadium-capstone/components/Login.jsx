@@ -12,6 +12,7 @@ export default function Login({
   setFirstName,
   userId,
   setUserId,
+  setAdministrator, 
 }) {
   const navigate = useNavigate();
 
@@ -32,9 +33,11 @@ export default function Login({
       const json = await result.json();
       const newId = json.user.id;
       const name = json.user.firstName;
+      const admin = json.user.administrator; 
       setToken(json.token);
       setUserId(newId);
       setFirstName(name);
+      setAdministrator(admin);
       console.log(userId, name);
       // alert('You have successfully logged in!');
       // navigate("/");

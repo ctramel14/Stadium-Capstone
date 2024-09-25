@@ -26,7 +26,9 @@ app.use(async (req, res, next) => {
     req.path === "/login" ||
     req.path === "/register" ||
     req.path === "/api/users" ||
+    req.path === "/api/reviews" ||
     req.path === `/api/stadiums/${req.params.id}` ||
+    req.path === `/api/comments/${req.params.id}` ||
     req.path === `/api/reviews/${req.params.id}`
   ) {
     return next();
@@ -169,11 +171,32 @@ app.get("/api/users/:id", async (req, res, next) => {
   }
 });
 
-// get all reviews
+// get all reviews with user and stadium information
 app.get("/api/reviews", async (req, res, next) => {
   try {
-    const reviews = await prisma.review.findMany();
-    // Check how to get latest 20 reviews
+    const reviews = await prisma.review.findMany({
+      include: {
+        user: {
+          select: {
+            username: true,
+          },
+        },
+        stadium: {
+          select: {
+            name: true,
+          },
+        },
+        comments: {
+          include: {
+            user: {
+              select: {
+                username: true,
+              },
+            },
+          },
+        },
+      },
+    });
     res.json(reviews);
   } catch (err) {
     next(err);
