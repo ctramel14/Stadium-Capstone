@@ -1,8 +1,7 @@
 import "./StadiumCards.css";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-// import { createStadiums } from "../../prisma/seed.js";
-
+//colors of each stadium by team name alphabetically
 const stadiumColors = {
   1: "rgb(156,41,59)",
   2: "rgb(27,57,99)",
@@ -35,19 +34,15 @@ const stadiumColors = {
   29: "rgb(51,90,150)",
   30: "rgb(172,50,38)",
 };
-
 //fetching all stadiums
 export default function StadiumCards({ token, stadiums, setStadiums, userId }) {
   const [searchParam, setSearchParam] = useState("");
-  const [success, setSuccess] = useState("");
-  const [isVisited, setIsVisited] = useState([]);
   const navigate = useNavigate();
 
   async function fetchAllStadiums() {
     try {
       const response = await fetch("http://localhost:3000/api/stadiums");
       const result = await response.json();
-      // console.log(result);
       return result;
     } catch (error) {
       console.error(error);
@@ -56,7 +51,7 @@ export default function StadiumCards({ token, stadiums, setStadiums, userId }) {
   fetchAllStadiums();
 
   useEffect(() => {
-    async function fetchUserData() {
+    async function fetchUserData() {   // this line through Line 82 is for fetching user Data to display colors of visited stadiums
       if (!token) return;
       try {
         const response = await fetch(
@@ -76,7 +71,6 @@ export default function StadiumCards({ token, stadiums, setStadiums, userId }) {
             let elements = document.getElementById(value);
             elements.style.backgroundColor = stadiumColors[value];
         }
-        setIsVisited(result.visitedStadiums.map((v) => v.stadiumId));
       } catch (error) {
         console.error(error);
       }
@@ -85,17 +79,16 @@ export default function StadiumCards({ token, stadiums, setStadiums, userId }) {
   }, [token, userId])
 
   useEffect(() => {
-    async function getAllStadiums() {
+    async function getAllStadiums() { //used to set State of stadiums to display
       const APIResponse = await fetchAllStadiums();
-      // console.log(APIResponse);
       setStadiums(APIResponse);
     }
     getAllStadiums();
   }, []);
 
-  async function visited(id) {
+  async function visited(id) {   // used to add new visited stadiums
     try {
-      const response = await fetch(
+      await fetch(
         `http://localhost:3000/api/users/${userId}/visitedstadiums/${id}`,
         {
           method: "POST",
@@ -106,21 +99,14 @@ export default function StadiumCards({ token, stadiums, setStadiums, userId }) {
           body: JSON.stringify({ visited: true }),
         }
       );
-      const json = await response.json();
-      console.log(userId, id);
-      let element = document.getElementById(id);
+    
+      let element = document.getElementById(id);  //sets the colors of newly visited stadiums
       element.style.backgroundColor = stadiumColors[id];
-
-      // setIsVisited(true);
-      // setIsVisited(json.visitedStadiums.map((v) => v.stadium));
-      setSuccess(`Visited!`);
     } catch (error) {
       console.error(error);
     }
   }
-
-  //search functionality
-
+  //search functionality here through line 140
   const stadiumsToDisplay = searchParam
     ? stadiums.filter((stadium) =>
         stadium.teamName.toLowerCase().includes(searchParam)
@@ -141,14 +127,14 @@ export default function StadiumCards({ token, stadiums, setStadiums, userId }) {
                 type="text"
                 className="searchInput"
                 placeholder="Filter by Team..."
-                onChange={(e) => setSearchParam(e.target.value.toLowerCase())}
+                onChange={(e) => setSearchParam(e.target.value.toLowerCase())} 
               />
             </label>
           </div>
         </h3>
       </header>
       <div className="stadiums-grid-container">
-        {stadiumsToDisplay.map((stadium) => (
+        {stadiumsToDisplay.map((stadium) => (   // renders all stadiums, starting with grey unless visited
           <div
             className="stadium-card"
             name={stadium.id}
