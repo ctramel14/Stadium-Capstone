@@ -10,6 +10,8 @@ export default function SingleCard({ token, userId, username }) {
   const [rating, setRating] = useState("");
   const [comment, setComment] = useState("");
   const [reviewSuccess, setReviewSuccess] = useState(null);
+  const [reviewId, setReviewId] = useState([]);
+  const [showInput, setShowInput] = useState(false);
   let { id } = useParams();
   const navigate = useNavigate();
 
@@ -47,9 +49,9 @@ export default function SingleCard({ token, userId, username }) {
   };
 
   useLayoutEffect(() => {
-    document.documentElement.scrollTo({ top:0, left:0, behavior: "instant" });
+    document.documentElement.scrollTo({ top: 0, left: 0, behavior: "instant" });
     console.log("Effect has been run");
-}, []);
+  }, []);
 
   useEffect(() => {
     async function getToken() {
@@ -84,6 +86,7 @@ export default function SingleCard({ token, userId, username }) {
           }
         );
         const result = await response.json();
+        setReviewId(result.reviews.map((review) => review.userId));
 
         if (Array.isArray(result.reviews)) {
           const reviewIds = result.reviews.map((review) => review.id);
@@ -169,8 +172,7 @@ export default function SingleCard({ token, userId, username }) {
         }
       );
       const result = await response.json();
-      console.log(idInt, userId, rating, username);
-      console.log(result);
+
       setReviewSuccess(true);
       console.log(reviewSuccess);
     } catch (error) {
@@ -183,17 +185,24 @@ export default function SingleCard({ token, userId, username }) {
     }
     x = x.toString();
     var pattern = /(-?\d+)(\d{3})/;
-    while (pattern.test(x))
-        x = x.replace(pattern, "$1,$2");
+    while (pattern.test(x)) x = x.replace(pattern, "$1,$2");
     return x;
-}
+  }
+  
+  const handleClick = () => {
+    setShowInput(!showInput);
+  };
+
   return (
     <>
       <div className="stadium-info-page">
         <div className="stadiumDetails">
           <h2>{stadium.name}</h2>
           <h3>{stadium.teamName}</h3>
-          <div className="singleStadium-card-image" style={{ backgroundColor: stadiumColors[stadium.id] }}>
+          <div
+            className="singleStadium-card-image"
+            style={{ backgroundColor: stadiumColors[stadium.id] }}
+          >
             <img src={stadium.imageInsideURL} className="insideStadium-image" />
           </div>
           <div className="stadium-facts">
@@ -210,7 +219,31 @@ export default function SingleCard({ token, userId, username }) {
               <button onClick={() => visited(stadium.id)}>
                 Select as Visited
               </button>
-              <button>Write a Review</button>
+              {!reviewId.includes(userId) && !reviewSuccess && <button onClick={handleClick} >
+              {showInput ? "Hide Input" : "Write Review"}
+                </button>}
+                {showInput && !reviewId.includes(userId) ?
+                (<form className="review-form" onSubmit={sendReview}>
+              <label>Rating</label>
+              <input
+                id="rating"
+                type="number"
+                max="10"
+                value={rating}
+                onChange={(e) => setRating(e.target.value)}
+                required
+              />
+              <label>Review</label>
+              <input
+                id="comment"
+                type="comment"
+                value={comment}
+                onChange={(e) => setComment(e.target.value)}
+                required
+              />
+              <button type="submit">Send</button>
+            </form>) : <p></p>
+            }
             </div>
           ) : (
             <h4></h4>
@@ -273,8 +306,8 @@ export default function SingleCard({ token, userId, username }) {
         ) : (
           <h6></h6>
         )}
-        <div className="reviewForm">
-          {token && !reviewSuccess ? (
+        {/* <div className="reviewForm">
+          {token && !reviewId.includes(userId) ? (
             <form onSubmit={sendReview}>
               <label>Rating</label>
               <input
@@ -298,8 +331,8 @@ export default function SingleCard({ token, userId, username }) {
           ) : (
             <h6></h6>
           )}
-          <button onClick={() => navigate(-1)}>Back</button>
-        </div>
+        </div> */}
+        <button onClick={() => navigate(-1)}>Back</button>
       </div>
     </>
   );

@@ -6,7 +6,7 @@ export default function Reviews({ token, userId, username }) {
   const [reply, setReply] = useState("");
   const [comments, setComments] = useState([]);
   const [replySuccess, setReplySuccess] = useState("");
-  const [user, setUser] = useState({});
+  const [commenters, setCommenters] = useState({});
   let { id } = useParams();
   let navigate = useNavigate();
 
@@ -41,17 +41,14 @@ export default function Reviews({ token, userId, username }) {
           }
         );
         const result = await response.json();
-        console.log(result.comments);
+        // console.log(result.comments);   //trying to make something happen to get usernames to appear next to comments
+        const allUsers = result.comments;
+        const nextUsers = allUsers.map((u) => u.user);
+        const themUsers = nextUsers.map((u) => u.username)
+        console.log(themUsers);
+        
         setReview(result);
-        // const commenter = result.comments.map((a) => a.userId);
-        // const iterator = commenter.map((a) => a.username);
-        // console.log(commenter);
-        // for (const value of commenter) {
-        //   console.log(value);
-        //   let elements = document.getElementById(value);
-        //   elements.textContent = 'comment';
-        // }
-        setUser(result.userId);
+        setCommenters(themUsers);
         setComments(result.comments);
       } catch (error) {
         console.error(error);
@@ -93,14 +90,14 @@ export default function Reviews({ token, userId, username }) {
       </h2>
       <div className="comments">
         {comments.map((comment) => (
-          <p key={comment.id} id={comment.userId}>
-            {comment.userId}: {comment.content}
-          </p>
+          <div key={comment.id}>
+            <strong>{comment.user.username}</strong>: {comment.content}
+          </div>
         ))}
       </div>
       {replySuccess && (
         <p>
-          {username}: {replySuccess}
+          <strong>{username}</strong>: {replySuccess}
         </p>
       )}
       {token && !replySuccess ? (
