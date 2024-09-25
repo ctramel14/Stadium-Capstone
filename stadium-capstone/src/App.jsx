@@ -4,12 +4,13 @@ import StadiumCards from "../components/StadiumCards";
 import SingleCard from "../components/SingleCard";
 import NavigationBar from "../components/NavigationBar";
 import { Route, Routes } from "react-router-dom";
-// import Login from "../components/Login";
+import Login from "../components/Login";
 import Register from "../components/Register";
 import ContactForm from "../components/ContactForm";
 import Account from "../components/Account";
 import LogOut from "../components/LogOut";
 import Reviews from "../components/Reviews";
+import LoginModal from "../components/LoginModal";
 
 //setting state here to make passing props between components easier
 function App() {
@@ -21,32 +22,32 @@ function App() {
   const [lastName, setLastName] = useState("");
   const [username, setUsername] = useState("");
   const [userId, setUserId] = useState("");
+  const [loginSeen, setLoginSeen] = useState(false);
 
   return (
     <>
       <NavigationBar
         token={token}
-        loginSeen={loginSeen}
+        toggleLogin={loginSeen}
         setLoginSeen={setLoginSeen}
       />
       {loginSeen ? (
         <LoginModal
-          onClick={() => setLoginSeen(!loginSeen)}
-          setToken={setToken}
-          token={token}
-          username={username}
-          setUsername={setUsername}
-          password={password}
-          setPassword={setPassword}
-          firstName={firstName}
-          setFirstName={setFirstName}
-          userId={userId}
-          setUserId={setUserId}
-          setLoginSeen={setLoginSeen}
-          loginSeen={loginSeen}
-        />
+        onClick={() => setLoginSeen(!loginSeen)}
+        setToken={setToken}
+        token={token}
+        username={username}
+        setUsername={setUsername}
+        password={password}
+        setPassword={setPassword}
+        firstName={firstName}
+        setFirstName={setFirstName}
+        userId={userId}
+        setUserId={setUserId}
+        setLoginSeen={setLoginSeen}
+        loginSeen={loginSeen}
+          />
       ) : null}
-      <NavigationBar token={token} />
       <Routes>
         <Route
           path="/"
@@ -65,7 +66,25 @@ function App() {
             <SingleCard token={token} userId={userId} username={username} />
           }
         />
-       
+       <Route 
+       path="/users/login"
+       element={
+       <Login 
+        setToken={setToken}
+        token={token}
+        username={username}
+        setUsername={setUsername}
+        password={password}
+        setPassword={setPassword}
+        firstName={firstName}
+        setFirstName={setFirstName}
+        userId={userId}
+        setUserId={setUserId}
+        setLoginSeen={setLoginSeen}
+        loginSeen={loginSeen}
+        />
+      }
+       />
         <Route
           path="/users/register"
           element={
