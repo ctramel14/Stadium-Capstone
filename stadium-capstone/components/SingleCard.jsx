@@ -286,27 +286,33 @@ export default function SingleCard({ token, userId, username }) {
             </div>
           </div>
         )}
-        <div className="restaurantsNearby">
-          <h4>Restaurants near the stadium</h4>
+        <header className="nearby-list-header">
+          <h3>Restaurants Near The Stadium</h3>
+        </header>
+        <div className="nearby-container">
           {restaurant.map((rest) => (
-            <div className="restaurant-card" key={rest.id}>
-              <h5>{rest.name}</h5>
-              <h6>{rest.address}</h6>
-              <h6>{rest.cuisine}</h6>
+            <div className="nearby-card" key={rest.id} style={{ borderColor: stadiumColors[stadium.id] }}>
+              <p><strong>{rest.name}</strong></p>
+              <p>{rest.cuisine}</p>
+              <p>{rest.address} <br/> 
+                {rest.city}, {rest.state}, {rest.zipCode}</p>
             </div>
           ))}
         </div>
-        <div className="hotelsNearby">
-          <h4>Hotels</h4>
+        <hr className="line-across"></hr>
+        <header className="nearby-list-header">
+          <h3>Hotels Near The Stadium</h3>
+        </header>
+        <div className="nearby-container">
           {hotel.map((hot) => (
-            <div className="restaurant-card" key={hot.id}>
-              <h5>{hot.name}</h5>
-              <h6>{hot.address}</h6>
-              <h6>{hot.zipCode}</h6>
+            <div className="nearby-card" key={hot.id}>
+              <p><strong>Hotel: {hot.name}</strong></p>
+              <p>Address: {hot.address}</p>
+              <p>Zip-code: {hot.zipCode}</p>
             </div>
           ))}
         </div>
-        
+        <hr className="line-across"></hr>
         <div className="reviews">
         {!reviews.length > 0 && !reviewSuccess && (
               <p>No reviews available.</p>
