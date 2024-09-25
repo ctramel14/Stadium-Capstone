@@ -13,51 +13,51 @@ const LoginModal = ({
   setUserId,
   setLoginSeen,
   loginSeen,
-  setAdministrator, 
+  setAdministrator,
 }) => {
-async function handleSubmit(e) {
-      e.preventDefault();
-      setLoginSeen(!loginSeen);
+  async function handleSubmit(e) {
+    e.preventDefault();
+    setLoginSeen(!loginSeen);
 
-      try {
-        const result = await fetch(`http://localhost:3000/login`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ username, password }),
-        });
+    try {
+      const result = await fetch(`http://localhost:3000/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username, password }),
+      });
 
-        const json = await result.json();
-        const newId = json.user.id;
-        const name = json.user.firstName;
-        const admin = json.user.administrator;
-        setToken(json.token);
-        setUserId(newId);
-        setFirstName(name);
-        setAdministrator(admin);
-        console.log(userId, name, admin);
-        // alert('You have successfully logged in!');
-        // navigate("/");
-      } catch (error) {
-        console.error(error);
-      }
+      const json = await result.json();
+      const newId = json.user.id;
+      const name = json.user.firstName;
+      const admin = json.user.administrator;
+      setToken(json.token);
+      setUserId(newId);
+      setFirstName(name);
+      setAdministrator(admin);
+      console.log(userId, name, admin);
+      // alert('You have successfully logged in!');
+      // navigate("/");
+    } catch (error) {
+      console.error(error);
     }
+  }
 
   return (
     <>
-    <form className="form" onSubmit={handleSubmit}>
-      <p className="form-title">Sign in to your account</p>
-      <div className="input-container">
-        <input
-          id="username-input"
-          minLength="2"
-          value={username}
-          placeholder="Username"
-          required
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <span>
+      <form className="form" onSubmit={handleSubmit}>
+        <p className="form-title">Sign in to your account</p>
+        <div className="input-container">
+          <input
+            id="username-input"
+            minLength="2"
+            value={username}
+            placeholder="Username"
+            required
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <span>
             <svg
               // stroke="currentColor"
               viewBox="0 0 24 24"
@@ -74,16 +74,16 @@ async function handleSubmit(e) {
           </span>
         </div>
         <div className="input-container">
-        <input
-          id="password-input"
-          minLength="6"
-          value={password}
-          placeholder="Password"
-          required
-          onChange={(e) => setPassword(e.target.value)}
-        />
+          <input
+            id="password-input"
+            minLength="6"
+            value={password}
+            placeholder="Password"
+            required
+            onChange={(e) => setPassword(e.target.value)}
+          />
 
-<span>
+          <span>
             <svg
               // stroke="currentColor"
               viewBox="0 0 24 24"
@@ -105,19 +105,22 @@ async function handleSubmit(e) {
             </svg>
           </span>
         </div>
-      <button className="submit" type="submit">
-        Sign in
-      </button>
+        <button className="submit" type="submit">
+          Sign in
+        </button>
 
-      <p className="signup-link">
-        No account?
-        <Link to="/users/register">Register</Link>
-      </p>
-    </form>
-  </>
+        <p className="signup-link">
+          No account?
+          <Link to="/users/register">Register</Link>
+        </p>
+        <div id="close">
+        <button onClick={() => setLoginSeen(!loginSeen)}>
+          Close
+        </button>
+        </div>
+      </form>
+    </>
   );
 };
 
 export default LoginModal;
-
-
