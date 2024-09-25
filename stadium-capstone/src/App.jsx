@@ -32,25 +32,25 @@ function App() {
         token={token}
         toggleLogin={loginSeen}
         setLoginSeen={setLoginSeen}
-        administrator={administrator} 
+        administrator={administrator}
       />
       {loginSeen ? (
         <LoginModal
-        onClick={() => setLoginSeen(!loginSeen)}
-        setToken={setToken}
-        token={token}
-        username={username}
-        setUsername={setUsername}
-        password={password}
-        setPassword={setPassword}
-        firstName={firstName}
-        setFirstName={setFirstName}
-        userId={userId}
-        setUserId={setUserId}
-        setLoginSeen={setLoginSeen}
-        loginSeen={loginSeen}
-        setAdministrator={setAdministrator}
-          />
+          onClick={() => setLoginSeen(!loginSeen)}
+          setToken={setToken}
+          token={token}
+          username={username}
+          setUsername={setUsername}
+          password={password}
+          setPassword={setPassword}
+          firstName={firstName}
+          setFirstName={setFirstName}
+          userId={userId}
+          setUserId={setUserId}
+          setLoginSeen={setLoginSeen}
+          loginSeen={loginSeen}
+          setAdministrator={setAdministrator}
+        />
       ) : null}
       <Routes>
         <Route
@@ -70,26 +70,26 @@ function App() {
             <SingleCard token={token} userId={userId} username={username} />
           }
         />
-       <Route 
-       path="/users/login"
-       element={
-       <Login 
-        setToken={setToken}
-        token={token}
-        username={username}
-        setUsername={setUsername}
-        password={password}
-        setPassword={setPassword}
-        firstName={firstName}
-        setFirstName={setFirstName}
-        userId={userId}
-        setUserId={setUserId}
-        setLoginSeen={setLoginSeen}
-        loginSeen={loginSeen}
-        setAdministrator={setAdministrator}
+        <Route
+          path="/users/login"
+          element={
+            <Login
+              setToken={setToken}
+              token={token}
+              username={username}
+              setUsername={setUsername}
+              password={password}
+              setPassword={setPassword}
+              firstName={firstName}
+              setFirstName={setFirstName}
+              userId={userId}
+              setUserId={setUserId}
+              setLoginSeen={setLoginSeen}
+              loginSeen={loginSeen}
+              setAdministrator={setAdministrator}
+            />
+          }
         />
-      }
-       />
         <Route
           path="/users/register"
           element={
@@ -108,7 +108,7 @@ function App() {
               userId={userId}
               setUserId={setUserId}
               setLoginSeen={setLoginSeen}
-              loginSeen={loginSeen}      
+              loginSeen={loginSeen}
             />
           }
         />
@@ -138,10 +138,16 @@ function App() {
           />
         )}
         {administrator && (
-          <Route path="/admin" element={<Admin token={token}/>} />
+          <Route path="/admin" element={<Admin token={token} />} />
         )}
       </Routes>
-      {!token && <h4 className="full-access-message">Register or Log-in for full functionality!</h4>}
+      {!token && (
+        <div className="full-access-container">
+          <h4 className="full-access-message">
+            Register Or Log In For Full Access!
+          </h4>
+        </div>
+      )}
     </>
   );
 }
