@@ -15,7 +15,7 @@ export default function Logout({ setToken }) {
     <>
     <div className='logOutPage'>
       <h1>Are you sure you want to leave?</h1>
-      <p>You still have more ballparks to visit.</p>
+      <p>You still have more ballparks to visit!</p>
       <button id='logOutButton'   onClick={handleSubmit}>Log Out</button>
       </div>
     </>

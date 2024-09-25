@@ -107,6 +107,8 @@ function App() {
               setUsername={setUsername}
               userId={userId}
               setUserId={setUserId}
+              setLoginSeen={setLoginSeen}
+              loginSeen={loginSeen}      
             />
           }
         />
@@ -139,7 +141,7 @@ function App() {
           <Route path="/admin" element={<Admin token={token}/>} />
         )}
       </Routes>
-      {!token && <h4>Register or Log-in for full functionality!</h4>}
+      {!token && <h4 className="full-access-message">Register or Log-in for full functionality!</h4>}
     </>
   );
 }

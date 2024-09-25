@@ -1,7 +1,5 @@
-// import { URL } from "../API";
 import { useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
-// import "./Login.css";
+import "./Login.css";
 
 export default function Login({
   setToken,
@@ -12,7 +10,7 @@ export default function Login({
   setFirstName,
   userId,
   setUserId,
-  setAdministrator, 
+  setAdministrator,
 }) {
   const navigate = useNavigate();
 
@@ -33,7 +31,7 @@ export default function Login({
       const json = await result.json();
       const newId = json.user.id;
       const name = json.user.firstName;
-      const admin = json.user.administrator; 
+      const admin = json.user.administrator;
       setToken(json.token);
       setUserId(newId);
       setFirstName(name);
@@ -70,11 +68,8 @@ export default function Login({
             onChange={(e) => setPassword(e.target.value)}
           />
         </label>
-        <button className="submit" type="submit">
-          Login
-        </button>
+        <button type="submit">Login</button>
       </form>
     </>
   );
 }
-

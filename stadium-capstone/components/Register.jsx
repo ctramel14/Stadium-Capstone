@@ -1,6 +1,7 @@
 //register page, passing in props from App.jsx
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import LoginModal from "./LoginModal";
 import "./Register.css";
 
 export default function Register({
@@ -17,6 +18,8 @@ export default function Register({
   setUsername,
   userId,
   setUserId,
+  loginSeen,
+  setLoginSeen
 }) {
   const navigate = useNavigate();
   const [success, setSuccess] = useState("");
@@ -56,7 +59,7 @@ export default function Register({
       {!success ? (
         /* From Uiverse.io by ammarsaa */
         <div className="registerContainer">
-          <form className="form" onSubmit={handleSubmit}>
+          <form id="form" onSubmit={handleSubmit}>
             <p className="title">Register </p>
             <p className="message">
               Signup now and get full access to our app.{" "}
@@ -129,9 +132,10 @@ export default function Register({
             <button className="submit" type="submit">
               Submit
             </button>
-            <p className="signin">
-              Already have an acount ? <a href="#">Signin</a>{" "}
+            <p className="signin" >
+              Already have an account ? Click below to login
             </p>
+            <button onClick={() => setLoginSeen(!loginSeen)}>Log In</button>
           </form>
         </div>
       ) : (
