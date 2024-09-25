@@ -14,6 +14,7 @@ export default function SingleCard({ token, userId, username }) {
   const [restaurant, setRestaurant] = useState([]);
   const [hotel, setHotel] = useState([]);
   const [stadiumsVisited, setStadiumsVisited] = useState([]);
+  const [stadiumSuccess, setStadiumSuccess] = useState("")
 
   let { id } = useParams();
   const navigate = useNavigate();
@@ -70,7 +71,7 @@ export default function SingleCard({ token, userId, username }) {
           }
         );
         const result = await response.json();
-        setStadiumsVisited(result.visitedStadiums)
+        setStadiumsVisited(result.visitedStadiums.map((stadium) => stadium.stadiumId))
       } catch (error) {
         console.error(error);
       }
@@ -176,6 +177,7 @@ export default function SingleCard({ token, userId, username }) {
         }
       );
       setSuccess(`Added ${stadium.name} to your visited stadiums!`); //setting message to display when clicking visited
+      setStadiumSuccess(true)
     } catch (error) {
       console.error(error);
     }
@@ -249,7 +251,7 @@ export default function SingleCard({ token, userId, username }) {
 
           {token && ( //token check to display next information
             <div className="single-page-buttons">
-              {!stadiumsVisited.includes(userId) && <button onClick={() => visited(stadium.id)}>
+              {!stadiumsVisited.includes(stadium.id) && !stadiumSuccess && <button onClick={() => visited(stadium.id)}>
                 Select as Visited
               </button>}
               {!reviewId.includes(userId) && !reviewSuccess && ( //does not render button if user has posted previously, removes button if posted while on page
