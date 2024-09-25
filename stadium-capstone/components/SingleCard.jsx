@@ -13,6 +13,8 @@ export default function SingleCard({ token, userId, username }) {
   const [reviewSuccess, setReviewSuccess] = useState(null);
   const [reviewId, setReviewId] = useState([]);
   const [showInput, setShowInput] = useState(false);
+  const [restaurant, setRestaurant] = useState([]);
+  const [hotel, setHotel] = useState([]);
   
   let { id } = useParams();
   const navigate = useNavigate();
@@ -75,6 +77,47 @@ export default function SingleCard({ token, userId, username }) {
       }
     }
     getToken();
+
+    async function getRestaurants() {
+      try {
+        const response = await fetch(
+          `http://localhost:3000/api/stadiums/${id}/restaurants`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        const result = await response.json();
+        console.log(result.restaurant);
+        setRestaurant(result.restaurant)
+        
+      } catch (error) {
+        console.error(error);
+      }
+    } getRestaurants();
+
+    async function getHotels() {
+      try {
+        const response = await fetch(
+          `http://localhost:3000/api/stadiums/${id}/hotels`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        const result = await response.json();
+        console.log(result.hotel);
+        setHotel(result.hotel)
+        
+      } catch (error) {
+        console.error(error);
+      }
+    } getHotels();
+    
 
     async function getStadium() {
       try {
@@ -263,19 +306,23 @@ export default function SingleCard({ token, userId, username }) {
         )}
         <div className="restaurantsNearby">
           <h4>Restaurants near the stadium</h4>
-          <ul>
-            <li>Restautant 1</li>
-            <li>Restaurant 2</li>
-            <li>Restaurant 3</li>
-          </ul>
+        {restaurant.map((rest) => 
+        <div className="restaurant-card" key={rest.id} >
+          <h5>{rest.name}</h5>
+          <h6>{rest.address}</h6>
+          <h6>{rest.cuisine}</h6>
+        </div>
+        )}
         </div>
         <div className="hotelsNearby">
           <h4>Hotels</h4>
-          <ul>
-            <li>Hotel 1</li>
-            <li>Hotel 2</li>
-            <li>Hotel 3</li>
-          </ul>
+          {hotel.map((hot) => 
+        <div className="restaurant-card" key={hot.id} >
+          <h5>{hot.name}</h5>
+          <h6>{hot.address}</h6>
+          <h6>{hot.zipCode}</h6>
+        </div>
+        )}
         </div>
 
         <div className="reviews">
