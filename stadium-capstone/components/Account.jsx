@@ -121,7 +121,33 @@ const Account= ({ token, email, firstName, userId }) =>{
     }
   }
 
-
+  async function editReview(e, reviewId) {
+    e.preventDefault();
+    try {
+      const response = await fetch(
+        `http://localhost:3000/api/review/${reviewId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            rating: parseInt(reviewContent.rating),
+            comment: reviewContent.comment,
+          }),
+        }
+      );
+      const updatedReview = await response.json();
+      setReviews((prev) =>
+        prev.map((review) => (review.id === reviewId ? updatedReview : review))
+      );
+      setEditingReview(null);
+      setReviewContent({ rating: "", comment: "" });
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   async function editComment(e, commentId) {
     e.preventDefault();

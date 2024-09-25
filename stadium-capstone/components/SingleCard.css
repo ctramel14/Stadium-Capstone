@@ -107,6 +107,27 @@
   font-family: "Roboto Condensed", sans-serif;
   padding: 5px;
 }
+
+.review-form {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -40%);
+  width: 500px;
+  height: 320px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  color: #113311;
+  font-size: 2em;
+  font-family: "Roboto Condensed", sans-serif;
+  padding: 5px;
+  background-color: #8d620f;
+  opacity: 0.9;
+  border-radius: 16px;
+}
 .individualReviews {
   display: flex;
   flex-direction: column;
