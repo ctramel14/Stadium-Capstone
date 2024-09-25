@@ -133,7 +133,7 @@ const Account= ({ token, email, firstName, userId }) =>{
             Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({
-            rating: parseInt(reviewContent.rating),
+            rating: reviewContent.rating,
             comment: reviewContent.comment,
           }),
         }
