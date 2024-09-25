@@ -1,7 +1,7 @@
 /* Account Page */
 .account-page-wrapper {
-  padding: 10px;
-  color: white;
+  /* padding: 10px; */
+  color: #113311;
   font-family: "Roboto Condensed", sans-serif;
   h2 {
     font-size: 2.5em;
@@ -17,17 +17,29 @@ body {
   margin: 0;
   padding-top: 30px;
 }
+#noStadiumsButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+
 .section-header {
   font-size: 1.8em;
   font-family: "Roboto Condensed", sans-serif;
-  color: #113311;
-  text-align: left;
-  margin-top: 30px;
-  margin-bottom: 20px;
+  color: whitesmoke;
+  text-align: center;
+  /* margin-bottom: 20px; */
   letter-spacing: 1px;
+  background-color: #113311;
+  padding: 20px;
+  width: 100%;
   h3 {
     margin: 0;
   }
+}
+.accountWelcomeMessage {
+  padding-top: 20px;
 }
 .visited-grid-container {
   display: grid;
@@ -35,7 +47,7 @@ body {
   grid-template-rows: auto;
   gap: 10px;
   justify-items: center;
-  padding-bottom: 10px;
+  padding: 20px;
 }
 .visited-cards {
   display: flex;
@@ -108,38 +120,47 @@ body {
   border-color: #646cff;
   background-color: #009aff;
 }
+.table-wrapper{
+  width:100%;
+  overflow-x: scroll;
+  table{
+    min-width: 1000px;
+  }
+}
 .reviews-table {
-  /* position: absolute; */
   width: 100%;
   padding: 10px;
-  table-layout: fixed;
   border-spacing: 1rem;
-  text-align: left;
-  font-size: 1.3em;
-  background-color: #113311;
-  opacity: 0.9;
-  border-radius: 16px;
+  text-align: center;
+  font-size: 1.4em;
   letter-spacing: 1.5px;
+  color: #113311;
+  padding: 20px;
 }
 .table-headers {
-  font-size: 1.5em;
+  font-size: 1.7em;
   font-weight: bold;
-  text-align: left;
+  text-align: center;
+  height: 70px;
+  letter-spacing: 2px;
+}
+th {
+  border-bottom: 2px solid #113311;
+}
+th{
+  padding: 10px;
 }
 .comments-table {
-  /* position: relative; */
   width: 100%;
   padding: 10px;
-  table-layout: fixed;
   border-spacing: 1rem;
-  text-align: left;
-  font-size: 1.3em;
-  background-color: #113311;
-  opacity: 0.9;
-  border-radius: 16px;
+  text-align: center;
+  font-size: 1.4em;
   letter-spacing: 1.5px;
-  z-index: -1000;
+  color: #113311;
+  padding: 20px;
 }
+
 .edit-form-container {
   display: flex;
   justify-content: center;
