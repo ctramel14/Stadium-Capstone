@@ -13,6 +13,7 @@ export default function SingleCard({ token, userId, username }) {
   const [showInput, setShowInput] = useState(false);
   const [restaurant, setRestaurant] = useState([]);
   const [hotel, setHotel] = useState([]);
+  const [stadiumsVisited, setStadiumsVisited] = useState([]);
 
   let { id } = useParams();
   const navigate = useNavigate();
@@ -68,6 +69,8 @@ export default function SingleCard({ token, userId, username }) {
             },
           }
         );
+        const result = await response.json();
+        setStadiumsVisited(result.visitedStadiums)
       } catch (error) {
         console.error(error);
       }
@@ -124,6 +127,7 @@ export default function SingleCard({ token, userId, username }) {
           }
         );
         const result = await response.json();
+        
         setReviewId(result.reviews.map((review) => review.userId));
         //utilizing userId on a review to go to the appropriate page to reply to
         if (Array.isArray(result.reviews)) {
@@ -245,9 +249,9 @@ export default function SingleCard({ token, userId, username }) {
 
           {token && ( //token check to display next information
             <div className="single-page-buttons">
-              <button onClick={() => visited(stadium.id)}>
+              {!stadiumsVisited.includes(userId) && <button onClick={() => visited(stadium.id)}>
                 Select as Visited
-              </button>
+              </button>}
               {!reviewId.includes(userId) && !reviewSuccess && ( //does not render button if user has posted previously, removes button if posted while on page
                 <button onClick={handleClick}>
                   {showInput ? "Hide Input" : "Write Review"}
