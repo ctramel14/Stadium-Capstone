@@ -1,7 +1,7 @@
 // import { URL } from "../API";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import "./Login.css";
+// import "./Login.css";
 
 export default function Login({
   setToken,
@@ -74,3 +74,4 @@ export default function Login({
     </>
   );
 }
+
