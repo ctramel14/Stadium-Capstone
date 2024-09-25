@@ -502,6 +502,14 @@ const createUsers = async () => {
         lastName: "Smith",
         email: "eve@email.com",
       },
+      {
+        username: "adminuser",
+        password: "password6",
+        firstName: "Ad",
+        lastName: "Min",
+        email: "admin@email.com",
+        administrator: true,
+      },
     ];
 
     // Hash passwords

@@ -11,6 +11,7 @@ import Account from "../components/Account";
 import LogOut from "../components/LogOut";
 import Reviews from "../components/Reviews";
 import LoginModal from "../components/LoginModal";
+import Admin from "../components/Admin";
 
 //setting state here to make passing props between components easier
 function App() {
@@ -23,6 +24,7 @@ function App() {
   const [username, setUsername] = useState("");
   const [userId, setUserId] = useState("");
   const [loginSeen, setLoginSeen] = useState(false);
+  const [administrator, setAdministrator] = useState(false);
 
   return (
     <>
@@ -30,6 +32,7 @@ function App() {
         token={token}
         toggleLogin={loginSeen}
         setLoginSeen={setLoginSeen}
+        administrator={administrator} 
       />
       {loginSeen ? (
         <LoginModal
@@ -46,6 +49,7 @@ function App() {
         setUserId={setUserId}
         setLoginSeen={setLoginSeen}
         loginSeen={loginSeen}
+        setAdministrator={setAdministrator}
           />
       ) : null}
       <Routes>
@@ -82,6 +86,7 @@ function App() {
         setUserId={setUserId}
         setLoginSeen={setLoginSeen}
         loginSeen={loginSeen}
+        setAdministrator={setAdministrator}
         />
       }
        />
@@ -129,6 +134,9 @@ function App() {
             path="/users/logout"
             element={<LogOut setToken={setToken} />}
           />
+        )}
+        {administrator && (
+          <Route path="/admin" element={<Admin token={token}/>} />
         )}
       </Routes>
       {!token && <h4>Register or Log-in for full functionality!</h4>}

@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-export default function NavigationBar({ token, loginSeen, setLoginSeen }) {
+export default function NavigationBar({ token, loginSeen, setLoginSeen, administrator }) {
   // console.log(token);
   
   
@@ -11,6 +11,7 @@ export default function NavigationBar({ token, loginSeen, setLoginSeen }) {
           <Link to="/">Stadiums</Link>
           <Link to="/users/logout">LogOut</Link>
           <Link to="/users/me">Account</Link>
+          {administrator && <Link to="/admin">Admin</Link>}
           <Link to="/contactform">Contact Us</Link>
         </div>
       ) : (
