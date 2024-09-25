@@ -37,6 +37,7 @@ const stadiumColors = {
 //fetching all stadiums
 export default function StadiumCards({ token, stadiums, setStadiums, userId }) {
   const [searchParam, setSearchParam] = useState("");
+  const [stadiumsVisited, setStadiumsVisited] = useState([]);
   const navigate = useNavigate();
 
   async function fetchAllStadiums() {
@@ -67,6 +68,7 @@ export default function StadiumCards({ token, stadiums, setStadiums, userId }) {
         const result = await response.json();
         const stads = result.visitedStadiums.map((v) => v.stadiumId); 
         const iterator = stads.values();
+        setStadiumsVisited(stads)
         for (const value of iterator) {
             let elements = document.getElementById(value);
             elements.style.backgroundColor = stadiumColors[value];
@@ -87,6 +89,7 @@ export default function StadiumCards({ token, stadiums, setStadiums, userId }) {
   }, []);
 
   async function visited(id) {   // used to add new visited stadiums
+ 
     try {
       await fetch(
         `http://localhost:3000/api/users/${userId}/visitedstadiums/${id}`,
@@ -99,7 +102,9 @@ export default function StadiumCards({ token, stadiums, setStadiums, userId }) {
           body: JSON.stringify({ visited: true }),
         }
       );
-    
+      console.log(id);
+      
+      setStadiumsVisited([...stadiumsVisited, id])
       let element = document.getElementById(id);  //sets the colors of newly visited stadiums
       element.style.backgroundColor = stadiumColors[id];
     } catch (error) {
@@ -156,7 +161,7 @@ export default function StadiumCards({ token, stadiums, setStadiums, userId }) {
               {stadium.teamName}
             </p>
               <div className="stadium-card-buttons">
-                <button onClick={() => visited(stadium.id)}>Visited</button>
+                {!stadiumsVisited.includes(stadium.id) && <button onClick={() => visited(stadium.id)}>Visited</button>}
               </div>
           </div>
         ))}
