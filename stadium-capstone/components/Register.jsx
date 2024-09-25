@@ -1,6 +1,7 @@
 //register page, passing in props from App.jsx
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "./Register.css";
 
 export default function Register({
   setToken,
@@ -15,28 +16,34 @@ export default function Register({
   username,
   setUsername,
   userId,
-  setUserId
+  setUserId,
 }) {
   const navigate = useNavigate();
-  const [success, setSuccess] = useState("")
+  const [success, setSuccess] = useState("");
 
   async function handleSubmit(e) {
     e.preventDefault();
     console.log(username, lastName, email, password, userId);
-    
+
     try {
       const result = await fetch("http://localhost:3000/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password, firstName, lastName, username}),
+        body: JSON.stringify({
+          email,
+          password,
+          firstName,
+          lastName,
+          username,
+        }),
       });
       const json = await result.json();
       console.log(json.newUser);
       setToken(json.token);
-      const newUserId = json.newUser
-      setUserId(newUserId.id)
-      setSuccess("Registration Successful")
-      console.log(userId);   
+      const newUserId = json.newUser;
+      setUserId(newUserId.id);
+      setSuccess("Registration Successful");
+      console.log(userId);
       // alert('You have successfully logged in!');
       // navigate("/users/login");
     } catch (error) {
@@ -46,66 +53,93 @@ export default function Register({
 
   return (
     <>
-    {!success ? (
-      <form id="register" onSubmit={handleSubmit}>
-      <h2>Register</h2>
-      <label>
-        <input
-          id="firstname-input"
-          minLength="2"
-          value={firstName}
-          placeholder="First name"
-          required
-          onChange={(e) => setFirstName(e.target.value)}
-        />
-      </label>
-      <label>
-        <input
-          id="lastname-input"
-          minLength="2"
-          value={lastName}
-          placeholder="Last name"
-          required
-          onChange={(e) => setLastName(e.target.value)}
-        />
-      </label>
-      <label>
-        <input
-          id="username-input"
-          minLength="2"
-          value={username}
-          placeholder="Username"
-          required
-          onChange={(e) => setUsername(e.target.value)}
-        />
-      </label>
-      <label>
-        <input
-          id="email-input"
-          minLength="8"
-          value={email}
-          placeholder="Email"
-          required
-          onChange={(e) => setEmail(e.target.value)}
-        />
-      </label>
-      <label>
-        <input
-          id="password-input"
-          minLength="6"
-          value={password}
-          placeholder="Password"
-          required
-          onChange={(e) => setPassword(e.target.value)}
-        />
-      </label>
-      <button className="submit" type="submit">
-        Submit
-      </button>
-    </form>
-    ) : (
-     <h4>{success}</h4>
-    )}   
+      {!success ? (
+        /* From Uiverse.io by ammarsaa */
+        <div className="registerContainer">
+          <form className="form" onSubmit={handleSubmit}>
+            <p className="title">Register </p>
+            <p className="message">
+              Signup now and get full access to our app.{" "}
+            </p>
+            <div className="flex">
+              <label>
+                <input
+                  className="input"
+                  type="text"
+                  minLength="2"
+                  value={firstName}
+                  placeholder=""
+                  required=""
+                  onChange={(e) => setFirstName(e.target.value)}
+                />
+                <span>Firstname</span>
+              </label>
+
+              <label>
+                <input
+                  className="input"
+                  type="text"
+                  minLength="2"
+                  value={lastName}
+                  placeholder=""
+                  required=""
+                  onChange={(e) => setLastName(e.target.value)}
+                />
+                <span>Lastname</span>
+              </label>
+            </div>
+            <label>
+              <input
+                className="input"
+                type="text"
+                minLength="2"
+                value={username}
+                placeholder=""
+                required=""
+                onChange={(e) => setUsername(e.target.value)}
+              />
+              <span>Username</span>
+            </label>
+
+            <label>
+              <input
+                className="input"
+                type="email"
+                minLength="8"
+                value={email}
+                placeholder=""
+                required=""
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <span>Email</span>
+            </label>
+
+            <label>
+              <input
+                className="input"
+                type="password"
+                minLength="6"
+                value={password}
+                placeholder=""
+                required=""
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <span>Password</span>
+            </label>
+            <button className="submit" type="submit">
+              Submit
+            </button>
+            <p className="signin">
+              Already have an acount ? <a href="#">Signin</a>{" "}
+            </p>
+          </form>
+        </div>
+      ) : (
+        <div className="registerSuccess">
+          <p>{success}!</p>
+          <button onClick={() => navigate("/users/me")}>Account</button>
+        </div>
+      )}
     </>
   );
 }

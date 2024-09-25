@@ -1,5 +1,6 @@
-import { useState, useEffect } from "react";
-
+import React, { useState, useEffect, useLayoutEffect,FC } from "react";
+import ReviewsTable from './ReviewsTable'
+import { useNavigate } from "react-router-dom";
 const stadiumColors = {
   1: "rgb(156,41,59)",
   2: "rgb(27,57,99)",
@@ -33,20 +34,28 @@ const stadiumColors = {
   30: "rgb(172,50,38)",
 };
 
-export default function Account({ token, email, firstName, userId }) {
+const Account= ({ token, email, firstName, userId }) =>{
   const [visited, setVisited] = useState([]);
   const [reviews, setReviews] = useState([]);
   const [comments, setComments] = useState([]);
   const [username, setUsername] = useState("");
-  const [editingReview, setEditingReview] = useState(null);
   const [editingComment, setEditingComment] = useState(null);
-  const [reviewContent, setReviewContent] = useState({
-    rating: "",
-    comment: "",
-  });
+
   const [commentContent, setCommentContent] = useState("");
   const message = `Please log in to see your account details.`;
   const noStadium = `No stadiums visited yet`;
+  const navigate = useNavigate();
+
+  const [width, setWidth] = useState(300);
+
+  useLayoutEffect(() => {
+    if (window) {
+      setWidth(window.innerWidth);
+      window.addEventListener("resize", () => {
+        setWidth(window.innerWidth);
+      });
+    }
+  }, []);
 
   useEffect(() => {
     if (!token || !userId) return;
@@ -95,20 +104,7 @@ export default function Account({ token, email, firstName, userId }) {
     }
   }
 
-  async function deleteReview(reviewId) {
-    try {
-      await fetch(`http://localhost:3000/api/reviews/${reviewId}`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      setReviews((prev) => prev.filter((review) => review.id !== reviewId));
-    } catch (error) {
-      console.error(error);
-    }
-  }
+
 
   async function deleteComment(commentId) {
     try {
@@ -125,33 +121,7 @@ export default function Account({ token, email, firstName, userId }) {
     }
   }
 
-  async function editReview(e, reviewId) {
-    e.preventDefault();
-    try {
-      const response = await fetch(
-        `http://localhost:3000/api/review/${reviewId}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({
-            rating: reviewContent.rating,
-            comment: reviewContent.comment,
-          }),
-        }
-      );
-      const updatedReview = await response.json();
-      setReviews((prev) =>
-        prev.map((review) => (review.id === reviewId ? updatedReview : review))
-      );
-      setEditingReview(null);
-      setReviewContent({ rating: "", comment: "" });
-    } catch (error) {
-      console.error(error);
-    }
-  }
+
 
   async function editComment(e, commentId) {
     e.preventDefault();
@@ -170,7 +140,7 @@ export default function Account({ token, email, firstName, userId }) {
       const updatedComment = await response.json();
       setComments((prev) =>
         prev.map((comment) =>
-          comment.id === commentId ? updatedComment : comment
+          comment.id === commentId ? { ...comment, ...updatedComment } : comment
         )
       );
       setEditingComment(null);
@@ -187,10 +157,10 @@ export default function Account({ token, email, firstName, userId }) {
       ) : (
         <div className="account-page-wrapper">
           <header className="section-header">
+            <div className="accountWelcomeMessage">
             <h3>Welcome, {firstName}!</h3>
-            {/* <h3>Username: {username}</h3> */}
-          </header>
-          <header className="section-header">
+            <h4>Username: {username}</h4>
+            </div>
             <h3>Your Visited Stadiums</h3>
           </header>
           {visited.length > 0 ? (
@@ -213,178 +183,84 @@ export default function Account({ token, email, firstName, userId }) {
               ))}
             </div>
           ) : (
-            <p>{noStadium}</p>
+            <div id="noStadiumsButton">
+            {/* <p>{noStadium}</p> */}
+            <button  onClick={() => navigate("/")}>Add Stadiums</button>
+            </div>
           )}
-          <header className="section-header">
-            <h3>Your Reviews</h3>
-          </header>
-          {reviews.length > 0 ? (
-            <table className="reviews-table">
-              <thead>
-                <tr className="table-headers">
-                  <th>Stadium</th>
-                  <th>Team</th>
-                  <th>Rating</th>
-                  <th>Review</th>
-                  <th>Date</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody className="table-body">
-                {reviews.map((review) => (
-                  <tr key={review.id}>
-                    {/* <div key={review.id} className="user-review"> */}
-                    {editingReview === review.id ? (
-                      <td colSpan="6">
-                        <section className="edit-form-container">
-                          <form
-                            onSubmit={(e) => editReview(e, review.id)}
-                            className="edit-form"
-                          >
-                            <h4>Edit Review</h4>
-                            <p>Stadium: {review.stadium.name}</p>
-                            <label>
-                              Rating:
-                              <br />
-                              <input
-                                type="number"
-                                value={reviewContent.rating}
-                                max={10}
-                                min={0}
-                                onChange={(e) =>
-                                  setReviewContent({
-                                    ...reviewContent,
-                                    rating: e.target.value,
-                                  })
-                                }
-                              />
-                            </label>
-                            <label>
-                              Review:
-                              <textarea
-                                value={reviewContent.comment}
-                                onChange={(e) =>
-                                  setReviewContent({
-                                    ...reviewContent,
-                                    comment: e.target.value,
-                                  })
-                                }
-                              />
-                            </label>
-                            <div className="edit-form-buttons">
-                              <button type="submit">Save</button>
-                              <button
-                                type="button"
-                                onClick={() => setEditingReview(null)}
-                              >
-                                Cancel
-                              </button>
-                            </div>
-                          </form>
-                        </section>
-                      </td>
-                    ) : (
-                      <>
-                        <td>{review.stadium.name}</td>
-                        <td>{review.stadium.teamName}</td>
-                        <td>{review.rating} / 10</td>
-                        <td>{review.comment}</td>
-                        <td>{new Date(review.date).toLocaleDateString()}</td>
-                        <td>
-                          <button
-                            onClick={() => {
-                              setEditingReview(review.id);
-                              setReviewContent({
-                                rating: review.rating,
-                                comment: review.comment,
-                              });
-                            }}
-                          >
-                            Edit
-                          </button>
-                          <button onClick={() => deleteReview(review.id)}>
-                            Delete
-                          </button>
-                        </td>
-                      </>
-                    )}
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          ) : (
-            <p>No reviews written yet.</p>
-          )}
+          <ReviewsTable {...{width,reviews, setReviews,token}}/>
           <header className="section-header">
             <h3>Your Replies</h3>
           </header>
           {comments.length > 0 ? (
-            <table className="comments-table">
-              <thead>
-                <tr className="table-headers">
-                  <th>Stadium</th>
-                  <th>Reply</th>
-                  <th>Date</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody className="table-body">
-                {comments.map((comment) => (
-                  <tr key={comment.id}>
-                    {/* <div key={comment.id} className="user-comment"> */}
-                    {editingComment === comment.id ? (
-                      <td colSpan="4">
-                        <section className="edit-form-container">
-                          <form
-                            onSubmit={(e) => editComment(e, comment.id)}
-                            className="edit-form"
-                          >
-                            <h4>Edit Reply</h4>
-                            <label>
-                              Reply:
-                              <textarea
-                                value={commentContent}
-                                onChange={(e) =>
-                                  setCommentContent(e.target.value)
-                                }
-                              />
-                            </label>
-                            <div className="edit-form-buttons">
-                              <button type="submit">Save</button>
-                              <button
-                                type="button"
-                                onClick={() => setEditingComment(null)}
-                              >
-                                Cancel
-                              </button>
-                            </div>
-                          </form>
-                        </section>
-                      </td>
-                    ) : (
-                      <>
-                        <td>{comment.review.stadium.name}</td>
-                        <td>{comment.content}</td>
-                        <td>{new Date(comment.date).toLocaleDateString()}</td>
-                        <td>
-                          <button
-                            onClick={() => {
-                              setEditingComment(comment.id);
-                              setCommentContent(comment.content);
-                            }}
-                          >
-                            Edit
-                          </button>
-                          <button onClick={() => deleteComment(comment.id)}>
-                            Delete
-                          </button>
-                        </td>
-                      </>
-                    )}
+            <div className="table-wrapper">
+              <table className="comments-table">
+                <thead>
+                  <tr className="table-headers">
+                    <th>Stadium</th>
+                    <th>Reply</th>
+                    <th>Date</th>
+                    <th>Actions</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody className="table-body">
+                  {comments.map((comment) => (
+                    <tr key={comment.id}>
+                      {/* <div key={comment.id} className="user-comment"> */}
+                      {editingComment === comment.id ? (
+                        <td colSpan="4">
+                          <section className="edit-form-container">
+                            <form
+                              onSubmit={(e) => editComment(e, comment.id)}
+                              className="edit-form"
+                            >
+                              <h4>Edit Reply</h4>
+                              <label>
+                                Reply:
+                                <textarea
+                                  value={commentContent}
+                                  onChange={(e) =>
+                                    setCommentContent(e.target.value)
+                                  }
+                                />
+                              </label>
+                              <div className="edit-form-buttons">
+                                <button type="submit">Save</button>
+                                <button
+                                  type="button"
+                                  onClick={() => setEditingComment(null)}
+                                >
+                                  Cancel
+                                </button>
+                              </div>
+                            </form>
+                          </section>
+                        </td>
+                      ) : (
+                        <>
+                          <td>{comment.review.stadium.name}</td>
+                          <td>{comment.content}</td>
+                          <td>{new Date(comment.date).toLocaleDateString()}</td>
+                          <td>
+                            <button
+                              onClick={() => {
+                                setEditingComment(comment.id);
+                                setCommentContent(comment.content);
+                              }}
+                            >
+                              Edit
+                            </button>
+                            <button onClick={() => deleteComment(comment.id)}>
+                              Delete
+                            </button>
+                          </td>
+                        </>
+                      )}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           ) : (
             <p>No replies written yet.</p>
           )}
@@ -393,3 +269,5 @@ export default function Account({ token, email, firstName, userId }) {
     </>
   );
 }
+
+export default Account
