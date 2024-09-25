@@ -1,6 +1,7 @@
 import { useState, useEffect, useLayoutEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
+
 import "./SingleCard.css";
 
 export default function SingleCard({ token, userId, username }) {
@@ -12,6 +13,7 @@ export default function SingleCard({ token, userId, username }) {
   const [reviewSuccess, setReviewSuccess] = useState(null);
   const [reviewId, setReviewId] = useState([]);
   const [showInput, setShowInput] = useState(false);
+  
   let { id } = useParams();
   const navigate = useNavigate();
 
@@ -86,6 +88,8 @@ export default function SingleCard({ token, userId, username }) {
           }
         );
         const result = await response.json();
+        console.log(result);
+        
         setReviewId(result.reviews.map((review) => review.userId));
 
         if (Array.isArray(result.reviews)) {
@@ -172,7 +176,7 @@ export default function SingleCard({ token, userId, username }) {
         }
       );
       const result = await response.json();
-
+      setShowInput(showInput);
       setReviewSuccess(true);
       console.log(reviewSuccess);
     } catch (error) {
@@ -214,15 +218,17 @@ export default function SingleCard({ token, userId, username }) {
               {stadium.zipCode}{" "}
             </p>
           </div>
-          {token ? (
+          
+          {token && (
             <div className="single-page-buttons">
               <button onClick={() => visited(stadium.id)}>
                 Select as Visited
               </button>
-              {!reviewId.includes(userId) && !reviewSuccess && <button onClick={handleClick} >
+              {!reviewId.includes(userId) && !reviewSuccess &&
+              <button onClick={handleClick} >
               {showInput ? "Hide Input" : "Write Review"}
                 </button>}
-                {showInput && !reviewId.includes(userId) ?
+                {showInput && !reviewId.includes(userId) && !reviewSuccess &&
                 (<form className="review-form" onSubmit={sendReview}>
               <label>Rating</label>
               <input
@@ -242,11 +248,9 @@ export default function SingleCard({ token, userId, username }) {
                 required
               />
               <button type="submit">Send</button>
-            </form>) : <p></p>
+            </form>) 
             }
             </div>
-          ) : (
-            <h4></h4>
           )}
         </div>
         {success && (
@@ -293,45 +297,16 @@ export default function SingleCard({ token, userId, username }) {
                 </button>
               </div>
             ))
-          ) : (
-            <p>No reviews available.</p>
+          ) : ( <p>No reviews available.</p>
           )}
         </div>
-        {reviewSuccess ? (
+        {reviewSuccess && (
           <div className="individualReviews">
             <p>Review by {username}</p>
             <p>Rating: {rating}/10</p>
             <p>{comment}</p>
           </div>
-        ) : (
-          <h6></h6>
         )}
-        {/* <div className="reviewForm">
-          {token && !reviewId.includes(userId) ? (
-            <form onSubmit={sendReview}>
-              <label>Rating</label>
-              <input
-                id="rating"
-                type="number"
-                max="10"
-                value={rating}
-                onChange={(e) => setRating(e.target.value)}
-                required
-              />
-              <label>comment</label>
-              <input
-                id="comment"
-                type="comment"
-                value={comment}
-                onChange={(e) => setComment(e.target.value)}
-                required
-              />
-              <button type="submit">Send</button>
-            </form>
-          ) : (
-            <h6></h6>
-          )}
-        </div> */}
         <button onClick={() => navigate(-1)}>Back</button>
       </div>
     </>
