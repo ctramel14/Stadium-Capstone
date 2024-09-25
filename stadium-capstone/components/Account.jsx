@@ -34,7 +34,7 @@ const stadiumColors = {
   30: "rgb(172,50,38)",
 };
 
-const Account= ({ token, email, firstName, userId }) =>{
+const Account= ({ token, email, firstName, userId }) => {
   const [visited, setVisited] = useState([]);
   const [reviews, setReviews] = useState([]);
   const [comments, setComments] = useState([]);

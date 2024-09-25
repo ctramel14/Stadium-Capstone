@@ -59,13 +59,14 @@ button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
-.logOutPage {
-  font-family: "Roboto Condensed", sans-serif;
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  align-items: center;
-  justify-content: center;
-  margin-top: 10px;
-  height: 90vh;
+
+.full-access-message {
+  font-size: 1.2em;
+  font-weight: 600;
+  color: #113311;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
 }
+

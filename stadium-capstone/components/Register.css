@@ -4,7 +4,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-family: "roboto", sans-serif;
+  font-family: "Roboto Condensed", sans-serif;
   height: 100vh;
 }
 .registerSuccess p {
@@ -21,10 +21,9 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: whitesmoke;
 }
 
-.form {
+#form {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -33,12 +32,12 @@
   border-radius: 20px;
   position: relative;
   background-color: #113311;
-  color: #113311;
   border: 1px solid #333;
+  font-family: "Roboto Condensed", sans-serif;
 }
 
 .title {
-  font-size: 28px;
+  font-size: 32px;
   font-weight: 600;
   letter-spacing: -1px;
   position: relative;
@@ -97,11 +96,11 @@
   flex-direction: row;
 }
 
-.form label {
+#form label {
   position: relative;
 }
 
-.form label .input {
+#form label .input {
   background-color: #333;
   color: #fff;
   width: 100%;
@@ -111,7 +110,7 @@
   border-radius: 10px;
 }
 
-.form label .input + span {
+#form label .input + span {
   color: rgba(255, 255, 255, 0.5);
   /* position: absolute; */
   left: 10px;
@@ -121,13 +120,13 @@
   transition: 0.3s ease;
 }
 
-.form label .input:placeholder-shown + span {
+#form label .input:placeholder-shown + span {
   top: 12.5px;
   font-size: 0.9em;
 }
 
-.form label .input:focus + span,
-.form label .input:valid + span {
+#form label .input:focus + span,
+#form label .input:valid + span {
   color: #90b58a;
   top: 0px;
   font-size: 0.7em;

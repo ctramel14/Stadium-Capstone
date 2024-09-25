@@ -1,6 +1,5 @@
 /* Account Page */
 .account-page-wrapper {
-  /* padding: 10px; */
   color: #113311;
   font-family: "Roboto Condensed", sans-serif;
   h2 {
@@ -29,7 +28,6 @@ body {
   font-family: "Roboto Condensed", sans-serif;
   color: whitesmoke;
   text-align: center;
-  /* margin-bottom: 20px; */
   letter-spacing: 1px;
   background-color: #113311;
   padding: 20px;

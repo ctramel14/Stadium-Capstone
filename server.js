@@ -29,7 +29,8 @@ app.use(async (req, res, next) => {
     req.path === "/api/reviews" ||
     req.path === `/api/stadiums/${req.params.id}` ||
     req.path === `/api/comments/${req.params.id}` ||
-    req.path === `/api/reviews/${req.params.id}`
+    req.path === `/api/reviews/${req.params.id}` ||
+    req.path === "/api/contactus"
   ) {
     return next();
   }
