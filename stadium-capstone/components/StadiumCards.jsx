@@ -121,10 +121,9 @@ export default function StadiumCards({ token, stadiums, setStadiums, userId }) {
   return (
     <div className="bg-wrapper">
       <header className="stadiums-page-header">
-        <h1>Will You Visit Every Ballpark?</h1>
+        <h1>Visit Every MLB Ballpark!</h1>
         <h3>
-          Select any ballpark for more information, or 'Visited' to add it to
-          your visited list.
+        Click on any ballpark to learn more, or select 'Mark as Visited' to add it to your visited list.
           <div className="search">
             <label>
               <input
@@ -161,7 +160,7 @@ export default function StadiumCards({ token, stadiums, setStadiums, userId }) {
               {stadium.teamName}
             </p>
               <div className="stadium-card-buttons">
-                {!stadiumsVisited.includes(stadium.id) && <button onClick={() => visited(stadium.id)}>Visited</button>}
+                {!stadiumsVisited.includes(stadium.id) && <button onClick={() => visited(stadium.id)}>Mark as Visited</button>}
               </div>
           </div>
         ))}

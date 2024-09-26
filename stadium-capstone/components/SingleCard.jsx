@@ -311,29 +311,34 @@ export default function SingleCard({ token, userId, username }) {
         </header>
         <div className="nearby-container">
           {hotel.map((hot) => (
-            <div className="nearby-card" key={hot.id}>
-              <p><strong>Hotel: {hot.name}</strong></p>
-              <p>Address: {hot.address}</p>
-              <p>Zip-code: {hot.zipCode}</p>
+            <div className="nearby-card" key={hot.id} style={{ borderColor: stadiumColors[stadium.id] }}>
+              <p><strong>{hot.name}</strong></p>
+              <p>{hot.address}<br />
+              {hot.city}, {hot.state}, {hot.zipCode}</p>
             </div>
           ))}
         </div>
         <hr className="line-across"></hr>
-        <div className="reviews">
+        <header className="nearby-list-header">
+          <h3>Reviews</h3>
+        </header>
+        <div className="reviews-container">
         {!reviews.length > 0 && !reviewSuccess && (
               <p>No reviews available.</p>
             )}
           {Array.isArray(reviews) && reviews.length > 0 && (
             reviews.map((review) => (
               <div key={review.id} className="review">
-                <div className="reviewuser">
+                {/* <div className="reviewuser"> */}
                   {Object.keys(review.user).map((key, index) => (
-                    <p key={index}>Review by: {review.user[key]}</p>
+                    <p key={index} id="user-review-name">Review by: {review.user[key]}</p>
                   ))}
-                  <p>Rating: {review.rating}/10</p>
-                  <p>"{review.comment}"</p>
-                </div>
+                  <p>{new Date(review.date).toLocaleDateString("en-US", {year: "numeric", month: "long", day: "numeric"})}</p>
+                  <p>{review.rating} / 10</p>
+                  <p>{review.comment}</p>
+                {/* </div> */}
                 <button
+                  id="reply-button"
                   onClick={() => navigate(`/stadiums/reviews/${review.id}`)}
                   type="submit"
                 >
