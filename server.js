@@ -409,7 +409,7 @@ app.post("/api/stadium/:id/reviews", async (req, res, next) => {
       },
     });
 
-    res.status(201).json({ message: "Review added" });
+    res.status(201).json({ message: "Review added", rating });
   } catch (err) {
     next(err);
   }

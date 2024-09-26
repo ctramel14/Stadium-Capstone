@@ -16,6 +16,9 @@ export default function SingleCard({ token, userId, username }) {
   const [stadiumsVisited, setStadiumsVisited] = useState([]);
   const [stadiumSuccess, setStadiumSuccess] = useState("")
   const [averageRating, setAverageRating] = useState([])
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [totalRatings, setTotalRatings] = useState([])
+  // let totalRatings = [];
 
   let { id } = useParams();
   const navigate = useNavigate();
@@ -153,17 +156,14 @@ export default function SingleCard({ token, userId, username }) {
             })
           );
           setReviews(reviewsWithComments);
-          console.log(reviewsWithComments);
-          
+          const ratingsMap = reviewsWithComments.map((reviews) => reviews.rating);
+          setTotalRatings(ratingsMap);
           let sum = 0;
           let avg = 0;
-          let totalRatings = reviewsWithComments.map(reviews => reviews.rating);
-          console.log(totalRatings);
           for (let i = 0; i < totalRatings.length; i++) {
             sum += totalRatings[i];
             avg = sum/(totalRatings.length)
-        } setAverageRating(Math.round(avg * 100)/100)
-        
+        } setAverageRating(Math.round(avg * 100)/100)  
           
         } else {
           setReviews([]); //setting reviews state based on replies or not
@@ -174,7 +174,7 @@ export default function SingleCard({ token, userId, username }) {
       }
     }
     getStadium();
-  }, [id]);
+  }, [id, averageRating]);
   // visit a stadium
   async function visited() {
     try {
@@ -219,6 +219,16 @@ export default function SingleCard({ token, userId, username }) {
           }),
         }
       );
+      const result = await response.json()
+      totalRatings.push(result.rating)
+      setTotalRatings([...totalRatings, result.rating])
+      let sum = 0;
+          let avg = 0;
+          for (let i = 0; i < totalRatings.length; i++) {
+            sum += totalRatings[i];
+            avg = sum/(totalRatings.length)
+        } setAverageRating(Math.round(avg * 100)/100)
+      
       setShowInput(showInput); //changing states for conditional rendering in return
       setReviewSuccess(true);
     } catch (error) {
@@ -240,6 +250,10 @@ export default function SingleCard({ token, userId, username }) {
     setShowInput(!showInput);
   };
 
+//   function handleChange(e) {
+//     console.log(e.target.files);
+    
+// }
   return (
     <>
       <div className="stadium-info-page">
@@ -266,7 +280,7 @@ export default function SingleCard({ token, userId, username }) {
           {token && ( //token check to display next information
             <div className="single-page-buttons">
               {!stadiumsVisited.includes(stadium.id) && !stadiumSuccess && <button onClick={() => visited(stadium.id)}>
-                Select as Visited
+                Mark as Visited
               </button>}
               {!reviewId.includes(userId) && !reviewSuccess && ( //does not render button if user has posted previously, removes button if posted while on page
                 <button onClick={handleClick}>
@@ -292,6 +306,14 @@ export default function SingleCard({ token, userId, username }) {
                     onChange={(e) => setComment(e.target.value)}
                     required
                   />
+                  <input 
+                    type="file" 
+                    accept="image/*"
+                    onChange={(e) => setSelectedImage(URL.createObjectURL(e.target.files[0]))}
+                    />
+                    <img src={selectedImage} 
+                    className="img-upload"
+                    />
                   <button type="submit">Send</button>
                 </form>
               )}

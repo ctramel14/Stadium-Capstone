@@ -161,7 +161,7 @@ export default function StadiumCards({ token, stadiums, setStadiums, userId }) {
               {stadium.teamName}
             </p>
               <div className="stadium-card-buttons">
-                {!stadiumsVisited.includes(stadium.id) && token && <button onClick={() => visited(stadium.id)}>Visited</button>}
+                {!stadiumsVisited.includes(stadium.id) && token && <button onClick={() => visited(stadium.id)}>Mark as Visited</button>}
               </div>
           </div>
         ))}
