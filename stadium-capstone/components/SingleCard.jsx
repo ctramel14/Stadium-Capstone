@@ -306,42 +306,53 @@ export default function SingleCard({ token, userId, username }) {
             </div>
           </div>
         )}
-        <div className="restaurantsNearby">
-          <h4>Restaurants near the stadium</h4>
+        <header className="nearby-list-header">
+          <h3>Restaurants Near The Stadium</h3>
+        </header>
+        <div className="nearby-container">
           {restaurant.map((rest) => (
-            <div className="restaurant-card" key={rest.id}>
-              <h5>{rest.name}</h5>
-              <h6>{rest.address}</h6>
-              <h6>{rest.cuisine}</h6>
+            <div className="nearby-card" key={rest.id} style={{ borderColor: stadiumColors[stadium.id] }}>
+              <p><strong>{rest.name}</strong></p>
+              <p>{rest.cuisine}</p>
+              <p>{rest.address} <br/> 
+                {rest.city}, {rest.state}, {rest.zipCode}</p>
             </div>
           ))}
         </div>
-        <div className="hotelsNearby">
-          <h4>Hotels</h4>
+        <hr className="line-across"></hr>
+        <header className="nearby-list-header">
+          <h3>Hotels Near The Stadium</h3>
+        </header>
+        <div className="nearby-container">
           {hotel.map((hot) => (
-            <div className="restaurant-card" key={hot.id}>
-              <h5>{hot.name}</h5>
-              <h6>{hot.address}</h6>
-              <h6>{hot.zipCode}</h6>
+            <div className="nearby-card" key={hot.id} style={{ borderColor: stadiumColors[stadium.id] }}>
+              <p><strong>{hot.name}</strong></p>
+              <p>{hot.address}<br />
+              {hot.city}, {hot.state}, {hot.zipCode}</p>
             </div>
           ))}
         </div>
-        
-        <div className="reviews">
+        <hr className="line-across"></hr>
+        <header className="nearby-list-header">
+          <h3>Reviews</h3>
+        </header>
+        <div className="reviews-container">
         {!reviews.length > 0 && !reviewSuccess && (
               <p>No reviews available.</p>
             )}
           {Array.isArray(reviews) && reviews.length > 0 && (
             reviews.map((review) => (
               <div key={review.id} className="review">
-                <div className="reviewuser">
+                {/* <div className="reviewuser"> */}
                   {Object.keys(review.user).map((key, index) => (
-                    <p key={index}>Review by: {review.user[key]}</p>
+                    <p key={index} id="user-review-name">Review by: {review.user[key]}</p>
                   ))}
-                  <p>Rating: {review.rating}/10</p>
-                  <p>"{review.comment}"</p>
-                </div>
+                  <p>{new Date(review.date).toLocaleDateString("en-US", {year: "numeric", month: "long", day: "numeric"})}</p>
+                  <p>{review.rating} / 10</p>
+                  <p>{review.comment}</p>
+                {/* </div> */}
                 <button
+                  id="reply-button"
                   onClick={() => navigate(`/stadiums/reviews/${review.id}`)}
                   type="submit"
                 >

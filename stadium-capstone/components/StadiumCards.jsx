@@ -122,10 +122,9 @@ export default function StadiumCards({ token, stadiums, setStadiums, userId }) {
   return (
     <div className="bg-wrapper">
       <header className="stadiums-page-header">
-        <h1>Will You Visit Every Ballpark?</h1>
+        <h1>Visit Every MLB Ballpark!</h1>
         <h3>
-          Select any ballpark for more information, or 'Visited' to add it to
-          your visited list.
+        Click on any ballpark to learn more, or select 'Mark as Visited' to add it to your visited list.
           <div className="search">
             <label>
               <input
