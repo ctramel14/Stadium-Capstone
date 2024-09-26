@@ -15,6 +15,7 @@ export default function SingleCard({ token, userId, username }) {
   const [hotel, setHotel] = useState([]);
   const [stadiumsVisited, setStadiumsVisited] = useState([]);
   const [stadiumSuccess, setStadiumSuccess] = useState("")
+  const [averageRating, setAverageRating] = useState([])
 
   let { id } = useParams();
   const navigate = useNavigate();
@@ -152,11 +153,23 @@ export default function SingleCard({ token, userId, username }) {
             })
           );
           setReviews(reviewsWithComments);
+          console.log(reviewsWithComments);
+          
+          let sum = 0;
+          let avg = 0;
+          let totalRatings = reviewsWithComments.map(reviews => reviews.rating);
+          console.log(totalRatings);
+          for (let i = 0; i < totalRatings.length; i++) {
+            sum += totalRatings[i];
+            avg = sum/(totalRatings.length)
+        } setAverageRating(Math.round(avg * 100)/100)
+        
+          
         } else {
           setReviews([]); //setting reviews state based on replies or not
         }
         setStadium(result);
-      } catch (error) {
+      } catch (error) { 
         console.error(error);
       }
     }
@@ -246,7 +259,8 @@ export default function SingleCard({ token, userId, username }) {
             <p>
               Address: {stadium.address}, {stadium.city}, {stadium.state},{" "}
               {stadium.zipCode}{" "}
-            </p>
+            </p>|
+            <p>Average Rating: {averageRating}</p>
           </div>
 
           {token && ( //token check to display next information

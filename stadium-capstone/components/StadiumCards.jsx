@@ -114,7 +114,8 @@ export default function StadiumCards({ token, stadiums, setStadiums, userId }) {
   //search functionality here through line 140
   const stadiumsToDisplay = searchParam
     ? stadiums.filter((stadium) =>
-        stadium.teamName.toLowerCase().includes(searchParam)
+        stadium.teamName.toLowerCase().includes(searchParam) ||
+        stadium.name.toLowerCase().includes(searchParam)
       )
     : stadiums;
 
@@ -130,7 +131,7 @@ export default function StadiumCards({ token, stadiums, setStadiums, userId }) {
                 id="searchfield"
                 type="text"
                 className="searchInput"
-                placeholder="Filter by Team..."
+                placeholder="Search..."
                 onChange={(e) => setSearchParam(e.target.value.toLowerCase())} 
               />
             </label>
@@ -160,7 +161,7 @@ export default function StadiumCards({ token, stadiums, setStadiums, userId }) {
               {stadium.teamName}
             </p>
               <div className="stadium-card-buttons">
-                {!stadiumsVisited.includes(stadium.id) && <button onClick={() => visited(stadium.id)}>Mark as Visited</button>}
+                {!stadiumsVisited.includes(stadium.id) && token && <button onClick={() => visited(stadium.id)}>Visited</button>}
               </div>
           </div>
         ))}
