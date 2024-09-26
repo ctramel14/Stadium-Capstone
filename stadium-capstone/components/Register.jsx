@@ -1,7 +1,6 @@
 //register page, passing in props from App.jsx
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import LoginModal from "./LoginModal";
+import { useNavigate } from "react-router-dom";
 import "./Register.css";
 
 export default function Register({
@@ -62,7 +61,7 @@ export default function Register({
           <form id="form" onSubmit={handleSubmit}>
             <p className="title">Register </p>
             <p className="message">
-              Signup now and get full access to our app.{" "}
+              Sign-up now and get full access to our app!{" "}
             </p>
             <div className="flex">
               <label>
@@ -75,7 +74,7 @@ export default function Register({
                   required=""
                   onChange={(e) => setFirstName(e.target.value)}
                 />
-                <span>Firstname</span>
+                <span>First Name</span>
               </label>
 
               <label>
@@ -88,22 +87,9 @@ export default function Register({
                   required=""
                   onChange={(e) => setLastName(e.target.value)}
                 />
-                <span>Lastname</span>
+                <span>Last Name</span>
               </label>
             </div>
-            <label>
-              <input
-                className="input"
-                type="text"
-                minLength="2"
-                value={username}
-                placeholder=""
-                required=""
-                onChange={(e) => setUsername(e.target.value)}
-              />
-              <span>Username</span>
-            </label>
-
             <label>
               <input
                 className="input"
@@ -115,6 +101,19 @@ export default function Register({
                 onChange={(e) => setEmail(e.target.value)}
               />
               <span>Email</span>
+            </label>
+
+            <label>
+              <input
+                className="input"
+                type="text"
+                minLength="2"
+                value={username}
+                placeholder=""
+                required=""
+                onChange={(e) => setUsername(e.target.value)}
+              />
+              <span>Username</span>
             </label>
 
             <label>
@@ -133,9 +132,8 @@ export default function Register({
               Submit
             </button>
             <p className="signin" >
-              Already have an account ? Click below to login
+              Already have an account? <span onClick={() => setLoginSeen(!loginSeen)} id="sign-in-login">LogIn</span>
             </p>
-            <button onClick={() => setLoginSeen(!loginSeen)}>Log In</button>
           </form>
         </div>
       ) : (

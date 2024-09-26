@@ -21,6 +21,8 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
+  padding: 10px;
+  margin: 0;
 }
 
 #form {
@@ -34,12 +36,12 @@
   background-color: #113311;
   border: 1px solid #333;
   font-family: "Roboto Condensed", sans-serif;
+  letter-spacing: 1.5px;
 }
 
 .title {
   font-size: 32px;
   font-weight: 600;
-  letter-spacing: -1px;
   position: relative;
   display: flex;
   align-items: center;
@@ -71,8 +73,8 @@
 
 .message,
 .signin {
-  font-size: 14.5px;
-  color: rgba(255, 255, 255, 0.7);
+  font-size: 20.5px;
+  color: #90b58a;;
 }
 
 .signin {
@@ -86,11 +88,16 @@
 .signin a {
   color: #00bfff;
 }
+#sign-in-login {
+  color: #00bfff;
+  font-weight: 600;
+  cursor: pointer;
+}
 
 .flex {
   display: flex;
   width: 100%;
-  gap: 20px;
+  gap: 30px;
   justify-content: center;
   align-items: center;
   flex-direction: row;
@@ -98,6 +105,7 @@
 
 #form label {
   position: relative;
+  font-size: 20px;
 }
 
 #form label .input {
@@ -134,7 +142,7 @@
 }
 
 .input {
-  font-size: medium;
+  font-size: medium;;
 }
 
 .submit {
