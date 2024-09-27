@@ -406,6 +406,7 @@ app.post("/api/stadium/:id/reviews", async (req, res, next) => {
         date: new Date(),
         userId: userId,
         stadiumId: stadiumId,
+        // image: image,
       },
     });
 
