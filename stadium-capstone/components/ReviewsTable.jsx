@@ -69,7 +69,7 @@ const Reviews = ({ reviews, setReviews, width, token }) => {
                   <th>Ballpark</th>
                   <th>Team</th>
                   <th>Rating</th>
-                  <th>Review</th>
+                  <th>Your Review</th>
                   <th>Date</th>
                   <th>Actions</th>
                 </tr>

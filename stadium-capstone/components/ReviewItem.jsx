@@ -30,8 +30,8 @@ const ReviewItem= ({
         <>
           <td>{review.stadium.name}</td>
           <td>{review.stadium.teamName}</td>
-          <td>{review.rating} / 10</td>
-          <td>{review.comment}</td>
+          <td><strong>{review.rating} / 10</strong></td>
+          <td><strong>{review.comment}</strong></td>
           <td>{new Date(review.date).toLocaleDateString()}</td>
           <td>
             <button

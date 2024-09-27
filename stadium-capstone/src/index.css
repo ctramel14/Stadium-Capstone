@@ -130,13 +130,13 @@ body {
   padding: 10px;
   border-spacing: 1rem;
   text-align: right;
-  font-size: 1.4em;
+  font-size: 1.3em;
   letter-spacing: 1.5px;
   color: #113311;
   padding: 20px;
 }
 .table-headers {
-  font-size: 1.7em;
+  font-size: 1.5em;
   font-weight: bold;
   text-align: center;
   height: 70px;
@@ -153,7 +153,7 @@ th{
   padding: 10px;
   border-spacing: 1rem;
   text-align: right;
-  font-size: 1.4em;
+  font-size: 1.3em;
   letter-spacing: 1.5px;
   color: #113311;
   padding: 20px;
@@ -207,6 +207,26 @@ th{
 .edit-form-buttons {
   display: flex;
   justify-content: space-around;
+}
+
+/* @keyframes pop-in {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+} */
+.login-alert-message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #113311;
+  font-size: 1.2em;
+  letter-spacing: 2px;
+  font-family: "Roboto Condensed", sans-serif;
+  border-radius: 16px;
+  height: 85vh;
 }
 
 
