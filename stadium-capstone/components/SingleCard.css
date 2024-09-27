@@ -145,7 +145,7 @@
   justify-content: left;
   letter-spacing: 2px;
   color: #113311;
-  font-size: 1.3em;
+  font-size: 1em;
   font-family: "Roboto Condensed", sans-serif;
   padding: 10px;
   gap: 40px;
@@ -158,10 +158,10 @@
 .review {
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: space-between;
   max-width: 1000px; 
-  height: 250px;
-  
+  max-height: 500px;
+  gap: 10px;
 }
 .review p {
   margin: 0;
@@ -247,10 +247,13 @@
 }
 
 .img-upload {
-  width: 200px;
-  /* height: 200px; */
+  width: 250px;
+  height: 150px;
 }
 
+.review-image {
+ width: 300px;
+}
 
 
 
