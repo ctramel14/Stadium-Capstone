@@ -14,10 +14,10 @@ export default function SingleCard({ token, userId, username }) {
   const [restaurant, setRestaurant] = useState([]);
   const [hotel, setHotel] = useState([]);
   const [stadiumsVisited, setStadiumsVisited] = useState([]);
-  const [stadiumSuccess, setStadiumSuccess] = useState("");
-  const [averageRating, setAverageRating] = useState([]);
+  const [stadiumSuccess, setStadiumSuccess] = useState("")
+  const [averageRating, setAverageRating] = useState([])
   const [selectedImage, setSelectedImage] = useState(null);
-  const [totalRatings, setTotalRatings] = useState([]);
+  const [totalRatings, setTotalRatings] = useState([])
   const [buttonClicked, setButtonClicked] = useState(false);
   const [previewImage, setPreviewImage] = useState(null);
 
@@ -64,12 +64,8 @@ export default function SingleCard({ token, userId, username }) {
   //for re-rendering after button click
   useLayoutEffect(() => {
     if (buttonClicked) {
-      document.documentElement.scrollTo({
-        top: 0,
-        left: 0,
-        behavior: "instant",
-      });
-      console.log("Effect has been run");
+      document.documentElement.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+      console.log('Effect has been run');
       setButtonClicked(false); // Reset the state after the effect runs
     }
   }, [buttonClicked]);
@@ -89,9 +85,7 @@ export default function SingleCard({ token, userId, username }) {
           }
         );
         const result = await response.json();
-        setStadiumsVisited(
-          result.visitedStadiums.map((stadium) => stadium.stadiumId)
-        );
+        setStadiumsVisited(result.visitedStadiums.map((stadium) => stadium.stadiumId))
       } catch (error) {
         console.error(error);
       }
@@ -148,7 +142,7 @@ export default function SingleCard({ token, userId, username }) {
           }
         );
         const result = await response.json();
-
+        
         setReviewId(result.reviews.map((review) => review.userId));
         //utilizing userId on a review to go to the appropriate page to reply to
         if (Array.isArray(result.reviews)) {
@@ -172,22 +166,20 @@ export default function SingleCard({ token, userId, username }) {
             })
           );
           setReviews(reviewsWithComments);
-          const ratingsMap = reviewsWithComments.map(
-            (reviews) => reviews.rating
-          );
+          const ratingsMap = reviewsWithComments.map((reviews) => reviews.rating);
           setTotalRatings(ratingsMap);
           let sum = 0;
           let avg = 0;
           for (let i = 0; i < totalRatings.length; i++) {
             sum += totalRatings[i];
-            avg = sum / totalRatings.length;
-          }
-          setAverageRating(Math.round(avg * 100) / 100);
+            avg = sum/(totalRatings.length)
+        } setAverageRating(Math.round(avg * 100)/100)  
+          
         } else {
           setReviews([]); //setting reviews state based on replies or not
         }
         setStadium(result);
-      } catch (error) {
+      } catch (error) { 
         console.error(error);
       }
     }
@@ -208,51 +200,57 @@ export default function SingleCard({ token, userId, username }) {
           body: JSON.stringify({ visited: true }),
         }
       );
-      setSuccess(`Added ${stadium.name} to Your Visited Ballparks!`); //setting message to display when clicking visited
+      setSuccess(`Added ${stadium.name} to your visited stadiums!`); //setting message to display when clicking visited
       setButtonClicked(true);
-      setStadiumSuccess(true);
+      setStadiumSuccess(true)
     } catch (error) {
       console.error(error);
     }
   }
 
+  // handle file input change
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setSelectedImage(file); // Store the actual file
+      setPreviewImage(URL.createObjectURL(file)); // Create URL for preview
+    }
+  };
+
   //posting a review
   const sendReview = async (e) => {
     e.preventDefault();
     
-    try {
-      const response = await fetch(
-        `http://localhost:3000/api/stadium/${id}/reviews`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({
-            rating: parseInt(rating),
-            comment: comment,
-            date: new Date(),
-            userId: userId,
-            stadiumId: idInt,
-            username: username,
-            // imageURL: selectedImage,
-          }),
-        }
-      );
-      const result = await response.json();
-      totalRatings.push(result.rating);
-      setTotalRatings([...totalRatings, result.rating]);
-      let sum = 0;
-      let avg = 0;
-      for (let i = 0; i < totalRatings.length; i++) {
-        sum += totalRatings[i];
-        avg = sum / totalRatings.length;
-      }
-      setAverageRating(Math.round(avg * 100) / 100);
+    // Create a FormData object to include the image file
+    const formData = new FormData();
+    formData.append("rating", rating);
+    formData.append("comment", comment);
+    formData.append("userId", userId);
+    if (selectedImage) {
+      formData.append("image", selectedImage); // Append the image file
+    }
 
-      setShowInput(showInput); //changing states for conditional rendering in return
-      setReviewSuccess(true);
+    try {
+      const response = await fetch(`http://localhost:3000/api/stadium/${stadium.id}/reviews`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`, // Only include token in headers
+        },
+        body: formData, // Send FormData
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        const newReview = { ...result.review, user: { username } };
+        setReviews([...reviews, newReview]); // Add new review to the list
+        setRating("");
+        setComment("");
+        setSelectedImage(null);
+        setPreviewImage(null);
+        
+      } else {
+        console.error("Failed to submit review:", response.statusText);
+      }
     } catch (error) {
       console.error("Error submitting review:", error);
     }
@@ -287,68 +285,47 @@ export default function SingleCard({ token, userId, username }) {
             <img src={stadium.imageInsideURL} className="insideStadium-image" />
           </div>
           <div className="stadium-facts">
-            <p>Opened in {stadium.openYear}</p>
-            <div className="vl"></div>
-            <p>Capacity: {numberWithCommas(stadium.capacity)}</p>
-            <div className="vl"></div>
-            <p>Division: {stadium.division}</p>
-            <div className="vl"></div>
+            <p>Opened in {stadium.openYear}</p>|
+            <p>Capacity: {numberWithCommas(stadium.capacity)}</p>|
+            <p>Division: {stadium.division}</p>|
             <p>
               Address: {stadium.address}, {stadium.city}, {stadium.state},{" "}
               {stadium.zipCode}{" "}
-            </p>
+            </p>|
+            <p>Average Rating: {averageRating}</p>
           </div>
+
           {token && ( //token check to display next information
             <div className="single-page-buttons">
-              {!stadiumsVisited.includes(stadium.id) && !stadiumSuccess && (
-                <button onClick={() => visited(stadium.id)}>
-                  Mark as Visited
+              {!stadiumsVisited.includes(stadium.id) && !stadiumSuccess && <button onClick={() => visited(stadium.id)}>
+                Mark as Visited
+              </button>}
+              {!reviewId.includes(userId) && !reviewSuccess && ( //does not render button if user has posted previously, removes button if posted while on page
+                <button onClick={handleClick}>
+                  {showInput ? "Hide Input" : "Write Review"}
                 </button>
               )}
-              {!reviewId.includes(userId) &&
-                !reviewSuccess && ( //does not render button if user has posted previously, removes button if posted while on page
-                  <button onClick={handleClick}>
-                    {showInput ? "Hide Input" : "Write Review"}
-                  </button>
-                )}
-              {showInput &&
-                !reviewId.includes(userId) &&
-                !reviewSuccess && ( //shows review form if user hasn't posted previously
-                  <form className="review-form" onSubmit={sendReview}>
-                    <header id="review-label">Leave a review</header>
-
-                    <label>Rating</label>
-                    <input
-                      id="rating"
-                      type="number"
-                      max="10"
-                      min="1"
-                      value={rating}
-                      onChange={(e) => setRating(e.target.value)}
-                      required
-                    />
-                    <div className="rating-scale">
-                      <p>1 = Worst experience</p>
-                      <p>10 = Best experience</p>
-                    </div>
-                    <label>Review</label>
-                    <input
-                      id="comment"
-                      type="comment"
-                      value={comment}
-                      onChange={(e) => setComment(e.target.value)}
-                      required
-                    />
-                    <input
-                      type="file"
-                      accept="image/*"
-                      onChange={(e) =>
-                        setSelectedImage(URL.createObjectURL(e.target.files[0]))
-                      }
-                    /> 
-                    {selectedImage && <img src={selectedImage} 
-                    className="img-upload"
-                    />}
+              {showInput && !reviewId.includes(userId) && !reviewSuccess && ( //shows review form if user hasn't posted previously
+                <form className="review-form" onSubmit={sendReview}>
+                  <label>Rating</label>
+                  <input
+                    id="rating"
+                    type="number"
+                    max="10"
+                    value={rating}
+                    onChange={(e) => setRating(e.target.value)}
+                    required
+                  />
+                  <label>Review</label>
+                  <input
+                    id="comment"
+                    type="comment"
+                    value={comment}
+                    onChange={(e) => setComment(e.target.value)}
+                    required
+                  />
+                  <input type="file" accept="image/*" onChange={handleFileChange} />
+                  {previewImage && <img src={previewImage} alt="Selected Preview" className="img-upload" />}
                   <button type="submit">Send</button>
                 </form>
               )}
@@ -363,51 +340,29 @@ export default function SingleCard({ token, userId, username }) {
             </div>
           </div>
         )}
-        
-        <div className="average-rating-container">
-            <p>{stadium.name} Average Rating: {averageRating} / 10</p>
-          </div>
-          <hr className="line-across"></hr>
         <header className="nearby-list-header">
-          <h3>Restaurants Near The Ballpark</h3>
+          <h3>Restaurants Near The Stadium</h3>
         </header>
         <div className="nearby-container">
           {restaurant.map((rest) => (
-            <div
-              className="nearby-card"
-              key={rest.id}
-              style={{ borderColor: stadiumColors[stadium.id] }}
-            >
-              <p>
-                <strong>{rest.name}</strong>
-              </p>
+            <div className="nearby-card" key={rest.id} style={{ borderColor: stadiumColors[stadium.id] }}>
+              <p><strong>{rest.name}</strong></p>
               <p>{rest.cuisine}</p>
-              <p>
-                {rest.address} <br />
-                {rest.city}, {rest.state}, {rest.zipCode}
-              </p>
+              <p>{rest.address} <br/> 
+                {rest.city}, {rest.state}, {rest.zipCode}</p>
             </div>
           ))}
         </div>
         <hr className="line-across"></hr>
         <header className="nearby-list-header">
-          <h3>Hotels Near The Ballpark</h3>
+          <h3>Hotels Near The Stadium</h3>
         </header>
         <div className="nearby-container">
           {hotel.map((hot) => (
-            <div
-              className="nearby-card"
-              key={hot.id}
-              style={{ borderColor: stadiumColors[stadium.id] }}
-            >
-              <p>
-                <strong>{hot.name}</strong>
-              </p>
-              <p>
-                {hot.address}
-                <br />
-                {hot.city}, {hot.state}, {hot.zipCode}
-              </p>
+            <div className="nearby-card" key={hot.id} style={{ borderColor: stadiumColors[stadium.id] }}>
+              <p><strong>{hot.name}</strong></p>
+              <p>{hot.address}<br />
+              {hot.city}, {hot.state}, {hot.zipCode}</p>
             </div>
           ))}
         </div>
@@ -419,27 +374,24 @@ export default function SingleCard({ token, userId, username }) {
           {!reviews.length > 0 && !reviewSuccess && (
             <p>No reviews available.</p>
           )}
-          {Array.isArray(reviews) &&
-            reviews.length > 0 &&
+          {Array.isArray(reviews) && reviews.length > 0 && (
             reviews.map((review) => (
               <div key={review.id} className="review">
-                {/* <div className="reviewuser"> */}
-                {Object.keys(review.user).map((key, index) => (
-                  <p key={index} id="user-review-name">
-                    Review by: {review.user[key]}
-                  </p>
-                ))}
-                <p>
-                  {new Date(review.date).toLocaleDateString("en-US", {
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric",
-                  })}
-                </p>
+                {/* Check if review.user is defined */}
+                {review.user ? (
+                  <p id="user-review-name">Review by: {review.user.username}</p>
+                ) : (
+                  <p id="user-review-name">Anonymous Review</p>
+                )}
+                <p>{new Date(review.date).toLocaleDateString("en-US", {year: "numeric", month: "long", day: "numeric"})}</p>
                 <p>{review.rating} / 10</p>
                 <p>{review.comment}</p>
- {review.imageURL && <img src={review.imageURL} alt="user image" className="img-upload"/>}
-                {/* </div> */}
+                {/* Render the image if imageURL is available */}
+                {review.imageURL && (
+                  <div className="review-image-container">
+                    <img src={`http://localhost:3000${review.imageURL}`} alt="Review Image" className="img-upload" />
+                  </div>
+                )}
                 <button
                   id="reply-button"
                   onClick={() => navigate(`/stadiums/reviews/${review.id}`)}
@@ -447,8 +399,9 @@ export default function SingleCard({ token, userId, username }) {
                 >
                   Reply
                 </button>
-              </div>
-            ))}
+            </div>
+            ))
+          )}
         </div>
 
         <button onClick={() => navigate(-1)}>Back</button>
