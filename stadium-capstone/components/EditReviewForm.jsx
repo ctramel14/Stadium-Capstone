@@ -11,7 +11,7 @@ const EditReviewForm= ({
     <section className="edit-form-container">
       <form onSubmit={(e) => editReview(e, review.id)} className="edit-form">
         <h4>Edit Review</h4>
-        <p>Stadium: {review.stadium.name}</p>
+        <p>Ballpark: {review.stadium.name}</p>
         <label>
           Rating:
           <br />

@@ -8,7 +8,7 @@ export default function NavigationBar({ token, loginSeen, setLoginSeen, administ
     <nav className="navbar-container">
       {token ? (
         <div className="navbar-items">
-          <Link to="/">Stadiums</Link>
+          <Link to="/">Ballparks</Link>
           <Link to="/users/logout">LogOut</Link>
           <Link to="/users/me">Account</Link>
           {administrator && <Link to="/admin">Admin</Link>}
@@ -16,7 +16,7 @@ export default function NavigationBar({ token, loginSeen, setLoginSeen, administ
         </div>
       ) : (
         <div className="navbar-items">
-          <Link to="/">Stadiums</Link>
+          <Link to="/">Ballparks</Link>
           <Link onClick={() => setLoginSeen(!loginSeen)}>Login</Link>
           <Link to="/users/register">Register</Link>
           <Link to="/contactform">Contact Us</Link>
