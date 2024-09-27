@@ -19,6 +19,7 @@ export default function SingleCard({ token, userId, username }) {
   const [selectedImage, setSelectedImage] = useState(null);
   const [totalRatings, setTotalRatings] = useState([])
   const [buttonClicked, setButtonClicked] = useState(false);
+  const [previewImage, setPreviewImage] = useState(null);
   // let totalRatings = [];
 
   let { id } = useParams();
@@ -184,6 +185,7 @@ export default function SingleCard({ token, userId, username }) {
     }
     getStadium();
   }, [id, averageRating]);
+
   // visit a stadium
   async function visited() {
     try {
@@ -205,47 +207,55 @@ export default function SingleCard({ token, userId, username }) {
       console.error(error);
     }
   }
-  //posting a review
-  async function sendReview(e) {
-    e.preventDefault();
 
-    const idInt = parseInt(id);
-    try {
-      const response = await fetch(
-        `http://localhost:3000/api/stadium/${id}/reviews`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({
-            rating: parseInt(rating),
-            comment: comment,
-            date: new Date(),
-            userId: userId,
-            stadiumId: idInt,
-            username: username,
-            // image: selectedImage,
-          }),
-        }
-      );
-      const result = await response.json()
-      totalRatings.push(result.rating)
-      setTotalRatings([...totalRatings, result.rating])
-      let sum = 0;
-          let avg = 0;
-          for (let i = 0; i < totalRatings.length; i++) {
-            sum += totalRatings[i];
-            avg = sum/(totalRatings.length)
-        } setAverageRating(Math.round(avg * 100)/100)
-      
-      setShowInput(showInput); //changing states for conditional rendering in return
-      setReviewSuccess(true);
-    } catch (error) {
-      console.error(error);
+  // handle file input change
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setSelectedImage(file); // Store the actual file
+      setPreviewImage(URL.createObjectURL(file)); // Create URL for preview
     }
-  }
+  };
+
+  //posting a review
+  const sendReview = async (e) => {
+    e.preventDefault();
+    
+    // Create a FormData object to include the image file
+    const formData = new FormData();
+    formData.append("rating", rating);
+    formData.append("comment", comment);
+    formData.append("userId", userId);
+    if (selectedImage) {
+      formData.append("image", selectedImage); // Append the image file
+    }
+
+    try {
+      const response = await fetch(`http://localhost:3000/api/stadium/${stadium.id}/reviews`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`, // Only include token in headers
+        },
+        body: formData, // Send FormData
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        const newReview = { ...result.review, user: { username } };
+        setReviews([...reviews, newReview]); // Add new review to the list
+        setRating("");
+        setComment("");
+        setSelectedImage(null);
+        setPreviewImage(null);
+        
+      } else {
+        console.error("Failed to submit review:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error submitting review:", error);
+    }
+  };
+  
   //for displaying stadium capacity
   function numberWithCommas(x) {
     if (typeof x !== "number") {
@@ -314,14 +324,8 @@ export default function SingleCard({ token, userId, username }) {
                     onChange={(e) => setComment(e.target.value)}
                     required
                   />
-                  <input 
-                    type="file" 
-                    accept="image/*"
-                    onChange={(e) => setSelectedImage(URL.createObjectURL(e.target.files[0]))}
-                    />
-                    {selectedImage && <img src={selectedImage} 
-                    className="img-upload"
-                    />}
+                  <input type="file" accept="image/*" onChange={handleFileChange} />
+                  {previewImage && <img src={previewImage} alt="Selected Preview" className="img-upload" />}
                   <button type="submit">Send</button>
                 </form>
               )}
@@ -367,21 +371,27 @@ export default function SingleCard({ token, userId, username }) {
           <h3>Reviews</h3>
         </header>
         <div className="reviews-container">
-        {!reviews.length > 0 && !reviewSuccess && (
-              <p>No reviews available.</p>
-            )}
+          {!reviews.length > 0 && !reviewSuccess && (
+            <p>No reviews available.</p>
+          )}
           {Array.isArray(reviews) && reviews.length > 0 && (
             reviews.map((review) => (
               <div key={review.id} className="review">
-                {/* <div className="reviewuser"> */}
-                  {Object.keys(review.user).map((key, index) => (
-                    <p key={index} id="user-review-name">Review by: {review.user[key]}</p>
-                  ))}
-                  <p>{new Date(review.date).toLocaleDateString("en-US", {year: "numeric", month: "long", day: "numeric"})}</p>
-                  <p>{review.rating} / 10</p>
-                  <p>{review.comment}</p>
-                  {review.image && <img src={review.image} alt="user image" className="img-upload"/>}
-                {/* </div> */}
+                {/* Check if review.user is defined */}
+                {review.user ? (
+                  <p id="user-review-name">Review by: {review.user.username}</p>
+                ) : (
+                  <p id="user-review-name">Anonymous Review</p>
+                )}
+                <p>{new Date(review.date).toLocaleDateString("en-US", {year: "numeric", month: "long", day: "numeric"})}</p>
+                <p>{review.rating} / 10</p>
+                <p>{review.comment}</p>
+                {/* Render the image if imageURL is available */}
+                {review.imageURL && (
+                  <div className="review-image-container">
+                    <img src={`http://localhost:3000${review.imageURL}`} alt="Review Image" className="img-upload" />
+                  </div>
+                )}
                 <button
                   id="reply-button"
                   onClick={() => navigate(`/stadiums/reviews/${review.id}`)}
@@ -389,10 +399,11 @@ export default function SingleCard({ token, userId, username }) {
                 >
                   Reply
                 </button>
-              </div>
+            </div>
             ))
-          )} 
+          )}
         </div>
+
         <button onClick={() => navigate(-1)}>Back</button>
       </div>
     </>

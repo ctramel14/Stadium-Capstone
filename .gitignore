@@ -1,3 +1,9 @@
 node_modules
 # Keep environment variables out of version control
 .env
+
+# Ignore everything inside the uploads folder
+uploads/*
+
+# But do not ignore the uploads folder itself
+!uploads/

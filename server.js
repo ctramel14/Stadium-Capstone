@@ -7,6 +7,8 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const SECRET_KEY = process.env.SECRET_KEY;
 const cors = require("cors");
+const multer = require("multer");
+const path = require("path");
 
 app.use(express.json());
 app.use(require("morgan")("dev"));
@@ -16,6 +18,28 @@ app.use(
     credentials: true, // Allow credentials such as Authorization headers or cookies
   })
 );
+
+// Set up multer storage configuration
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "uploads/");
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + path.extname(file.originalname)); // Append timestamp to filename
+  },
+});
+
+const upload = multer({ storage });
+
+
+// Create an 'uploads' directory if it doesn't exist
+const fs = require("fs");
+if (!fs.existsSync("uploads")) {
+  fs.mkdirSync("uploads");
+}
+
+// Serve static files from the 'uploads' directory
+app.use("/uploads", express.static("uploads"));
 
 // Add middleware to check if the user is authenticated
 // Except api/stadiums
@@ -388,30 +412,35 @@ app.post(
 );
 
 // add new review to a stadium with certain id
-app.post("/api/stadium/:id/reviews", async (req, res, next) => {
+// Multer middleware for handling multipart/form-data
+app.post("/api/stadium/:id/reviews", upload.single("image"), async (req, res, next) => {
   const stadiumId = +req.params.id;
   const { rating, comment, userId } = req.body;
+
   try {
-    //Validate
     if (!rating || !comment || !userId) {
-      return res
-        .status(400)
-        .json({ message: "Rating, comment, and userId are required." });
+      return res.status(400).json({ message: "Rating, comment, and userId are required." });
     }
 
-    await prisma.review.create({
+    // Get the image URL from the uploaded file
+    const imageUrl = req.file ? `/uploads/${req.file.filename}` : null;
+
+    const newReview = await prisma.review.create({
       data: {
-        rating: rating,
+        rating: parseInt(rating),
         comment: comment,
         date: new Date(),
-        userId: userId,
-        stadiumId: stadiumId,
-        // image: image,
+        userId: parseInt(userId),
+        stadiumId: parseInt(stadiumId),
+        imageURL: imageUrl,
       },
     });
 
-    res.status(201).json({ message: "Review added", rating });
+    console.log("Review created successfully:", newReview);
+
+    res.status(201).json({ message: "Review added", review: newReview });
   } catch (err) {
+    console.error("Error creating review:", err);
     next(err);
   }
 });
