@@ -179,7 +179,7 @@ const Account= ({ token, email, firstName, userId }) => {
   return (
     <>
       {!token ? (
-        <h3 className="message">{message}</h3>
+        <h3 className="login-alert-message">{message}</h3>
       ) : (
         <div className="account-page-wrapper">
           <header className="section-header">
@@ -224,7 +224,8 @@ const Account= ({ token, email, firstName, userId }) => {
                 <thead>
                   <tr className="table-headers">
                     <th>Ballpark</th>
-                    <th>Reply</th>
+                    <th>Review</th>
+                    <th>Your Reply</th>
                     <th>Date</th>
                     <th>Actions</th>
                   </tr>
@@ -265,7 +266,8 @@ const Account= ({ token, email, firstName, userId }) => {
                       ) : (
                         <>
                           <td>{comment.review.stadium.name}</td>
-                          <td>{comment.content}</td>
+                          <td>{comment.review.comment}</td>
+                          <td><strong>{comment.content}</strong></td>
                           <td>{new Date(comment.date).toLocaleDateString()}</td>
                           <td>
                             <button
