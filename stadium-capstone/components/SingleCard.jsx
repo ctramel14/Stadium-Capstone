@@ -192,6 +192,7 @@ export default function SingleCard({ token, userId, username }) {
     }
     getStadium();
   }, [id, averageRating]);
+
   // visit a stadium
   async function visited() {
     try {
@@ -213,11 +214,11 @@ export default function SingleCard({ token, userId, username }) {
       console.error(error);
     }
   }
-  //posting a review
-  async function sendReview(e) {
-    e.preventDefault();
 
-    const idInt = parseInt(id);
+  //posting a review
+  const sendReview = async (e) => {
+    e.preventDefault();
+    
     try {
       const response = await fetch(
         `http://localhost:3000/api/stadium/${id}/reviews`,
@@ -234,7 +235,7 @@ export default function SingleCard({ token, userId, username }) {
             userId: userId,
             stadiumId: idInt,
             username: username,
-            // image: selectedImage,
+            // imageURL: selectedImage,
           }),
         }
       );
@@ -252,9 +253,10 @@ export default function SingleCard({ token, userId, username }) {
       setShowInput(showInput); //changing states for conditional rendering in return
       setReviewSuccess(true);
     } catch (error) {
-      console.error(error);
+      console.error("Error submitting review:", error);
     }
-  }
+  };
+  
   //for displaying stadium capacity
   function numberWithCommas(x) {
     if (typeof x !== "number") {
@@ -302,7 +304,6 @@ export default function SingleCard({ token, userId, username }) {
                   Mark as Visited
                 </button>
               )}
-              
               {!reviewId.includes(userId) &&
                 !reviewSuccess && ( //does not render button if user has posted previously, removes button if posted while on page
                   <button onClick={handleClick}>
@@ -436,7 +437,7 @@ export default function SingleCard({ token, userId, username }) {
                 </p>
                 <p>{review.rating} / 10</p>
                 <p>{review.comment}</p>
- {review.image && <img src={review.image} alt="user image" className="img-upload"/>}
+ {review.imageURL && <img src={review.imageURL} alt="user image" className="img-upload"/>}
                 {/* </div> */}
                 <button
                   id="reply-button"
@@ -448,6 +449,7 @@ export default function SingleCard({ token, userId, username }) {
               </div>
             ))}
         </div>
+
         <button onClick={() => navigate(-1)}>Back</button>
       </div>
     </>
