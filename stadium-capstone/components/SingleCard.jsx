@@ -18,6 +18,7 @@ export default function SingleCard({ token, userId, username }) {
   const [averageRating, setAverageRating] = useState([])
   const [selectedImage, setSelectedImage] = useState(null);
   const [totalRatings, setTotalRatings] = useState([])
+  const [buttonClicked, setButtonClicked] = useState(false);
   // let totalRatings = [];
 
   let { id } = useParams();
@@ -60,6 +61,14 @@ export default function SingleCard({ token, userId, username }) {
     document.documentElement.scrollTo({ top: 0, left: 0, behavior: "instant" });
     console.log("Effect has been run");
   }, []);
+  //for re-rendering after button click
+  useLayoutEffect(() => {
+    if (buttonClicked) {
+      document.documentElement.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+      console.log('Effect has been run');
+      setButtonClicked(false); // Reset the state after the effect runs
+    }
+  }, [buttonClicked]);
   //to check for a token to display based on whether user is logged in or not
   useEffect(() => {
     async function getToken() {
@@ -190,6 +199,7 @@ export default function SingleCard({ token, userId, username }) {
         }
       );
       setSuccess(`Added ${stadium.name} to your visited stadiums!`); //setting message to display when clicking visited
+      setButtonClicked(true);
       setStadiumSuccess(true)
     } catch (error) {
       console.error(error);
@@ -248,6 +258,7 @@ export default function SingleCard({ token, userId, username }) {
   //click handler for conditional rendering
   const handleClick = () => {
     setShowInput(!showInput);
+    setButtonClicked(true);
   };
 
 //   function handleChange(e) {
