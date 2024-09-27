@@ -216,6 +216,7 @@ export default function SingleCard({ token, userId, username }) {
             userId: userId,
             stadiumId: idInt,
             username: username,
+            // image: selectedImage,
           }),
         }
       );
@@ -250,10 +251,6 @@ export default function SingleCard({ token, userId, username }) {
     setShowInput(!showInput);
   };
 
-//   function handleChange(e) {
-//     console.log(e.target.files);
-    
-// }
   return (
     <>
       <div className="stadium-info-page">
@@ -311,9 +308,9 @@ export default function SingleCard({ token, userId, username }) {
                     accept="image/*"
                     onChange={(e) => setSelectedImage(URL.createObjectURL(e.target.files[0]))}
                     />
-                    <img src={selectedImage} 
+                    {selectedImage && <img src={selectedImage} 
                     className="img-upload"
-                    />
+                    />}
                   <button type="submit">Send</button>
                 </form>
               )}
@@ -372,6 +369,7 @@ export default function SingleCard({ token, userId, username }) {
                   <p>{new Date(review.date).toLocaleDateString("en-US", {year: "numeric", month: "long", day: "numeric"})}</p>
                   <p>{review.rating} / 10</p>
                   <p>{review.comment}</p>
+                  {review.image && <img src={review.image} alt="user image" className="img-upload"/>}
                 {/* </div> */}
                 <button
                   id="reply-button"
@@ -384,13 +382,6 @@ export default function SingleCard({ token, userId, username }) {
             ))
           )} 
         </div>
-        {reviewSuccess && ( //display new review
-          <div className="individualReviews">
-            <p>Review by {username}</p>
-            <p>Rating: {rating}/10</p>
-            <p>{comment}</p>
-          </div>
-        )}
         <button onClick={() => navigate(-1)}>Back</button>
       </div>
     </>
