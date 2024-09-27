@@ -129,7 +129,7 @@ body {
   width: 100%;
   padding: 10px;
   border-spacing: 1rem;
-  text-align: right;
+  text-align: left;
   font-size: 1.3em;
   letter-spacing: 1.5px;
   color: #113311;
@@ -152,7 +152,7 @@ th{
   width: 100%;
   padding: 10px;
   border-spacing: 1rem;
-  text-align: right;
+  text-align: left;
   font-size: 1.3em;
   letter-spacing: 1.5px;
   color: #113311;
