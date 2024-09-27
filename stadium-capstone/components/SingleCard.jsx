@@ -247,6 +247,17 @@ export default function SingleCard({ token, userId, username }) {
         setComment("");
         setSelectedImage(null);
         setPreviewImage(null);
+        totalRatings.push(result.rating)
+        setTotalRatings([...totalRatings, result.rating])     
+        let sum = 0;
+            let avg = 0;
+            for (let i = 0; i < totalRatings.length; i++) {
+              sum += totalRatings[i];
+              avg = sum/(totalRatings.length)
+          } setAverageRating(Math.round(avg * 100)/100)
+        
+        setShowInput(showInput); //changing states for conditional rendering in return
+        setReviewSuccess(true);
         
       } else {
         console.error("Failed to submit review:", response.statusText);
@@ -403,7 +414,8 @@ export default function SingleCard({ token, userId, username }) {
             ))
           )}
         </div>
-
+<br />
+<br />
         <button onClick={() => navigate(-1)}>Back</button>
       </div>
     </>
