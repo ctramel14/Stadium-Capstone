@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState,useLayoutEffect } from "react";
 import "./App.css";
 import StadiumCards from "../components/StadiumCards";
 import SingleCard from "../components/SingleCard";
@@ -25,6 +25,16 @@ function App() {
   const [userId, setUserId] = useState("");
   const [loginSeen, setLoginSeen] = useState(false);
   const [administrator, setAdministrator] = useState(false);
+    const [width, setWidth] = useState(300);
+
+  useLayoutEffect(() => {
+    if (window) {
+      setWidth(window.innerWidth);
+      window.addEventListener("resize", () => {
+        setWidth(window.innerWidth);
+      });
+    }
+  }, []);
 
   return (
     <>
@@ -33,6 +43,7 @@ function App() {
         toggleLogin={loginSeen}
         setLoginSeen={setLoginSeen}
         administrator={administrator}
+        width={width}
       />
       {loginSeen ? (
         <LoginModal
@@ -120,6 +131,7 @@ function App() {
               firstName={firstName}
               email={email}
               userId={userId}
+              width={width}
             />
           }
         />

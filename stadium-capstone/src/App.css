@@ -22,7 +22,9 @@
   padding: 10px;
   margin-left: 10px;
   z-index: 1;
-  a {
+  box-sizing: border-box;
+
+ a {
     margin: 0;
     color: white;
     text-decoration: none;
@@ -31,6 +33,15 @@
 }
 .navbar-items a:hover {
   color: #0051b6;
+}
+@media screen and (max-width: 700px){
+  .navbar-items{
+    flex-direction: column;
+   
+  }
+  .navbar-container{
+    height:44px
+  }
 }
 
 button {
