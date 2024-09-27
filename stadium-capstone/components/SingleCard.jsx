@@ -388,7 +388,9 @@ export default function SingleCard({ token, userId, username }) {
           </div>
         )}
         <div className="average-rating-container">
-          <p>{stadium.name} Average Rating: {averageRating} / 10</p>
+          <p>
+            {stadium.name} Average Rating: {averageRating} / 10
+          </p>
         </div>
         <hr className="line-across"></hr>
         <header className="nearby-list-header">
@@ -475,6 +477,7 @@ export default function SingleCard({ token, userId, username }) {
                   id="reply-button"
                   onClick={() => navigate(`/stadiums/reviews/${review.id}`)}
                   type="submit"
+                  style={{ backgroundColor: stadiumColors[stadium.id] }}
                 >
                   Reply
                 </button>
@@ -483,7 +486,9 @@ export default function SingleCard({ token, userId, username }) {
         </div>
         <br />
         <br />
-        <button onClick={() => navigate(-1)}>Back</button>
+      </div>
+      <div>
+        <button id="back-button" onClick={() => navigate(-1)} >Back</button>
       </div>
     </>
   );
