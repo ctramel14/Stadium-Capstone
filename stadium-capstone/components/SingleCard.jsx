@@ -20,7 +20,6 @@ export default function SingleCard({ token, userId, username }) {
   const [totalRatings, setTotalRatings] = useState([])
   const [buttonClicked, setButtonClicked] = useState(false);
   const [previewImage, setPreviewImage] = useState(null);
-  // let totalRatings = [];
 
   let { id } = useParams();
   const navigate = useNavigate();
