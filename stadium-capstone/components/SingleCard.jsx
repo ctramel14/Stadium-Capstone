@@ -69,6 +69,7 @@ export default function SingleCard({ token, userId, username }) {
       setButtonClicked(false); // Reset the state after the effect runs
     }
   }, [buttonClicked]);
+  
   //to check for a token to display based on whether user is logged in or not
   useEffect(() => {
     async function getToken() {
