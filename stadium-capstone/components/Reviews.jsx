@@ -44,9 +44,9 @@ export default function Reviews({ token, userId, username }) {
         // console.log(result.comments);   //trying to make something happen to get usernames to appear next to comments
         const allUsers = result.comments;
         const nextUsers = allUsers.map((u) => u.user);
-        const themUsers = nextUsers.map((u) => u.username)
+        const themUsers = nextUsers.map((u) => u.username);
         console.log(themUsers);
-        
+
         setReview(result);
         setCommenters(themUsers);
         setComments(result.comments);
@@ -85,36 +85,42 @@ export default function Reviews({ token, userId, username }) {
 
   return (
     <>
-      <h2>
-        {review.comment} {review.rating}/10
-      </h2>
-      <div className="comments">
-        {comments.map((comment) => (
-          <div key={comment.id}>
-            <strong>{comment.user.username}</strong>: {comment.content}
+      <div className="single-review-reply-container">
+        <div className="single-review-reply">
+          <h2>
+            Review: <br />
+            {review.comment}
+          </h2>
+          <h3>Rating: {review.rating} / 10</h3>
+          <div className="comments">
+            {comments.map((comment) => (
+              <div key={comment.id}>
+                <strong>{comment.user.username}</strong>: {comment.content}
+              </div>
+            ))}
           </div>
-        ))}
+          {replySuccess && (
+            <p>
+              <strong>{username}</strong>: {replySuccess}
+            </p>
+          )}
+          {token && !replySuccess ? (
+            <form onSubmit={reviewComment} id="reply-input-container">
+              <label>Reply</label>
+              <input
+                id="reply-input"
+                type="text"
+                value={reply}
+                onChange={(e) => setReply(e.target.value)}
+                required
+              />
+              <button type="submit" id="reply-button">Send Reply</button>
+            </form>
+          ) : (
+            <h6></h6>
+          )}
+        </div>
       </div>
-      {replySuccess && (
-        <p>
-          <strong>{username}</strong>: {replySuccess}
-        </p>
-      )}
-      {token && !replySuccess ? (
-        <form onSubmit={reviewComment}>
-          <label>Reply</label>
-          <input
-            id="reply"
-            type="reply"
-            value={reply}
-            onChange={(e) => setReply(e.target.value)}
-            required
-          />
-          <button type="submit">Send Reply</button>
-        </form>
-      ) : (
-        <h6></h6>
-      )}
       <button onClick={() => navigate(-1)}>Back</button>
     </>
   );

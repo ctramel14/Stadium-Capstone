@@ -322,13 +322,13 @@ export default function SingleCard({ token, userId, username }) {
           {token && ( //token check to display next information
             <div className="single-page-buttons">
               {!stadiumsVisited.includes(stadium.id) && !stadiumSuccess && (
-                <button onClick={() => visited(stadium.id)}>
+                <button onClick={() => visited(stadium.id)} style={{ backgroundColor: stadiumColors[stadium.id] }}>
                   Mark as Visited
                 </button>
               )}
               {!reviewId.includes(userId) &&
                 !reviewSuccess && ( //does not render button if user has posted previously, removes button if posted while on page
-                  <button onClick={handleClick}>
+                  <button onClick={handleClick} style={{ backgroundColor: stadiumColors[stadium.id] }}>
                     {showInput ? "Hide Input" : "Write Review"}
                   </button>
                 )}

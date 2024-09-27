@@ -261,3 +261,32 @@
   align-items: center;
   font-family: "Roboto Condensed", sans-serif;
 }
+.single-review-reply-container {
+  width: 100%;
+}
+.single-review-reply {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  color: #113311;
+  font-size: 1em;
+  font-family: "Roboto Condensed", sans-serif;
+  padding: 20px;
+}
+#reply-input {
+  width: 50%;
+  height: 100px;
+  border-radius: 5px;
+  border: 1px solid #0051b6;
+}
+#reply-input-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: left;
+  color: #113311;
+  font-size: 1em;
+  font-family: "Roboto Condensed", sans-serif;
+  padding: 5px;
+  
+}
