@@ -40,7 +40,7 @@ const Account= ({ token, email, firstName, userId }) => {
   const [comments, setComments] = useState([]);
   const [username, setUsername] = useState("");
   const [editingComment, setEditingComment] = useState(null);
-
+  const [searchParam, setSearchParam] = useState("");
   const [commentContent, setCommentContent] = useState("");
   const message = `Please log in to see your account details.`;
   const noStadium = `No stadiums visited yet`;
@@ -176,6 +176,14 @@ const Account= ({ token, email, firstName, userId }) => {
     }
   }
 
+  const commentsToDisplay = searchParam
+    ? comments.filter((com) =>
+        com.content.toLowerCase().includes(searchParam) ||
+        com.review.comment.toLowerCase().includes(searchParam) ||
+        com.review.stadium.name.toLowerCase().includes(searchParam)
+      )
+    : comments;
+
   return (
     <>
       {!token ? (
@@ -217,8 +225,19 @@ const Account= ({ token, email, firstName, userId }) => {
           <ReviewsTable {...{width,reviews, setReviews,token}}/>
           <header className="section-header">
             <h3>Your Replies</h3>
+            <div className="search">
+            <label>
+              <input
+                id="searchfield"
+                type="text"
+                className="searchInput"
+                placeholder="Search..."
+                onChange={(e) => setSearchParam(e.target.value.toLowerCase())} 
+              />
+            </label>
+          </div>
           </header>
-          {comments.length > 0 ? (
+          {commentsToDisplay.length > 0 ? (
             <div className="table-wrapper">
               <table className="comments-table">
                 <thead>
@@ -231,7 +250,7 @@ const Account= ({ token, email, firstName, userId }) => {
                   </tr>
                 </thead>
                 <tbody className="table-body">
-                  {comments.map((comment) => (
+                  {commentsToDisplay.map((comment) => (
                     <tr key={comment.id}>
                       {/* <div key={comment.id} className="user-comment"> */}
                       {editingComment === comment.id ? (
