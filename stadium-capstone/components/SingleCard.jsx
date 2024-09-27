@@ -19,7 +19,7 @@ export default function SingleCard({ token, userId, username }) {
   const [selectedImage, setSelectedImage] = useState(null);
   const [totalRatings, setTotalRatings] = useState([]);
   const [buttonClicked, setButtonClicked] = useState(false);
-  // let totalRatings = [];
+  const [previewImage, setPreviewImage] = useState(null);
 
   let { id } = useParams();
   const navigate = useNavigate();
@@ -73,6 +73,7 @@ export default function SingleCard({ token, userId, username }) {
       setButtonClicked(false); // Reset the state after the effect runs
     }
   }, [buttonClicked]);
+  
   //to check for a token to display based on whether user is logged in or not
   useEffect(() => {
     async function getToken() {
