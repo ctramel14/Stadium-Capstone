@@ -187,7 +187,7 @@ const Account= ({ token, email, firstName, userId }) => {
             <h3>Welcome, {firstName}!</h3>
             <h4>Username: {username}</h4>
             </div>
-            <h3>Your Visited Stadiums</h3>
+            <h3>Your Visited Ballparks</h3>
           </header>
           {visited.length > 0 ? (
             <div className="visited-grid-container">
@@ -211,7 +211,7 @@ const Account= ({ token, email, firstName, userId }) => {
           ) : (
             <div id="noStadiumsButton">
             {/* <p>{noStadium}</p> */}
-            <button  onClick={() => navigate("/")}>Add Stadiums</button>
+            <button  onClick={() => navigate("/")}>Add Ballparks</button>
             </div>
           )}
           <ReviewsTable {...{width,reviews, setReviews,token}}/>
@@ -223,7 +223,7 @@ const Account= ({ token, email, firstName, userId }) => {
               <table className="comments-table">
                 <thead>
                   <tr className="table-headers">
-                    <th>Stadium</th>
+                    <th>Ballpark</th>
                     <th>Reply</th>
                     <th>Date</th>
                     <th>Actions</th>

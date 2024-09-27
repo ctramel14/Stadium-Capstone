@@ -66,7 +66,7 @@ const Reviews = ({ reviews, setReviews, width, token }) => {
             <table className="reviews-table">
               <thead>
                 <tr className="table-headers">
-                  <th>Stadium</th>
+                  <th>Ballpark</th>
                   <th>Team</th>
                   <th>Rating</th>
                   <th>Review</th>
