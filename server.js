@@ -438,7 +438,7 @@ app.post("/api/stadium/:id/reviews", upload.single("image"), async (req, res, ne
 
     console.log("Review created successfully:", newReview);
 
-    res.status(201).json({ message: "Review added", review: newReview });
+    res.status(201).json({ message: "Review added", review: newReview, rating });
   } catch (err) {
     console.error("Error creating review:", err);
     next(err);
