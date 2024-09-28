@@ -51,7 +51,7 @@ const ReviewItem= ({
       )}
     </tr>
   ) : (
-    <p key={review.id}>
+    <div key={review.id} id="small-screen-item">
       {editingReview === review.id ? (
         <EditReviewForm
           {...{
@@ -64,12 +64,12 @@ const ReviewItem= ({
         />
       ) : (
         <>
-          <div>stadium name: {review.stadium.name}</div>
-          <div>{review.stadium.teamName}</div>
-          <div>{review.rating} / 10</div>
-          <div>{review.comment}</div>
-          <div>{new Date(review.date).toLocaleDateString()}</div>
-          <div>
+          <p>Ballpark: {review.stadium.name}</p>
+          <p>{review.stadium.teamName}</p>
+          <p>{new Date(review.date).toLocaleDateString()}</p>
+          <p>{review.rating}/10</p>
+          <p>{review.comment}</p>
+          <div id="small-screen-buttons">
             <button
               onClick={() => {
                 setEditingReview(review.id);
@@ -85,7 +85,8 @@ const ReviewItem= ({
           </div>
         </>
       )}
-    </p>
+      <hr className="line-across"></hr>
+    </div>
   );
 };
 

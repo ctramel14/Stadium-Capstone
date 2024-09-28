@@ -93,7 +93,7 @@ const Reviews = ({ reviews, setReviews, width, token }) => {
               </tbody>
             </table>
           ) : (
-            <div style={{ color: "black" }}>
+            <div style={{ color: "black" }} id="small-screen-table">
               {reviews.map((review) => (
                 <ReviewItem
                   key={review.id}
