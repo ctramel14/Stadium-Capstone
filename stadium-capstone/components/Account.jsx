@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useLayoutEffect,FC } from "react";
+import React, { useState, useEffect,} from "react";
 import ReviewsTable from './ReviewsTable'
 import { useNavigate } from "react-router-dom";
 const stadiumColors = {
@@ -34,7 +34,7 @@ const stadiumColors = {
   30: "rgb(172,50,38)",
 };
 
-const Account= ({ token, email, firstName, userId }) => {
+const Account= ({ token, email, firstName, userId,width }) => {
   const [visited, setVisited] = useState([]);
   const [reviews, setReviews] = useState([]);
   const [comments, setComments] = useState([]);
@@ -46,16 +46,7 @@ const Account= ({ token, email, firstName, userId }) => {
   const noStadium = `No stadiums visited yet`;
   const navigate = useNavigate();
 
-  const [width, setWidth] = useState(300);
 
-  useLayoutEffect(() => {
-    if (window) {
-      setWidth(window.innerWidth);
-      window.addEventListener("resize", () => {
-        setWidth(window.innerWidth);
-      });
-    }
-  }, []);
 
   useEffect(() => {
     if (!token || !userId) return;

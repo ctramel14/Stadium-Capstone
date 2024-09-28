@@ -2,6 +2,7 @@
 .account-page-wrapper {
   color: #113311;
   font-family: "Roboto Condensed", sans-serif;
+  margin: 0;
   h2 {
     font-size: 2.5em;
     margin-bottom: 0;
