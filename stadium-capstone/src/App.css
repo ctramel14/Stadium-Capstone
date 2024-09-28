@@ -43,6 +43,9 @@
     height:44px
   }
 }
+#burger-menu {
+  cursor: pointer;
+}
 
 button {
   border-radius: 16px;

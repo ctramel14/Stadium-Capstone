@@ -9,7 +9,7 @@ export default function NavigationBar({
   width,
 }) {
   // console.log(token);
-  const [expand, setExpend] = useState(false);
+  const [expand, setExpand] = useState(false);
 
   return (
     <nav
@@ -19,12 +19,14 @@ export default function NavigationBar({
       {width <= 700 && (
         <div
           onClick={() => {
-            setExpend((v) => !v);
+            setExpand((v) => !v);
+            
           }}
           style={{
             color:'white',
             fontSize:'36px'
           }}
+          id="burger-menu"
         >
           {expand ? "✕" : "☰"}
         </div>
@@ -34,18 +36,18 @@ export default function NavigationBar({
           <>
             {token ? (
               <div className="navbar-items">
-                <Link to="/">BALLPARKS</Link>
-                <Link to="/users/logout">LOGOUT</Link>
-                <Link to="/users/me">ACCOUNT</Link>
+                <Link to="/" onClick={() => setExpand(false)}>BALLPARKS</Link>
+                <Link to="/users/logout" onClick={() => setExpand(false)}>LOGOUT</Link>
+                <Link to="/users/me" onClick={() => setExpand(false)}>ACCOUNT</Link>
                 {administrator && <Link to="/admin">Admin</Link>}
-                <Link to="/contactform">CONTACT US</Link>
+                <Link to="/contactform" onClick={() => setExpand(false)}>CONTACT US</Link>
               </div>
             ) : (
               <div className="navbar-items">
-                <Link to="/">BALLPARKS</Link>
-                <Link onClick={() => setLoginSeen(!loginSeen)}>LOG IN</Link>
-                <Link to="/users/register">REGISTER</Link>
-                <Link to="/contactform">CONTACT US</Link>
+                <Link to="/" onClick={() => setExpand(false)}>BALLPARKS</Link>
+                <Link onClick={() => { setLoginSeen((v) => !v); setExpand(false); }}>LOG IN</Link>
+                <Link to="/users/register" onClick={() => setExpand(false)}>REGISTER</Link>
+                <Link to="/contactform" onClick={() => setExpand(false)}>CONTACT US</Link>
               </div>
             )}
           </>
