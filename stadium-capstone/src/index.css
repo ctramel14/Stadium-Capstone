@@ -15,7 +15,9 @@
 body {
   background-color: whitesmoke;
   margin: 0;
-  padding-top: 30px;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden;
 }
 #noStadiumsButton {
   display: flex;
@@ -31,6 +33,7 @@ body {
   text-align: center;
   letter-spacing: 1px;
   background-color: #113311;
+  margin-top: 40px;
   padding: 20px;
   width: 100%;
   h3 {
