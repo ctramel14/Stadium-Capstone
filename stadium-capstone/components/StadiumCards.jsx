@@ -41,6 +41,8 @@ export default function StadiumCards({ token, stadiums, setStadiums, userId }) {
   const navigate = useNavigate();
 
   async function fetchAllStadiums() {
+    console.log(userId);
+    
     try {
       const response = await fetch("http://localhost:3000/api/stadiums");
       const result = await response.json();
@@ -54,29 +56,31 @@ export default function StadiumCards({ token, stadiums, setStadiums, userId }) {
   useEffect(() => {
     async function fetchUserData() {   // this line through Line 82 is for fetching user Data to display colors of visited stadiums
       if (!token) return;
-      try {
-        const response = await fetch(
-          `http://localhost:3000/api/users/${userId}`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
+        try {
+          const response = await fetch(
+            `http://localhost:3000/api/users/${userId}`,
+            {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+          const result = await response.json();
+          const stads = result.visitedStadiums.map((v) => v.stadiumId); 
+          const iterator = stads.values();
+          setStadiumsVisited(stads)
+          for (const value of iterator) {
+              let elements = document.getElementById(value);
+              elements.style.backgroundColor = stadiumColors[value];
           }
-        );
-        const result = await response.json();
-        const stads = result.visitedStadiums.map((v) => v.stadiumId); 
-        const iterator = stads.values();
-        setStadiumsVisited(stads)
-        for (const value of iterator) {
-            let elements = document.getElementById(value);
-            elements.style.backgroundColor = stadiumColors[value];
+        } catch (error) {
+          console.error(error);
         }
-      } catch (error) {
-        console.error(error);
+      
       }
-    }
+      
     fetchUserData();
   }, [token, userId])
 

@@ -34,11 +34,11 @@ const stadiumColors = {
   30: "rgb(172,50,38)",
 };
 
-const Account= ({ token, email, firstName, userId,width }) => {
+const Account= ({ token, username, setUsername, firstName, userId,width }) => {
   const [visited, setVisited] = useState([]);
   const [reviews, setReviews] = useState([]);
   const [comments, setComments] = useState([]);
-  const [username, setUsername] = useState("");
+  // const [username, setUsername] = useState("");
   const [editingComment, setEditingComment] = useState(null);
   const [searchParam, setSearchParam] = useState("");
   const [commentContent, setCommentContent] = useState("");
@@ -49,29 +49,32 @@ const Account= ({ token, email, firstName, userId,width }) => {
 
 
   useEffect(() => {
-    if (!token || !userId) return;
-
     async function fetchUserData() {
-      try {
-        const response = await fetch(
-          `http://localhost:3000/api/users/${userId}`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
+      if (!token || !userId) return;
+        try {
+          const response = await fetch(
+            `http://localhost:3000/api/users/${userId}`,
+            {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+          const result = await response.json();
+          console.log(result);
+          
+          setVisited(result.visitedStadiums.map((v) => v.stadium));
+          setReviews(result.reviews);
+          setComments(result.comments);
+          if (!username) {
+            setUsername(result.username);
           }
-        );
-        const result = await response.json();
-
-        setVisited(result.visitedStadiums.map((v) => v.stadium));
-        setReviews(result.reviews);
-        setComments(result.comments);
-        setUsername(result.username);
-      } catch (error) {
-        console.error(error);
-      }
+        } catch (error) {
+          console.error(error);
+        }
+      
     }
 
     fetchUserData();

@@ -1,14 +1,19 @@
 import { useNavigate } from 'react-router-dom';
 
-export default function Logout({ setToken }) {
+export default function Logout({ setToken, googleLogout, profile, setProfile, setUserId }) {
   const navigate = useNavigate();
 
   async function handleSubmit(e) {
     e.preventDefault();
     setToken(null);
-
+    setUserId(null)
     alert('You have successfully logged out!');
     navigate('/');
+
+    if (profile) {
+      googleLogout();
+      setProfile(null);
+  }
   }
 
   return (

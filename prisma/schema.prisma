@@ -28,6 +28,7 @@ model Stadium {
 
 model User {
   id              Int              @id @default(autoincrement())
+  googleId        String           @default("")
   username        String           @unique
   password        String
   administrator   Boolean          @default(false)

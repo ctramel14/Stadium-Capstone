@@ -1,4 +1,4 @@
-import { useState,useLayoutEffect } from "react";
+import { useState,useEffect, useLayoutEffect } from "react";
 import "./App.css";
 import StadiumCards from "../components/StadiumCards";
 import SingleCard from "../components/SingleCard";
@@ -12,6 +12,8 @@ import LogOut from "../components/LogOut";
 import Reviews from "../components/Reviews";
 import LoginModal from "../components/LoginModal";
 import Admin from "../components/Admin";
+import { googleLogout, useGoogleLogin } from "@react-oauth/google";
+import axios from "axios";
 
 //setting state here to make passing props between components easier
 function App() {
@@ -26,6 +28,9 @@ function App() {
   const [loginSeen, setLoginSeen] = useState(false);
   const [administrator, setAdministrator] = useState(false);
     const [width, setWidth] = useState(300);
+    const [ user, setUser ] = useState(null);
+    const [ profile, setProfile ] = useState(null);
+    const [googleId, setGoogleId] = useState("");
 
   useLayoutEffect(() => {
     if (window) {
@@ -61,6 +66,14 @@ function App() {
           setLoginSeen={setLoginSeen}
           loginSeen={loginSeen}
           setAdministrator={setAdministrator}
+          googleId={googleId}
+          setGoogleId={setGoogleId}
+          user={user}
+          setUser={setUser}
+          profile={profile}
+          setProfile={setProfile}
+          email={email}
+          setEmail={setEmail}
         />
       ) : null}
       <Routes>
@@ -132,6 +145,8 @@ function App() {
               email={email}
               userId={userId}
               width={width}
+              username={username}
+              setUsername={setUsername}
             />
           }
         />
@@ -146,7 +161,12 @@ function App() {
         {token && (
           <Route
             path="/users/logout"
-            element={<LogOut setToken={setToken} />}
+            element={<LogOut setToken={setToken}
+            googleLogout={googleLogout}
+            profile={profile}
+            setProfile={setProfile} 
+            setUserId={setUserId}
+            />}
           />
         )}
         {administrator && (
