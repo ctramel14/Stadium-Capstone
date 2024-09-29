@@ -312,6 +312,7 @@ app.post("/register", async (req, res, next) => {
       username,
       password,
       administrator = false,
+      googleId,
     } = req.body;
 
     // Check if the username already exists
@@ -343,6 +344,7 @@ app.post("/register", async (req, res, next) => {
         username,
         password: hashedPassword,
         administrator,
+        googleId,
       },
     });
     // Generate a token
@@ -359,16 +361,18 @@ app.post("/register", async (req, res, next) => {
 // Login a user
 app.post("/login", async (req, res, next) => {
   try {
-    const { username, password } = req.body;
+    const { username, password, googleId } = req.body;
     const user = await prisma.user.findFirst({
       where: { username },
     });
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
+    if (googleId === "") {
     const isPasswordValid = await bcrypt.compare(password, user.password);
-    if (!isPasswordValid) {
-      return res.status(401).json({ error: "Invalid password" });
+      if (!isPasswordValid) {
+        return res.status(401).json({ error: "Invalid password" });
+      }
     }
     const token = jwt.sign({ userId: user.id }, SECRET_KEY, {
       expiresIn: "1h",

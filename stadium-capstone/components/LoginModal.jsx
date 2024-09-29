@@ -1,5 +1,9 @@
 import "./LoginModal.css";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { googleLogout, useGoogleLogin } from "@react-oauth/google";
+import axios from "axios";
+
 
 const LoginModal = ({
   toggleLogin,
@@ -8,13 +12,97 @@ const LoginModal = ({
   setUsername,
   password,
   setPassword,
+  firstName,
   setFirstName,
   userId,
   setUserId,
   setLoginSeen,
   loginSeen,
   setAdministrator,
+  googleId,
+  setGoogleId,
+  user,
+  setUser,
+  profile,
+  setProfile,
+  email,
+  setEmail
 }) => {
+  const [lastName, setLastName] = useState("")
+  
+  const login = useGoogleLogin({
+    onSuccess: (codeResponse) => {
+      setUser(codeResponse)
+      if (codeResponse.access_token) {
+        axios
+            .get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${codeResponse.access_token}`, {
+                headers: {
+                    Authorization: `Bearer ${codeResponse.access_token}`,
+                    Accept: 'application/json'
+                }
+            })
+            .then((res) => {
+                setProfile(res.data);
+                setFirstName(res.data.given_name)
+                setLastName(res.data.family_name)
+                setUsername(res.data.email)
+                setEmail(res.data.email)
+                setGoogleId(res.data.id);          
+           fetch("http://localhost:3000/register", {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify({
+                    email: res.data.email,
+                    password,
+                    firstName: res.data.given_name,
+                    lastName: res.data.family_name,
+                    username: res.data.email,
+                    googleId: res.data.id,
+                  }),
+                })
+              
+                .then((rest) => {     
+                  rest.json().then((json) => {
+                    const newUserId = json.newUser;
+                    
+                    if (json.error == "Username already exists") {
+                      fetch(`http://localhost:3000/login`, {
+                        method: "POST",
+                        headers: {
+                          "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({ 
+                          username: res.data.email, 
+                          password, 
+                          googleId: res.data.id, 
+                        }),
+                      })
+                      .then((result) => {
+                        result.json().then((json) => {              
+                          setToken(json.token);
+                          const newId = json.user.id;
+                          setUserId(newId);
+                          const admin = json.user.administrator;
+                          setAdministrator(admin);
+                        })
+                      })  
+                    }
+                    setUserId(newUserId.id);
+                    setToken(json.token);
+                  })
+                }) 
+              })
+            // .catch((err) => console.log("poo poo magoo"))
+              }
+    },
+    onError: (error) => console.log('Login Failed:', error)
+});
+
+const logOut = () => {
+  googleLogout();
+  setProfile(null);
+};
+
   async function handleSubmit(e) {
     e.preventDefault();
     setLoginSeen(!loginSeen);
@@ -36,9 +124,6 @@ const LoginModal = ({
       setUserId(newId);
       setFirstName(name);
       setAdministrator(admin);
-      console.log(userId, name, admin);
-      // alert('You have successfully logged in!');
-      // navigate("/");
     } catch (error) {
       console.error(error);
     }
@@ -105,10 +190,28 @@ const LoginModal = ({
             </svg>
           </span>
         </div>
+        
         <button className="submit" type="submit">
           Sign in
         </button>
-
+        <div>
+            <h2>React Google Login</h2>
+            <br />
+            <br />
+            {profile ? (
+                <div>
+                    <img src={profile.picture} alt="user image" />
+                    <h3>User Logged in</h3>
+                    <p>Name: {profile.name}</p>
+                    <p>Email Address: {profile.email}</p>
+                    <br />
+                    <br />
+                    <button onClick={logOut}>Log out</button>
+                </div>
+            ) : (
+                <button onClick={() => login()}>Sign in with Google 🚀 </button>
+            )}
+        </div>
         <p className="signup-link">
           No account?
           <Link to="/users/register">Register</Link>

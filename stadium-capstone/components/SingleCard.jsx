@@ -77,25 +77,28 @@ export default function SingleCard({ token, userId, username }) {
   //to check for a token to display based on whether user is logged in or not
   useEffect(() => {
     async function getToken() {
-      try {
-        const response = await fetch(
-          `http://localhost:3000/api/users/${userId}`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        const result = await response.json();
-        setStadiumsVisited(
-          result.visitedStadiums.map((stadium) => stadium.stadiumId)
-        );
-      } catch (error) {
-        console.error(error);
+      if (!token) return;
+        try {
+          const response = await fetch(
+            `http://localhost:3000/api/users/${userId}`,
+            {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+          const result = await response.json();
+          setStadiumsVisited(
+            result.visitedStadiums.map((stadium) => stadium.stadiumId)
+          );
+        } catch (error) {
+          console.error(error);
+        }
+      
       }
-    }
+      
     getToken();
     //fetch restaurants to display based on stadium
     async function getRestaurants() {
