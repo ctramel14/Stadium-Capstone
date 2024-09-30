@@ -95,6 +95,7 @@
   font-family: "Roboto Condensed", sans-serif;
   padding: 5px;
   background-color: #8d620f;
+  border: 1px solid whitesmoke;
   border-radius: 16px;
   box-shadow: 4px 2px #634407;
 }
@@ -226,6 +227,7 @@ body{
   gap: 10px;
   border-radius: 16px;
   margin: 0;
+  border: 1px solid whitesmoke;
   box-shadow: 3px 1px #634407;
   p {
     margin: 0;

@@ -1,4 +1,4 @@
-import { useState,useEffect, useLayoutEffect } from "react";
+import { useState, useLayoutEffect } from "react";
 import "./App.css";
 import StadiumCards from "../components/StadiumCards";
 import SingleCard from "../components/SingleCard";
@@ -12,8 +12,7 @@ import LogOut from "../components/LogOut";
 import Reviews from "../components/Reviews";
 import LoginModal from "../components/LoginModal";
 import Admin from "../components/Admin";
-import { googleLogout, useGoogleLogin } from "@react-oauth/google";
-import axios from "axios";
+import { googleLogout } from "@react-oauth/google";
 
 //setting state here to make passing props between components easier
 function App() {
@@ -27,10 +26,10 @@ function App() {
   const [userId, setUserId] = useState("");
   const [loginSeen, setLoginSeen] = useState(false);
   const [administrator, setAdministrator] = useState(false);
-    const [width, setWidth] = useState(300);
-    const [ user, setUser ] = useState(null);
-    const [ profile, setProfile ] = useState(null);
-    const [googleId, setGoogleId] = useState("");
+  const [width, setWidth] = useState(300);
+  const [user, setUser] = useState(null);
+  const [profile, setProfile] = useState(null);
+  const [googleId, setGoogleId] = useState("");
 
   useLayoutEffect(() => {
     if (window) {
@@ -45,7 +44,6 @@ function App() {
     <>
       <NavigationBar
         token={token}
-        toggleLogin={loginSeen}
         setLoginSeen={setLoginSeen}
         administrator={administrator}
         width={width}
@@ -54,25 +52,19 @@ function App() {
         <LoginModal
           onClick={() => setLoginSeen(!loginSeen)}
           setToken={setToken}
-          token={token}
           username={username}
           setUsername={setUsername}
           password={password}
           setPassword={setPassword}
-          firstName={firstName}
           setFirstName={setFirstName}
-          userId={userId}
           setUserId={setUserId}
           setLoginSeen={setLoginSeen}
           loginSeen={loginSeen}
           setAdministrator={setAdministrator}
-          googleId={googleId}
           setGoogleId={setGoogleId}
-          user={user}
           setUser={setUser}
           profile={profile}
           setProfile={setProfile}
-          email={email}
           setEmail={setEmail}
         />
       ) : null}
@@ -157,16 +149,18 @@ function App() {
             <Reviews token={token} userId={userId} username={username} />
           }
         />
-        {/* <Route path="/users/logout" element={<LogOut setToken={setToken} />} /> */}
         {token && (
           <Route
             path="/users/logout"
-            element={<LogOut setToken={setToken}
-            googleLogout={googleLogout}
-            profile={profile}
-            setProfile={setProfile} 
-            setUserId={setUserId}
-            />}
+            element={
+              <LogOut
+                setToken={setToken}
+                googleLogout={googleLogout}
+                profile={profile}
+                setProfile={setProfile}
+                setUserId={setUserId}
+              />
+            }
           />
         )}
         {administrator && (

@@ -3,12 +3,11 @@ import { useState } from "react";
 
 export default function NavigationBar({
   token,
-  loginSeen,
   setLoginSeen,
   administrator,
   width,
 }) {
-  // console.log(token);
+// state set to help with transition to smaller/mobile screens
   const [expand, setExpand] = useState(false);
 
   return (
