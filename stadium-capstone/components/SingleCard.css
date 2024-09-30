@@ -5,7 +5,7 @@
   height: 100%;
   background-color: #113311;
   border-radius: 5px;
-
+/*   border: 5px solid #8d620f; */
 }
 .stadiumDetails h2 {
   font-size: 3em;
@@ -34,6 +34,10 @@
   height: 650px;
   object-fit: cover;
   border-radius: 5px;
+/*   margin: 10px;
+  border: 2.5px groove white;
+  border-radius: 15px;
+  */
 }
 .stadium-facts {
   display: flex;
@@ -98,6 +102,7 @@
   font-family: "Roboto Condensed", sans-serif;
   padding: 5px;
   background-color: #8d620f;
+  border: 1px solid whitesmoke;
   border-radius: 16px;
   box-shadow: 4px 2px #634407;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);
@@ -240,6 +245,7 @@ body{
   gap: 10px;
   border-radius: 16px;
   margin: 0;
+  border: 1px solid whitesmoke;
   box-shadow: 3px 1px #634407;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 

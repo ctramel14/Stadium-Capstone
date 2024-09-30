@@ -10,7 +10,7 @@ export default function ContactForm() {
   const [error, setError] = useState("");
 
   const navigate = useNavigate();
-
+  //post request to send messages to admin
   async function submit(e) {
     e.preventDefault();
 
@@ -24,28 +24,24 @@ export default function ContactForm() {
         body: JSON.stringify({ name: name, email: email, message: message }),
       });
       setSubmitted(true);
-      const json = await result.json();
-      console.log(json.name);
     } catch (error) {
       console.error(error);
     }
   }
-
   if (error) {
     return <p>{error}</p>;
   }
-
+  //message for if sending is a success
   if (submitted) {
     return (
-      // Add a success message to display when the form is submitted
-      // This message should be displayed when the form is submitted successfully
       <div id="contactPage">
         <div id="contact-success-message">
           <p>We've received your message, thank you for contacting us!</p>
-          <p>We'll get
-          back to you as soon as we can.</p>
+          <p>We'll get back to you as soon as we can.</p>
           <div>
-            <button id="submit" onClick={() => navigate("/")}>Home</button>
+            <button id="submit" onClick={() => navigate("/")}>
+              Home
+            </button>
           </div>
         </div>
       </div>
