@@ -64,11 +64,24 @@ const ReviewItem= ({
         />
       ) : (
         <>
-          <p>Ballpark: {review.stadium.name}</p>
-          <p>{review.stadium.teamName}</p>
-          <p>{new Date(review.date).toLocaleDateString()}</p>
-          <p>{review.rating}/10</p>
-          <p>{review.comment}</p>
+          <p><strong>Ballpark: </strong>{review.stadium.name}</p>
+          <p><strong>Team Name: </strong>{review.stadium.teamName}</p>
+          <p><strong>Date Posted: </strong>{new Date(review.date).toLocaleDateString()}</p>
+          <p><strong>Rating: </strong>{review.rating}/10</p>
+          <p><strong>Review: </strong>{review.comment}</p>
+          <p>
+            <strong>Image:</strong>
+            <br/>
+            {review.imageURL ? (
+              <img
+                src={`http://localhost:3000${review.imageURL}`}
+                alt="Review Image"
+                style={{ width: "100px", height: "auto" }} // Adjust image size as needed
+              />
+            ) : (
+              "No image posted"
+            )}
+          </p>
           <div id="small-screen-buttons">
             <button
               onClick={() => {
