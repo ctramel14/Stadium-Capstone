@@ -1,6 +1,8 @@
-import React, { useState, useEffect,} from "react";
-import ReviewsTable from './ReviewsTable'
+import React, { useState, useEffect } from "react";
+import ReviewsTable from "./ReviewsTable";
 import { useNavigate } from "react-router-dom";
+import BallparkIcon from "../src/assets/ballpark-icon.png";
+
 const stadiumColors = {
   1: "rgb(156,41,59)",
   2: "rgb(27,57,99)",
@@ -34,7 +36,14 @@ const stadiumColors = {
   30: "rgb(172,50,38)",
 };
 
-const Account= ({ token, username, setUsername, firstName, userId,width }) => {
+const Account = ({
+  token,
+  username,
+  setUsername,
+  firstName,
+  userId,
+  width,
+}) => {
   const [visited, setVisited] = useState([]);
   const [reviews, setReviews] = useState([]);
   const [comments, setComments] = useState([]);
@@ -46,35 +55,32 @@ const Account= ({ token, username, setUsername, firstName, userId,width }) => {
   const noStadium = `No stadiums visited yet`;
   const navigate = useNavigate();
 
-
-
   useEffect(() => {
     async function fetchUserData() {
       if (!token || !userId) return;
-        try {
-          const response = await fetch(
-            `http://localhost:3000/api/users/${userId}`,
-            {
-              method: "GET",
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
-              },
-            }
-          );
-          const result = await response.json();
-          console.log(result);
-          
-          setVisited(result.visitedStadiums.map((v) => v.stadium));
-          setReviews(result.reviews);
-          setComments(result.comments);
-          if (!username) {
-            setUsername(result.username);
+      try {
+        const response = await fetch(
+          `http://localhost:3000/api/users/${userId}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
           }
-        } catch (error) {
-          console.error(error);
+        );
+        const result = await response.json();
+        console.log(result);
+
+        setVisited(result.visitedStadiums.map((v) => v.stadium));
+        setReviews(result.reviews);
+        setComments(result.comments);
+        if (!username) {
+          setUsername(result.username);
         }
-      
+      } catch (error) {
+        console.error(error);
+      }
     }
 
     fetchUserData();
@@ -97,8 +103,6 @@ const Account= ({ token, username, setUsername, firstName, userId,width }) => {
       console.error(error);
     }
   }
-
-
 
   async function deleteComment(commentId) {
     try {
@@ -171,144 +175,173 @@ const Account= ({ token, username, setUsername, firstName, userId,width }) => {
   }
 
   const commentsToDisplay = searchParam
-    ? comments.filter((com) =>
-        com.content.toLowerCase().includes(searchParam) ||
-        com.review.comment.toLowerCase().includes(searchParam) ||
-        com.review.stadium.name.toLowerCase().includes(searchParam)
+    ? comments.filter(
+        (com) =>
+          com.content.toLowerCase().includes(searchParam) ||
+          com.review.comment.toLowerCase().includes(searchParam) ||
+          com.review.stadium.name.toLowerCase().includes(searchParam)
       )
     : comments;
 
+    const totalBallparks = 30;
+    const BallParksRemaining = totalBallparks - visited.length;
+
   return (
     <>
-      {!token ? (
-        <h3 className="login-alert-message">{message}</h3>
-      ) : (
-        <div className="account-page-wrapper">
-          <header className="section-header">
-            <div className="accountWelcomeMessage">
-            <h3>Welcome, {firstName}!</h3>
-            <h4>Username: {username}</h4>
-            </div>
-            <h3>Your Visited Ballparks</h3>
-          </header>
-          {visited.length > 0 ? (
-            <div className="visited-grid-container">
-              {visited.map((stadium) => (
-                <div
-                  key={stadium.id}
-                  className="visited-cards"
-                  style={{ backgroundColor: stadiumColors[stadium.id] }}
-                >
-                  <img src={stadium.imageOutsideURL} alt={stadium.name} />
-                  <strong>
-                    <h2>{stadium.name}</h2>
-                  </strong>
-                  <p>{stadium.teamName}</p>
-                  <button onClick={() => deleteVisitedStadium(stadium.id)}>
-                    Remove
-                  </button>
-                </div>
-              ))}
-            </div>
-          ) : (
-            <div id="noStadiumsButton">
-            {/* <p>{noStadium}</p> */}
-            <button  onClick={() => navigate("/")}>Add Ballparks</button>
-            </div>
-          )}
-          <ReviewsTable {...{width,reviews, setReviews,token}}/>
-          <header className="section-header">
-            <h3>Your Replies</h3>
-            <div className="search">
-            <label>
-              <input
-                id="searchfield"
-                type="text"
-                className="searchInput"
-                placeholder="Search..."
-                onChange={(e) => setSearchParam(e.target.value.toLowerCase())} 
-              />
-            </label>
-          </div>
-          </header>
-          {commentsToDisplay.length > 0 ? (
-            <div className="table-wrapper">
-              <table className="comments-table">
-                <thead>
-                  <tr className="table-headers">
-                    <th>Ballpark</th>
-                    <th>Review</th>
-                    <th>Your Reply</th>
-                    <th>Date</th>
-                    <th>Actions</th>
-                  </tr>
-                </thead>
-                <tbody className="table-body">
-                  {commentsToDisplay.map((comment) => (
-                    <tr key={comment.id}>
-                      {/* <div key={comment.id} className="user-comment"> */}
-                      {editingComment === comment.id ? (
-                        <td colSpan="4">
-                          <section className="edit-form-container">
-                            <form
-                              onSubmit={(e) => editComment(e, comment.id)}
-                              className="edit-form"
-                            >
-                              <h4>Edit Reply</h4>
-                              <label>
-                                Reply:
-                                <textarea
-                                  value={commentContent}
-                                  onChange={(e) =>
-                                    setCommentContent(e.target.value)
-                                  }
-                                />
-                              </label>
-                              <div className="edit-form-buttons">
-                                <button type="submit">Save</button>
-                                <button
-                                  type="button"
-                                  onClick={() => setEditingComment(null)}
-                                >
-                                  Cancel
-                                </button>
-                              </div>
-                            </form>
-                          </section>
-                        </td>
-                      ) : (
-                        <>
-                          <td>{comment.review.stadium.name}</td>
-                          <td>{comment.review.comment}</td>
-                          <td><strong>{comment.content}</strong></td>
-                          <td>{new Date(comment.date).toLocaleDateString()}</td>
-                          <td>
-                            <button
-                              onClick={() => {
-                                setEditingComment(comment.id);
-                                setCommentContent(comment.content);
-                              }}
-                            >
-                              Edit
-                            </button>
-                            <button onClick={() => deleteComment(comment.id)}>
-                              Delete
-                            </button>
-                          </td>
-                        </>
-                      )}
+      <div className="account-page-container">
+        {!token ? (
+          <h3 className="login-alert-message">{message}</h3>
+        ) : (
+          <div className="account-page-wrapper">
+            <section className="top-account-section">
+              <div className="topDiv">
+                <img src={BallparkIcon} alt="Baseball Field" id="ballpark-symbol" />
+              </div>
+              <div className="topDiv">
+              <p>Welcome, {firstName}!</p>
+              <p>You have visited {visited.length} ballparks</p>
+              <p>You have {BallParksRemaining} ballparks left to visit!</p>
+              </div>
+              <div className="topDiv">
+              </div>
+            </section>
+            <header className="section-header">
+              <h3>Your Visited Ballparks </h3>
+            </header>
+            {visited.length > 0 ? (
+              <div className="visited-grid-container">
+                {visited.map((stadium) => (
+                  <div
+                    key={stadium.id}
+                    className="visited-cards"
+                    style={{ backgroundColor: stadiumColors[stadium.id] }}
+                  >
+                    <img
+                      src={stadium.imageOutsideURL}
+                      alt={stadium.name}
+                      onClick={() => navigate(`/stadiums/${stadium.id}/`)}
+                    />
+                    <strong>
+                      <h2 onClick={() => navigate(`/stadiums/${stadium.id}/`)}>
+                        {stadium.name}
+                      </h2>
+                    </strong>
+                    <p onClick={() => navigate(`/stadiums/${stadium.id}/`)}>
+                      {stadium.teamName}
+                    </p>
+                    <button onClick={() => deleteVisitedStadium(stadium.id)}>
+                      Remove
+                    </button>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div id="noStadiumsButton">
+                {/* <p>{noStadium}</p> */}
+                <button onClick={() => navigate("/")}>Add Ballparks</button>
+              </div>
+            )}
+            <hr className="line-across-account"></hr>
+            <ReviewsTable {...{ width, reviews, setReviews, token }} />
+            <header className="section-header-replies">
+              <h3>Your Replies</h3>
+              <div className="search">
+                <label>
+                  <input
+                    id="searchfield"
+                    type="text"
+                    className="searchInput"
+                    placeholder="Search..."
+                    onChange={(e) =>
+                      setSearchParam(e.target.value.toLowerCase())
+                    }
+                  />
+                </label>
+              </div>
+            </header>
+            {commentsToDisplay.length > 0 ? (
+              <div className="table-wrapper">
+                <table className="comments-table">
+                  <thead>
+                    <tr className="table-headers">
+                      <th>Ballpark</th>
+                      <th>Review</th>
+                      <th>Your Reply</th>
+                      <th>Date</th>
+                      <th>Actions</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          ) : (
-            <p>No replies written yet.</p>
-          )}
-        </div>
-      )}
+                  </thead>
+                  <tbody className="table-body">
+                    {commentsToDisplay.map((comment) => (
+                      <tr key={comment.id}>
+                        {/* <div key={comment.id} className="user-comment"> */}
+                        {editingComment === comment.id ? (
+                          <td colSpan="4">
+                            <section className="edit-form-container">
+                              <form
+                                onSubmit={(e) => editComment(e, comment.id)}
+                                className="edit-form"
+                              >
+                                <h4>Edit Reply</h4>
+                                <label>
+                                  Reply:
+                                  <textarea
+                                    value={commentContent}
+                                    onChange={(e) =>
+                                      setCommentContent(e.target.value)
+                                    }
+                                  />
+                                </label>
+                                <div className="edit-form-buttons">
+                                  <button type="submit">Save</button>
+                                  <button
+                                    type="button"
+                                    onClick={() => setEditingComment(null)}
+                                  >
+                                    Cancel
+                                  </button>
+                                </div>
+                              </form>
+                            </section>
+                          </td>
+                        ) : (
+                          <>
+                            <td>{comment.review.stadium.name}</td>
+                            <td>{comment.review.comment}</td>
+                            <td>
+                              <strong>{comment.content}</strong>
+                            </td>
+                            <td>
+                              {new Date(comment.date).toLocaleDateString()}
+                            </td>
+                            <td>
+                              <button
+                                onClick={() => {
+                                  setEditingComment(comment.id);
+                                  setCommentContent(comment.content);
+                                }}
+                              >
+                                Edit
+                              </button>
+                              <button onClick={() => deleteComment(comment.id)}>
+                                Delete
+                              </button>
+                            </td>
+                          </>
+                        )}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            ) : (
+              <p id="nothingWarning">Go to any <span onClick={() => navigate("/")}>ballpark</span> page and reply to a user's review to see your replies here</p>
+            )}
+          </div>
+        )}
+      </div>
     </>
   );
-}
+};
 
-export default Account
+export default Account;

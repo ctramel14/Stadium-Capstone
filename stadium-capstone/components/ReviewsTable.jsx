@@ -1,5 +1,6 @@
 import { useState } from "react";
 import ReviewItem from "./ReviewItem";
+import { useNavigate } from "react-router-dom";
 
 const Reviews = ({ reviews, setReviews, width, token }) => {
   const [editingReview, setEditingReview] = useState(null);
@@ -7,6 +8,8 @@ const Reviews = ({ reviews, setReviews, width, token }) => {
     rating: "",
     comment: "",
   });
+  const navigate = useNavigate();
+
 
   async function deleteReview(reviewId) {
     if (reviewId) {
@@ -112,8 +115,9 @@ const Reviews = ({ reviews, setReviews, width, token }) => {
           )}
         </div>
       ) : (
-        <p>No reviews written yet.</p>
+        <p id="nothingWarning">Go to any <span onClick={() => navigate("/")}>ballpark</span>  page to leave your first review!</p>
       )}
+      <hr className="line-across-account"></hr>
     </>
   );
 };
