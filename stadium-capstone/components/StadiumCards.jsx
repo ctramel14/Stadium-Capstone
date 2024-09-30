@@ -41,8 +41,6 @@ export default function StadiumCards({ token, stadiums, setStadiums, userId }) {
   const navigate = useNavigate();
 
   async function fetchAllStadiums() {
-    console.log(userId);
-    
     try {
       const response = await fetch("http://localhost:3000/api/stadiums");
       const result = await response.json();
@@ -54,46 +52,47 @@ export default function StadiumCards({ token, stadiums, setStadiums, userId }) {
   fetchAllStadiums();
 
   useEffect(() => {
-    async function fetchUserData() {   // this line through Line 82 is for fetching user Data to display colors of visited stadiums
+    async function fetchUserData() {
+      // this line through Line 82 is for fetching user Data to display colors of visited stadiums
       if (!token) return;
-        try {
-          const response = await fetch(
-            `http://localhost:3000/api/users/${userId}`,
-            {
-              method: "GET",
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
-              },
-            }
-          );
-          const result = await response.json();
-          const stads = result.visitedStadiums.map((v) => v.stadiumId); 
-          const iterator = stads.values();
-          setStadiumsVisited(stads)
-          for (const value of iterator) {
-              let elements = document.getElementById(value);
-              elements.style.backgroundColor = stadiumColors[value];
+      try {
+        const response = await fetch(
+          `http://localhost:3000/api/users/${userId}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
           }
-        } catch (error) {
-          console.error(error);
+        );
+        const result = await response.json();
+        const stads = result.visitedStadiums.map((v) => v.stadiumId);
+        const iterator = stads.values();
+        setStadiumsVisited(stads);
+        for (const value of iterator) {
+          let elements = document.getElementById(value);
+          elements.style.backgroundColor = stadiumColors[value];
         }
-      
+      } catch (error) {
+        console.error(error);
       }
-      
+    }
     fetchUserData();
-  }, [token, userId])
+  }, [token, userId]);
 
   useEffect(() => {
-    async function getAllStadiums() { //used to set State of stadiums to display
+    async function getAllStadiums() {
+      //used to set State of stadiums to display
       const APIResponse = await fetchAllStadiums();
       setStadiums(APIResponse);
     }
     getAllStadiums();
   }, []);
 
-  async function visited(id) {   // used to add new visited stadiums
- 
+  async function visited(id) {
+    // used to add new visited stadiums
+
     try {
       await fetch(
         `http://localhost:3000/api/users/${userId}/visitedstadiums/${id}`,
@@ -106,10 +105,8 @@ export default function StadiumCards({ token, stadiums, setStadiums, userId }) {
           body: JSON.stringify({ visited: true }),
         }
       );
-      console.log(id);
-      
-      setStadiumsVisited([...stadiumsVisited, id])
-      let element = document.getElementById(id);  //sets the colors of newly visited stadiums
+      setStadiumsVisited([...stadiumsVisited, id]);
+      let element = document.getElementById(id); //sets the colors of newly visited stadiums
       element.style.backgroundColor = stadiumColors[id];
     } catch (error) {
       console.error(error);
@@ -117,9 +114,10 @@ export default function StadiumCards({ token, stadiums, setStadiums, userId }) {
   }
   //search functionality here through line 140
   const stadiumsToDisplay = searchParam
-    ? stadiums.filter((stadium) =>
-        stadium.teamName.toLowerCase().includes(searchParam) ||
-        stadium.name.toLowerCase().includes(searchParam)
+    ? stadiums.filter(
+        (stadium) =>
+          stadium.teamName.toLowerCase().includes(searchParam) ||
+          stadium.name.toLowerCase().includes(searchParam)
       )
     : stadiums;
 
@@ -128,7 +126,8 @@ export default function StadiumCards({ token, stadiums, setStadiums, userId }) {
       <header className="stadiums-page-header">
         <h1>Visit Every MLB Ballpark!</h1>
         <h3>
-        Click on any ballpark to learn more, or select 'Mark as Visited' to add it to your visited list.
+          Click on any ballpark to learn more, or select 'Mark as Visited' to
+          add it to your visited list.
           <div className="search">
             <label>
               <input
@@ -136,39 +135,47 @@ export default function StadiumCards({ token, stadiums, setStadiums, userId }) {
                 type="text"
                 className="searchInput"
                 placeholder="Search..."
-                onChange={(e) => setSearchParam(e.target.value.toLowerCase())} 
+                onChange={(e) => setSearchParam(e.target.value.toLowerCase())}
               />
             </label>
           </div>
         </h3>
       </header>
       <div className="stadiums-grid-container">
-        {stadiumsToDisplay.map((stadium) => (   // renders all stadiums, starting with grey unless visited
-          <div
-            className="stadium-card"
-            name={stadium.id}
-            id={stadium.id}
-            key={stadium.id}
-            style={{ backgroundColor: "grey" }}
-          >
-            <img
-              src={stadium.imageOutsideURL}
-              alt={`${stadium.name} outside view`}
-              onClick={() => navigate(`/stadiums/${stadium.id}/`)}
-            />
-            <strong>
-              <h2 onClick={() => navigate(`/stadiums/${stadium.id}/`)}>
-                {stadium.name}
-              </h2>
-            </strong>
-            <p onClick={() => navigate(`/stadiums/${stadium.id}/`)}>
-              {stadium.teamName}
-            </p>
+        {stadiumsToDisplay.map(
+          (
+            stadium // renders all stadiums, starting with grey unless visited
+          ) => (
+            <div
+              className="stadium-card"
+              name={stadium.id}
+              id={stadium.id}
+              key={stadium.id}
+              style={{ backgroundColor: "grey" }}
+            >
+              <img
+                src={stadium.imageOutsideURL}
+                alt={`${stadium.name} outside view`}
+                onClick={() => navigate(`/stadiums/${stadium.id}/`)}
+              />
+              <strong>
+                <h2 onClick={() => navigate(`/stadiums/${stadium.id}/`)}>
+                  {stadium.name}
+                </h2>
+              </strong>
+              <p onClick={() => navigate(`/stadiums/${stadium.id}/`)}>
+                {stadium.teamName}
+              </p>
               <div className="stadium-card-buttons">
-                {!stadiumsVisited.includes(stadium.id) && token && <button onClick={() => visited(stadium.id)}>Mark as Visited</button>}
+                {!stadiumsVisited.includes(stadium.id) && token && (
+                  <button onClick={() => visited(stadium.id)}>
+                    Mark as Visited
+                  </button>
+                )}
               </div>
-          </div>
-        ))}
+            </div>
+          )
+        )}
       </div>
     </div>
   );

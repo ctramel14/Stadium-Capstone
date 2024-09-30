@@ -121,7 +121,6 @@ function App() {
               setLastName={setLastName}
               username={username}
               setUsername={setUsername}
-              userId={userId}
               setUserId={setUserId}
               setLoginSeen={setLoginSeen}
               loginSeen={loginSeen}
