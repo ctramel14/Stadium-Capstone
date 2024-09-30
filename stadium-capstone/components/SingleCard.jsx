@@ -355,7 +355,7 @@ export default function SingleCard({ token, userId, username }) {
                       <p> 10: Best experience</p>
                     </div>
                     <label>Review</label>
-                    <input
+                    <textarea
                       id="comment"
                       type="text"
                       value={comment}

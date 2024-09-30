@@ -249,3 +249,12 @@ th{
   margin-bottom: 15px;
 }
 
+#reply-input {
+  padding-top: 0;
+  padding-left: 0;
+  padding: 0 0 1px 0;
+  text-indent: 5px;
+  line-height: 2em;
+  display: flex;
+  font-family: "Roboto Condensed", sans-serif;
+}
