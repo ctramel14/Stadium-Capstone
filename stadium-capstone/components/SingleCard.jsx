@@ -306,7 +306,7 @@ export default function SingleCard({ token, userId, username }) {
             className="singleStadium-card-image"
             style={{ backgroundColor: stadiumColors[stadium.id] }}
           >
-            <img src={stadium.imageInsideURL} className="insideStadium-image" />
+            <img src={stadium.imageInsideURL} className="insideStadium-image"/>
           </div>
           <div className="stadium-facts">
             <p>Opened in {stadium.openYear}</p>
