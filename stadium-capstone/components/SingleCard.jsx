@@ -78,27 +78,26 @@ export default function SingleCard({ token, userId, username }) {
   useEffect(() => {
     async function getToken() {
       if (!token) return;
-        try {
-          const response = await fetch(
-            `http://localhost:3000/api/users/${userId}`,
-            {
-              method: "GET",
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
-              },
-            }
-          );
-          const result = await response.json();
-          setStadiumsVisited(
-            result.visitedStadiums.map((stadium) => stadium.stadiumId)
-          );
-        } catch (error) {
-          console.error(error);
-        }
-      
+      try {
+        const response = await fetch(
+          `http://localhost:3000/api/users/${userId}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        const result = await response.json();
+        setStadiumsVisited(
+          result.visitedStadiums.map((stadium) => stadium.stadiumId)
+        );
+      } catch (error) {
+        console.error(error);
       }
-      
+    }
+
     getToken();
     //fetch restaurants to display based on stadium
     async function getRestaurants() {
@@ -311,11 +310,11 @@ export default function SingleCard({ token, userId, username }) {
           </div>
           <div className="stadium-facts">
             <p>Opened in {stadium.openYear}</p>
-            <div className="vl"></div>
+            <div className="vl" style={{ backgroundColor: stadiumColors[stadium.id] }}></div>
             <p>Capacity: {numberWithCommas(stadium.capacity)}</p>
-            <div className="vl"></div>
+            <div className="vl" style={{ backgroundColor: stadiumColors[stadium.id] }}></div>
             <p>Division: {stadium.division}</p>
-            <div className="vl"></div>
+            <div className="vl" style={{ backgroundColor: stadiumColors[stadium.id] }}></div>
             <p>
               Address: {stadium.address}, {stadium.city}, {stadium.state},{" "}
               {stadium.zipCode}{" "}
@@ -325,13 +324,19 @@ export default function SingleCard({ token, userId, username }) {
           {token && ( //token check to display next information
             <div className="single-page-buttons">
               {!stadiumsVisited.includes(stadium.id) && !stadiumSuccess && (
-                <button onClick={() => visited(stadium.id)} style={{ backgroundColor: stadiumColors[stadium.id] }}>
+                <button
+                  onClick={() => visited(stadium.id)}
+                  style={{ backgroundColor: stadiumColors[stadium.id] }}
+                >
                   Mark as Visited
                 </button>
               )}
               {!reviewId.includes(userId) &&
                 !reviewSuccess && ( //does not render button if user has posted previously, removes button if posted while on page
-                  <button onClick={handleClick} style={{ backgroundColor: stadiumColors[stadium.id] }}>
+                  <button
+                    onClick={handleClick}
+                    style={{ backgroundColor: stadiumColors[stadium.id] }}
+                  >
                     {showInput ? "Hide Input" : "Write Review"}
                   </button>
                 )}
@@ -395,7 +400,7 @@ export default function SingleCard({ token, userId, username }) {
             {stadium.name} Average Rating: {averageRating} / 10
           </p>
         </div>
-        <hr className="line-across"></hr>
+        <hr className="line-across" style={{ backgroundColor: stadiumColors[stadium.id] }}></hr>
         <header className="nearby-list-header">
           <h3>Restaurants Near The Stadium</h3>
         </header>
@@ -417,7 +422,7 @@ export default function SingleCard({ token, userId, username }) {
             </div>
           ))}
         </div>
-        <hr className="line-across"></hr>
+        <hr className="line-across" style={{ backgroundColor: stadiumColors[stadium.id] }}></hr>
         <header className="nearby-list-header">
           <h3>Hotels Near The Stadium</h3>
         </header>
@@ -439,59 +444,66 @@ export default function SingleCard({ token, userId, username }) {
             </div>
           ))}
         </div>
-        <hr className="line-across"></hr>
+        <hr className="line-across" style={{ backgroundColor: stadiumColors[stadium.id] }}></hr>
         <header className="nearby-list-header">
           <h3>Reviews</h3>
         </header>
-        <div className="reviews-container">
-          {!reviews.length > 0 && !reviewSuccess && (
-            <p>No reviews available.</p>
-          )}
-          {Array.isArray(reviews) &&
-            reviews.length > 0 &&
-            reviews.map((review) => (
-              <div key={review.id} className="review">
-                {/* Check if review.user is defined */}
-                {review.user ? (
-                  <p id="user-review-name">Review by: {review.user.username}</p>
-                ) : (
-                  <p id="user-review-name">Anonymous Review</p>
-                )}
-                <p>
-                  {new Date(review.date).toLocaleDateString("en-US", {
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric",
-                  })}
-                </p>
-                <p>{review.rating} / 10</p>
-                <p>{review.comment}</p>
-                {/* Render the image if imageURL is available */}
-                {review.imageURL && (
-                  <div className="review-image-container">
-                    <img
-                      src={`http://localhost:3000${review.imageURL}`}
-                      alt="Review Image"
-                      className="review-image"
-                    />
-                  </div>
-                )}
-                <button
-                  id="reply-button"
-                  onClick={() => navigate(`/stadiums/reviews/${review.id}`)}
-                  type="submit"
-                  style={{ backgroundColor: stadiumColors[stadium.id] }}
-                >
-                  Reply
-                </button>
-              </div>
-            ))}
-        </div>
+        <section className="reviews-section">
+          <div className="reviews-container">
+            {!reviews.length > 0 && !reviewSuccess && (
+              <p>No reviews available.</p>
+            )}
+            {Array.isArray(reviews) &&
+              reviews.length > 0 &&
+              reviews.map((review) => (
+                <div key={review.id} className="review">
+                  {/* Check if review.user is defined */}
+                  {review.user ? (
+                    <p id="user-review-name">
+                      Review by: {review.user.username}
+                    </p>
+                  ) : (
+                    <p id="user-review-name">Anonymous Review</p>
+                  )}
+                  <p>
+                    {new Date(review.date).toLocaleDateString("en-US", {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                    })}
+                  </p>
+                  <p>{review.rating} / 10</p>
+                  <p>{review.comment}</p>
+                  {/* Render the image if imageURL is available */}
+                  {review.imageURL && (
+                    <div className="review-image-container">
+                      <img
+                        src={`http://localhost:3000${review.imageURL}`}
+                        alt="Review Image"
+                        className="review-image"
+                      />
+                    </div>
+                  )}
+                  <button
+                    id="reply-button"
+                    onClick={() => navigate(`/stadiums/reviews/${review.id}`)}
+                    type="submit"
+                    style={{ backgroundColor: stadiumColors[stadium.id] }}
+                  >
+                    Reply
+                  </button>
+                  <hr className="line-across-reviews" style={{ backgroundColor: stadiumColors[stadium.id] }}></hr>
+                </div>
+              ))}
+          </div>
+        </section>
         <br />
         <br />
       </div>
       <div>
-        <button id="back-button" onClick={() => navigate(-1)} >Back</button>
+        <button id="back-button" onClick={() => navigate(-1)}>
+          Back
+        </button>
       </div>
     </>
   );
