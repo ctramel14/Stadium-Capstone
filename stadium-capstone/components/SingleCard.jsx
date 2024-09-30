@@ -269,7 +269,6 @@ export default function SingleCard({ token, userId, username }) {
           avg = sum / totalRatings.length;
         }
         setAverageRating(Math.round(avg * 10) / 10);
-
         setShowInput(showInput); //changing states for conditional rendering in return
         setReviewSuccess(true);
       } else {
@@ -279,7 +278,6 @@ export default function SingleCard({ token, userId, username }) {
       console.error("Error submitting review:", error);
     }
   };
-
   //for displaying stadium capacity
   function numberWithCommas(x) {
     if (typeof x !== "number") {

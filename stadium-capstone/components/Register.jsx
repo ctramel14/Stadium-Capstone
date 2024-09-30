@@ -15,17 +15,15 @@ export default function Register({
   setLastName,
   username,
   setUsername,
-  userId,
   setUserId,
   loginSeen,
-  setLoginSeen
+  setLoginSeen,
 }) {
   const navigate = useNavigate();
   const [success, setSuccess] = useState("");
 
   async function handleSubmit(e) {
     e.preventDefault();
-    console.log(username, lastName, email, password, userId);
 
     try {
       const result = await fetch("http://localhost:3000/register", {
@@ -40,14 +38,9 @@ export default function Register({
         }),
       });
       const json = await result.json();
-      console.log(json.newUser);
       setToken(json.token);
-      const newUserId = json.newUser;
-      setUserId(newUserId.id);
+      setUserId(json.newUser.id);
       setSuccess("Registration Successful");
-      console.log(userId);
-      // alert('You have successfully logged in!');
-      // navigate("/users/login");
     } catch (error) {
       console.error(error);
     }
@@ -131,8 +124,11 @@ export default function Register({
             <button className="submit" type="submit">
               Submit
             </button>
-            <p className="signin" >
-              Already have an account? <span onClick={() => setLoginSeen(!loginSeen)} id="sign-in-login">LogIn</span>
+            <p className="signin">
+              Already have an account?{" "}
+              <span onClick={() => setLoginSeen(!loginSeen)} id="sign-in-login">
+                LogIn
+              </span>
             </p>
           </form>
         </div>
