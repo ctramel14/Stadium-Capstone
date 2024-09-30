@@ -107,7 +107,7 @@ export default function Reviews({ token, userId, username }) {
           {token && !replySuccess ? (
             <form onSubmit={reviewComment} id="reply-input-container">
               <label>Reply</label>
-              <input
+              <textarea
                 id="reply-input"
                 type="text"
                 value={reply}
