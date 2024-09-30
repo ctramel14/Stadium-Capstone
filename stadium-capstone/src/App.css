@@ -23,6 +23,8 @@
   margin-left: 10px;
   z-index: 1;
   box-sizing: border-box;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+
 
  a {
     margin: 0;
@@ -60,6 +62,8 @@ button {
   color: white;
   cursor: pointer;
   transition: border-color 0.25s;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+
 }
 
 button:hover {

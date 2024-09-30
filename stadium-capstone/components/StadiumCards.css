@@ -70,6 +70,9 @@
   letter-spacing: 5px;
   font-size: 3.3em;
   font-family: "Roboto Condensed", sans-serif;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
+
+
 }
 .stadiums-page-header h3 {
   text-align: center;
@@ -77,6 +80,9 @@
   letter-spacing: 2px;
   font-size: 2em;
   font-family: "Roboto Condensed", sans-serif;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+
+
 }
 .stadium-card h2 {
   margin-top: 0;
@@ -84,11 +90,15 @@
   letter-spacing: 2px;
   /* cursor: pointer; */
   padding: 8px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
+
 }
 .stadium-card p {
   font-size: 1.8em;
   letter-spacing: 1.5px;
   font-weight: 800;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+
 }
 .stadium-card-buttons {
   display: flex;
