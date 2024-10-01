@@ -33,7 +33,7 @@
   padding: 20px;
   border-radius: 20px;
   position: relative;
-  background-color: #113311;
+  background-color: #90b58a;
   border: 1px solid #333;
   font-family: "Roboto Condensed", sans-serif;
   letter-spacing: 1.5px;
@@ -46,7 +46,7 @@
   display: flex;
   align-items: center;
   padding-left: 30px;
-  color: #90b58a;
+  color: #113311;
 }
 
 .title::before {
@@ -68,13 +68,13 @@
   width: 16px;
   border-radius: 50%;
   left: 0px;
-  background-color: #90b58a;
+  background-color: #113311;
 }
 
 .message,
 .signin {
   font-size: 20.5px;
-  color: #90b58a;;
+  color: #113311;;
 }
 
 .signin {
@@ -86,10 +86,10 @@
 }
 
 .signin a {
-  color: #00bfff;
+  color: #0051b6;
 }
 #sign-in-login {
-  color: #00bfff;
+  color: #0051b6;
   font-weight: 600;
   cursor: pointer;
 }
@@ -119,7 +119,7 @@
 }
 
 #form label .input + span {
-  color: rgba(255, 255, 255, 0.5);
+  color: #113311;
   /* position: absolute; */
   left: 10px;
   top: 0px;
@@ -135,7 +135,7 @@
 
 #form label .input:focus + span,
 #form label .input:valid + span {
-  color: #90b58a;
+  color: #113311;
   top: 0px;
   font-size: 0.7em;
   font-weight: 600;

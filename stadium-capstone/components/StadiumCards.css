@@ -34,7 +34,7 @@
   cursor: pointer;
   font-family: "Roboto Condensed", sans-serif;
   color: white;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.5);
   overflow: hidden;
   text-align: center;
   position: relative;
@@ -58,8 +58,8 @@
   }
 }
 .stadium-card:hover {
-  transform: translateY(-5px); /* Move the card up slightly */
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2), 0 12px 24px rgba(0, 0, 0, 0.2); /* Enhance shadow on hover */
+  transform: translateY(-2px); /* Move the card up slightly */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2), 0 12px 24px rgba(0, 0, 0, 0.7); /* Enhance shadow on hover */
 }
 .stadiums-page-header h1 {
   text-align: center;
