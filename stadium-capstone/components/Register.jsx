@@ -63,8 +63,8 @@ export default function Register({
                   type="text"
                   minLength="2"
                   value={firstName}
-                  placeholder=""
-                  required=""
+                  placeholder="First Name"
+                  required
                   onChange={(e) => setFirstName(e.target.value)}
                 />
                 <span>First Name</span>
@@ -76,8 +76,8 @@ export default function Register({
                   type="text"
                   minLength="2"
                   value={lastName}
-                  placeholder=""
-                  required=""
+                  placeholder="Last Name"
+                  required
                   onChange={(e) => setLastName(e.target.value)}
                 />
                 <span>Last Name</span>
@@ -89,8 +89,8 @@ export default function Register({
                 type="email"
                 minLength="8"
                 value={email}
-                placeholder=""
-                required=""
+                placeholder="Email"
+                required
                 onChange={(e) => setEmail(e.target.value)}
               />
               <span>Email</span>
@@ -102,8 +102,8 @@ export default function Register({
                 type="text"
                 minLength="2"
                 value={username}
-                placeholder=""
-                required=""
+                placeholder="Username"
+                required
                 onChange={(e) => setUsername(e.target.value)}
               />
               <span>Username</span>
@@ -115,8 +115,8 @@ export default function Register({
                 type="password"
                 minLength="6"
                 value={password}
-                placeholder=""
-                required=""
+                placeholder="Password"
+                required
                 onChange={(e) => setPassword(e.target.value)}
               />
               <span>Password</span>

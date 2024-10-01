@@ -183,8 +183,8 @@ const Account = ({
       )
     : comments;
 
-    const totalBallparks = 30;
-    const BallParksRemaining = totalBallparks - visited.length;
+  const totalBallparks = 30;
+  const BallParksRemaining = totalBallparks - visited.length;
 
   return (
     <>
@@ -195,15 +195,34 @@ const Account = ({
           <div className="account-page-wrapper">
             <section className="top-account-section">
               <div className="topDiv">
-                <img src={BallparkIcon} alt="Baseball Field" id="ballpark-symbol" />
+                <img
+                  src={BallparkIcon}
+                  alt="Baseball Field"
+                  id="ballpark-symbol"
+                />
               </div>
               <div className="topDiv">
-              <p>Welcome, {firstName}!</p>
-              <p>You have visited {visited.length} ballparks</p>
-              <p>You have {BallParksRemaining} ballparks left to visit!</p>
+                <p>Welcome, {firstName}!</p>
+                {(() => {
+                  if (BallParksRemaining === 0 && visited.length === 30) {
+                    return (
+                      <p>
+                        Congratulations! You have visited all 30 MLB ballparks!
+                      </p>
+                    );
+                  } else {
+                    return (
+                      <>
+                        <p>You have visited {visited.length} MLB {visited.length === 1 ? 'ballpark' : 'ballparks'}</p>
+                        <p>
+                          You have {BallParksRemaining} MLB {BallParksRemaining === 1 ? 'ballpark' : 'ballparks'}  left to visit!
+                        </p>
+                      </>
+                    );
+                  }
+                })()}
               </div>
-              <div className="topDiv">
-              </div>
+              <div className="topDiv"></div>
             </section>
             <header className="section-header">
               <h3>Your Visited Ballparks </h3>
@@ -335,7 +354,10 @@ const Account = ({
                 </table>
               </div>
             ) : (
-              <p id="nothingWarning">Go to any <span onClick={() => navigate("/")}>ballpark</span> page and reply to a user's review to see your replies here</p>
+              <p id="nothingWarning">
+                Go to any <span onClick={() => navigate("/")}>ballpark</span>{" "}
+                page and reply to a user's review to see your replies here
+              </p>
             )}
           </div>
         )}
