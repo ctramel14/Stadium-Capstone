@@ -133,7 +133,6 @@ function App() {
             <Account
               token={token}
               firstName={firstName}
-              email={email}
               userId={userId}
               width={width}
               username={username}

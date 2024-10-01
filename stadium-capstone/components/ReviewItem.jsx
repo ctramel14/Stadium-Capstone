@@ -1,7 +1,7 @@
 import React from "react";
 import EditReviewForm from "./EditReviewForm";
 
-const ReviewItem= ({
+const ReviewItem = ({
   expanded = false,
   editingReview,
   review,
@@ -11,9 +11,9 @@ const ReviewItem= ({
   setEditingReview,
   deleteReview,
 }) => {
+  //props get passed to EditReviewForm
   return expanded ? (
     <tr>
-      {/* <div key={review.id} className="user-review"> */}
       {editingReview === review.id ? (
         <td colSpan={6}>
           <EditReviewForm
@@ -30,8 +30,12 @@ const ReviewItem= ({
         <>
           <td>{review.stadium.name}</td>
           <td>{review.stadium.teamName}</td>
-          <td><strong>{review.rating} / 10</strong></td>
-          <td><strong>{review.comment}</strong></td>
+          <td>
+            <strong>{review.rating} / 10</strong>
+          </td>
+          <td>
+            <strong>{review.comment}</strong>
+          </td>
           <td>{new Date(review.date).toLocaleDateString()}</td>
           <td>
             <button
@@ -64,14 +68,29 @@ const ReviewItem= ({
         />
       ) : (
         <>
-          <p><strong>Ballpark: </strong>{review.stadium.name}</p>
-          <p><strong>Team Name: </strong>{review.stadium.teamName}</p>
-          <p><strong>Date Posted: </strong>{new Date(review.date).toLocaleDateString()}</p>
-          <p><strong>Rating: </strong>{review.rating}/10</p>
-          <p><strong>Review: </strong>{review.comment}</p>
+          <p>
+            <strong>Ballpark: </strong>
+            {review.stadium.name}
+          </p>
+          <p>
+            <strong>Team Name: </strong>
+            {review.stadium.teamName}
+          </p>
+          <p>
+            <strong>Date Posted: </strong>
+            {new Date(review.date).toLocaleDateString()}
+          </p>
+          <p>
+            <strong>Rating: </strong>
+            {review.rating}/10
+          </p>
+          <p>
+            <strong>Review: </strong>
+            {review.comment}
+          </p>
           <p>
             <strong>Image:</strong>
-            <br/>
+            <br />
             {review.imageURL ? (
               <img
                 src={`http://localhost:3000${review.imageURL}`}
