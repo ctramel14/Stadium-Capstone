@@ -218,7 +218,6 @@
   align-items: center;
   width: fit-content;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-
 }
 
 body{
@@ -229,7 +228,6 @@ body{
   position: absolute;
   top: 25%;
   left: calc(max(50vw - 250px, 0px));
-  /* transform: translate(-50%, -40%); */
   max-width: 500px;
   width:100vw;
   display: flex;
@@ -307,8 +305,8 @@ body{
 }
 
 .img-upload {
-  width: 250px;
-  height: 150px;
+  max-width: 250px;
+  height: auto;
 }
 
 .review-image {
@@ -348,5 +346,4 @@ body{
   font-size: 1em;
   font-family: "Roboto Condensed", sans-serif;
   padding: 5px;
-  
 }
