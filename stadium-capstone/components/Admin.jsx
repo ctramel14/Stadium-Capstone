@@ -3,10 +3,12 @@ import React, { useState, useEffect } from 'react';
 const Admin = ({ token }) => { 
   const [users, setUsers] = useState([]);
   const [reviews, setReviews] = useState([]);
+  const [contactMessages, setContactMessages] = useState([]);
 
   useEffect(() => {
     fetchUsers();
     fetchReviews();
+    fetchContactMessages();
   }, []);
 
   // Fetch all users
@@ -36,6 +38,21 @@ const Admin = ({ token }) => {
       setReviews(data);
     } catch (error) {
       console.error("Failed to fetch reviews:", error);
+    }
+  };
+
+  // Fetch all contact messages
+  const fetchContactMessages = async () => {
+    try {
+      const response = await fetch('http://localhost:3000/api/contactus', {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+      const data = await response.json();
+      setContactMessages(data);
+    } catch (error) {
+      console.error("Failed to fetch contact messages:", error);
     }
   };
 
@@ -105,6 +122,15 @@ const Admin = ({ token }) => {
               </h3>
               <p>
                 {review.comment} (Rating: {review.rating}/10)
+                {review.imageURL && (
+                  <div className="review-image-container">
+                    <img
+                      src={`http://localhost:3000${review.imageURL}`}
+                      alt="Review Image"
+                      className="review-image"
+                    />
+                  </div>
+                )}
                 <button onClick={() => deleteReview(review.id)}> Delete Review </button>
               </p>
               <h4>Replies:</h4>
@@ -120,6 +146,20 @@ const Admin = ({ token }) => {
                   <li>No replies on this review.</li>
                 )}
               </ul>
+            </div>
+          ))
+        )}
+      </section>
+
+      <section>
+        <h2>Contact Us Messages</h2>
+        {contactMessages.length === 0 ? (
+          <p>No messages available.</p>
+        ) : (
+          contactMessages.map((message) => (
+            <div key={message.id}>
+              <h3>{message.name} ({message.email})</h3>
+              <p>Message: {message.message}</p>
             </div>
           ))
         )}

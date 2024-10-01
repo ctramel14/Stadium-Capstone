@@ -73,6 +73,16 @@ app.use(async (req, res, next) => {
 });
 
 // Get Requests
+// get contact us
+app.get("/api/contactus", async (req, res, next) => {
+  try {
+    const messages = await prisma.contactUs.findMany();
+    res.json(messages);
+  } catch (err) {
+    next(err);
+  }
+});
+
 // get stadium
 app.get("/api/stadiums", async (req, res, next) => {
   try {

@@ -38,7 +38,7 @@ export default function NavigationBar({
                 <Link to="/" onClick={() => setExpand(false)}>BALLPARKS</Link>
                 <Link to="/users/logout" onClick={() => setExpand(false)}>LOGOUT</Link>
                 <Link to="/users/me" onClick={() => setExpand(false)}>ACCOUNT</Link>
-                {administrator && <Link to="/admin">Admin</Link>}
+                {administrator && <Link to="/admin">ADMIN</Link>}
                 <Link to="/contactform" onClick={() => setExpand(false)}>CONTACT US</Link>
               </div>
             ) : (

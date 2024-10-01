@@ -2595,6 +2595,33 @@ const createHotels = async () => {
     console.error("Error creating hotels:", error);
   }
 };
+//CONTACT US
+const createContactUs = async () => {
+  try {
+    const messages = [
+      {
+        name: "Alice Johnson",
+        email: "alice@email.com",
+        message: "The stadium information is outdated for some teams.",
+      },
+      {
+        name: "Bob Brown",
+        email: "bob@email.com",
+        message: "Is there a way to get updates on newly added stadiums?",
+      },
+      {
+        name: "Charlie Davis",
+        email: "charlie@email.com",
+        message: "I found a bug on the reviews page. Please check it out.",
+      },
+    ];
+    await prisma.contactUs.createMany({ data: messages });
+    console.log("Contact Us messages created successfully");
+  } catch (error) {
+    console.error("Error creating Contact Us messages:", error);
+  }
+};
+
 
 const main = async () => {
   await createStadiums();
@@ -2604,6 +2631,7 @@ const main = async () => {
   await createVisitedStadiums();
   await createRestaurants();
   await createHotels();
+  await createContactUs();
   await prisma.$disconnect();
 };
 
