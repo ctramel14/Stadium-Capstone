@@ -47,14 +47,12 @@ const Account = ({
   const [visited, setVisited] = useState([]);
   const [reviews, setReviews] = useState([]);
   const [comments, setComments] = useState([]);
-  // const [username, setUsername] = useState("");
   const [editingComment, setEditingComment] = useState(null);
   const [searchParam, setSearchParam] = useState("");
   const [commentContent, setCommentContent] = useState("");
   const message = `Please log in to see your account details.`;
-  const noStadium = `No stadiums visited yet`;
   const navigate = useNavigate();
-
+  //fetch data, checking for token and username to show account details
   useEffect(() => {
     async function fetchUserData() {
       if (!token || !userId) return;
@@ -70,8 +68,6 @@ const Account = ({
           }
         );
         const result = await response.json();
-        console.log(result);
-
         setVisited(result.visitedStadiums.map((v) => v.stadium));
         setReviews(result.reviews);
         setComments(result.comments);
@@ -82,10 +78,9 @@ const Account = ({
         console.error(error);
       }
     }
-
     fetchUserData();
   }, [token, userId]);
-
+  //deletes ball parks visited based off of ID of stadium
   async function deleteVisitedStadium(stadiumId) {
     try {
       await fetch(
@@ -103,7 +98,7 @@ const Account = ({
       console.error(error);
     }
   }
-
+  //deletes replies based off of id
   async function deleteComment(commentId) {
     try {
       await fetch(`http://localhost:3000/api/comments/${commentId}`, {
@@ -114,34 +109,6 @@ const Account = ({
         },
       });
       setComments((prev) => prev.filter((comment) => comment.id !== commentId));
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  async function editReview(e, reviewId) {
-    e.preventDefault();
-    try {
-      const response = await fetch(
-        `http://localhost:3000/api/review/${reviewId}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({
-            rating: reviewContent.rating,
-            comment: reviewContent.comment,
-          }),
-        }
-      );
-      const updatedReview = await response.json();
-      setReviews((prev) =>
-        prev.map((review) => (review.id === reviewId ? updatedReview : review))
-      );
-      setEditingReview(null);
-      setReviewContent({ rating: "", comment: "" });
     } catch (error) {
       console.error(error);
     }
@@ -173,7 +140,7 @@ const Account = ({
       console.error(error);
     }
   }
-
+  //search replies/comments based on the actual review, the comment content and ballpark name
   const commentsToDisplay = searchParam
     ? comments.filter(
         (com) =>
@@ -213,9 +180,14 @@ const Account = ({
                   } else {
                     return (
                       <>
-                        <p>You have visited {visited.length} MLB {visited.length === 1 ? 'ballpark' : 'ballparks'}</p>
                         <p>
-                          You have {BallParksRemaining} MLB {BallParksRemaining === 1 ? 'ballpark' : 'ballparks'}  left to visit!
+                          You have visited {visited.length} MLB{" "}
+                          {visited.length === 1 ? "ballpark" : "ballparks"}
+                        </p>
+                        <p>
+                          You have {BallParksRemaining} MLB{" "}
+                          {BallParksRemaining === 1 ? "ballpark" : "ballparks"}{" "}
+                          left to visit!
                         </p>
                       </>
                     );
@@ -256,7 +228,6 @@ const Account = ({
               </div>
             ) : (
               <div id="noStadiumsButton">
-                {/* <p>{noStadium}</p> */}
                 <button onClick={() => navigate("/")}>Add Ballparks</button>
               </div>
             )}
@@ -293,7 +264,6 @@ const Account = ({
                   <tbody className="table-body">
                     {commentsToDisplay.map((comment) => (
                       <tr key={comment.id}>
-                        {/* <div key={comment.id} className="user-comment"> */}
                         {editingComment === comment.id ? (
                           <td colSpan="4">
                             <section className="edit-form-container">

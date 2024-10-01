@@ -10,7 +10,6 @@ const Reviews = ({ reviews, setReviews, width, token }) => {
   });
   const navigate = useNavigate();
 
-
   async function deleteReview(reviewId) {
     if (reviewId) {
       try {
@@ -58,6 +57,7 @@ const Reviews = ({ reviews, setReviews, width, token }) => {
       }
     }
   }
+  //props will get passed to the ReviewItem component
   return (
     <>
       <header className="section-header">
@@ -115,7 +115,10 @@ const Reviews = ({ reviews, setReviews, width, token }) => {
           )}
         </div>
       ) : (
-        <p id="nothingWarning">Go to any <span onClick={() => navigate("/")}>ballpark</span>  page to leave your first review!</p>
+        <p id="nothingWarning">
+          Go to any <span onClick={() => navigate("/")}>ballpark</span> page to
+          leave your first review!
+        </p>
       )}
       <hr className="line-across-account"></hr>
     </>

@@ -340,3 +340,14 @@ th{
   }
   
 }
+
+.logOutPage {
+  font-family: "Roboto Condensed", sans-serif;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+  height: 90vh;
+}

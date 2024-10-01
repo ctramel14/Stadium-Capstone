@@ -4,7 +4,6 @@ import StadiumCards from "../components/StadiumCards";
 import SingleCard from "../components/SingleCard";
 import NavigationBar from "../components/NavigationBar";
 import { Route, Routes } from "react-router-dom";
-import Login from "../components/Login";
 import Register from "../components/Register";
 import ContactForm from "../components/ContactForm";
 import Account from "../components/Account";
@@ -87,26 +86,6 @@ function App() {
           }
         />
         <Route
-          path="/users/login"
-          element={
-            <Login
-              setToken={setToken}
-              token={token}
-              username={username}
-              setUsername={setUsername}
-              password={password}
-              setPassword={setPassword}
-              firstName={firstName}
-              setFirstName={setFirstName}
-              userId={userId}
-              setUserId={setUserId}
-              setLoginSeen={setLoginSeen}
-              loginSeen={loginSeen}
-              setAdministrator={setAdministrator}
-            />
-          }
-        />
-        <Route
           path="/users/register"
           element={
             <Register
@@ -133,7 +112,6 @@ function App() {
             <Account
               token={token}
               firstName={firstName}
-              email={email}
               userId={userId}
               width={width}
               username={username}

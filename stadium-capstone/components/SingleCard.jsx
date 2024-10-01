@@ -379,7 +379,13 @@ export default function SingleCard({ token, userId, username }) {
                         className="img-upload"
                       />
                     )}
-                    <button type="submit">Send</button>
+                    <button type="submit" style={{ backgroundColor: stadiumColors[stadium.id]}} >Send</button>
+                    <button
+                    onClick={handleClick}
+                    style={{ backgroundColor: stadiumColors[stadium.id] }}
+                  >
+                    Close
+                  </button>
                   </form>
                 )}
             </div>
@@ -499,7 +505,7 @@ export default function SingleCard({ token, userId, username }) {
         <br />
       </div>
       <div>
-        <button id="back-button" onClick={() => navigate(-1)}>
+        <button id="back-button" style={{ backgroundColor: stadiumColors[stadium.id]}} onClick={() => navigate(-1)}>
           Back
         </button>
       </div>
