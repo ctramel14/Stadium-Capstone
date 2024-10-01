@@ -15,7 +15,7 @@ export default function Logout({
     setUserId(null);
     alert("You have successfully logged out!");
     navigate("/");
-//logout for if it's a google user
+    //logout for if it's a google user
     if (profile) {
       googleLogout();
       setProfile(null);
@@ -25,11 +25,13 @@ export default function Logout({
   return (
     <>
       <div className="logOutPage">
-        <h1>Are you sure you want to leave?</h1>
-        <p>You still have more ballparks to visit!</p>
-        <button id="logOutButton" onClick={handleSubmit}>
-          Log Out
-        </button>
+        <div className="logOutMessage">
+          <h1>Are you sure you want to leave?</h1>
+          <p>You still have more ballparks to visit!</p>
+          <button id="logOutButton" onClick={handleSubmit}>
+            Log Out
+          </button>
+        </div>
       </div>
     </>
   );

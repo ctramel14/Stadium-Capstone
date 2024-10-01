@@ -23,6 +23,8 @@
   height: 100vh;
   padding: 10px;
   margin: 0;
+  background-color: #113311;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='250' viewBox='0 0 20 20'%3E%3Cg %3E%3Cpolygon fill='%23242' points='20 10 10 0 0 0 20 20'/%3E%3Cpolygon fill='%23242' points='0 10 0 20 10 20'/%3E%3C/g%3E%3C/svg%3E");
 }
 
 #form {
@@ -74,7 +76,7 @@
 .message,
 .signin {
   font-size: 20.5px;
-  color: #113311;;
+  color: #113311;
 }
 
 .signin {
@@ -142,23 +144,23 @@
 }
 
 .input {
-  font-size: medium;;
+  font-size: medium;
 }
 
 .submit {
-    border-radius: 16px;
-    border: 1px solid transparent;
-    padding: 0.6em 2em;
-    margin: 5px;
-    font-size: 17px;
-    font-weight: 600;
-    font-family: inherit;
-    letter-spacing: 1px;
-    background-color: #0051b6;
-    color: white;
-    cursor: pointer;
-    transition: border-color 0.25s;
-    width: 100%;
+  border-radius: 16px;
+  border: 1px solid transparent;
+  padding: 0.6em 2em;
+  margin: 5px;
+  font-size: 17px;
+  font-weight: 600;
+  font-family: inherit;
+  letter-spacing: 1px;
+  background-color: #0051b6;
+  color: white;
+  cursor: pointer;
+  transition: border-color 0.25s;
+  width: 100%;
 }
 
 .submit:hover {
