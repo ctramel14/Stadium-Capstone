@@ -92,6 +92,7 @@ export default function Reviews({ token, userId, username }) {
             {review.comment}
           </h2>
           <h3>Rating: {review.rating} / 10</h3>
+          <p>View All Comments Below</p>
           <div className="comments">
             {comments.map((comment) => (
               <div key={comment.id}>
@@ -99,6 +100,7 @@ export default function Reviews({ token, userId, username }) {
               </div>
             ))}
           </div>
+          
           {replySuccess && (
             <p>
               <strong>{username}</strong>: {replySuccess}
@@ -106,11 +108,12 @@ export default function Reviews({ token, userId, username }) {
           )}
           {token && !replySuccess ? (
             <form onSubmit={reviewComment} id="reply-input-container">
-              <label>Reply</label>
+              <label></label>
               <textarea
                 id="reply-input"
                 type="text"
                 value={reply}
+                placeholder="Reply to this review..."
                 onChange={(e) => setReply(e.target.value)}
                 required
               />
