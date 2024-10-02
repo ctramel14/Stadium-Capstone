@@ -5,25 +5,17 @@
   gap: 10px;
   width: 300px;
 }
-
-#contactPage {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.2em;
-  margin-top: 10px;
-  height: 90vh;
-  font-family: "Roboto Condensed", sans-serif;
-  padding: 10px;
-}
 #contactForm {
   display: flex;
   flex-direction: column;
   gap: 10px;
   align-items: center;
   justify-content: center;
-  margin-top: 10px;
+  font-size: 1.2em;
+  font-family: "Roboto Condensed", sans-serif;
+  padding: 10px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  height: 94vh;
 }
 #contactForm input {
   width: 300px;

@@ -49,45 +49,42 @@ export default function ContactForm() {
   }
 
   return (
-    <div id="contactPage">
+    <div id="contactForm">
       <h1>Contact Us</h1>
       <p>Have a question or comment? Send us a message!</p>
       <p>We'll get back to you as soon as we can.</p>
-      <br />
-      <div id="contactForm">
-        <form onSubmit={submit}>
-          <div id="contact">
-            <label>Name: </label>
-            <input
-              id="name"
-              type="name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              required
-            />
+      <form onSubmit={submit}>
+        <div id="contact">
+          <label>Name: </label>
+          <input
+            id="name"
+            type="name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
 
-            <label>Email: </label>
-            <input
-              id="email"
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
+          <label>Email: </label>
+          <input
+            id="email"
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
 
-            <label>Message: </label>
-            <textarea
-              id="message"
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-            />
+          <label>Message: </label>
+          <textarea
+            id="message"
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+          />
 
-            <button id="submit" type="submit">
-              Send
-            </button>
-          </div>
-        </form>
-      </div>
+          <button id="submit" type="submit">
+            Send
+          </button>
+        </div>
+      </form>
     </div>
   );
 }
