@@ -145,11 +145,9 @@ function App() {
         )}
       </Routes>
       {!token && (
-        <div className="full-access-container">
           <h4 className="full-access-message">
             Register Or Log In For Full Access!
           </h4>
-        </div>
       )}
     </>
   );

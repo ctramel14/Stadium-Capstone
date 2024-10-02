@@ -1,4 +1,6 @@
-
+* {
+  box-sizing: border-box;
+}
 .navbar-container {
   position: fixed;
   top: 0;
