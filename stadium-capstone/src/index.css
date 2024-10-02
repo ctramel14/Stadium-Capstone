@@ -365,4 +365,5 @@ th{
   padding: 20px;
   border-radius: 16px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.5);
+  text-align: center;
 }

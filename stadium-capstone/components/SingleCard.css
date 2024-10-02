@@ -34,11 +34,8 @@
   height: 650px;
   object-fit: cover;
   border-radius: 5px;
-/*   margin: 10px;
-  border: 2.5px groove white;
-  border-radius: 15px;
-  */
 }
+
 .stadium-facts {
   display: flex;
   flex-direction: row;
@@ -51,7 +48,7 @@
   font-family: "Roboto Condensed", sans-serif;
   padding: 10px;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-
+  text-align: center;
 }
 .vl {
   border-right: 1px solid;
@@ -72,7 +69,7 @@
   font-weight: 900;
   margin-bottom: 2em;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-
+  text-align: center;
 }
 .single-page-buttons {
   display: flex;
@@ -128,6 +125,7 @@
   padding: 5px;
   margin-bottom: 1em;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  text-align: center;
 }
 .nearby-container {
   display: flex;
