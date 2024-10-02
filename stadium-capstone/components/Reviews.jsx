@@ -41,7 +41,6 @@ export default function Reviews({ token, userId, username }) {
           }
         );
         const result = await response.json();
-        // console.log(result.comments);   //trying to make something happen to get usernames to appear next to comments
         const allUsers = result.comments;
         const nextUsers = allUsers.map((u) => u.user);
         const themUsers = nextUsers.map((u) => u.username);
@@ -76,7 +75,6 @@ export default function Reviews({ token, userId, username }) {
           }),
         }
       );
-      const result = await response.json();
       setReplySuccess(reply);
     } catch (error) {
       console.error(error);
