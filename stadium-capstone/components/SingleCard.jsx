@@ -304,15 +304,24 @@ export default function SingleCard({ token, userId, username }) {
             className="singleStadium-card-image"
             style={{ backgroundColor: stadiumColors[stadium.id] }}
           >
-            <img src={stadium.imageInsideURL} className="insideStadium-image"/>
+            <img src={stadium.imageInsideURL} className="insideStadium-image" />
           </div>
           <div className="stadium-facts">
             <p>Opened in {stadium.openYear}</p>
-            <div className="vl" style={{ backgroundColor: stadiumColors[stadium.id] }}></div>
+            <div
+              className="vl"
+              style={{ backgroundColor: stadiumColors[stadium.id] }}
+            ></div>
             <p>Capacity: {numberWithCommas(stadium.capacity)}</p>
-            <div className="vl" style={{ backgroundColor: stadiumColors[stadium.id] }}></div>
+            <div
+              className="vl"
+              style={{ backgroundColor: stadiumColors[stadium.id] }}
+            ></div>
             <p>Division: {stadium.division}</p>
-            <div className="vl" style={{ backgroundColor: stadiumColors[stadium.id] }}></div>
+            <div
+              className="vl"
+              style={{ backgroundColor: stadiumColors[stadium.id] }}
+            ></div>
             <p>
               Address: {stadium.address}, {stadium.city}, {stadium.state},{" "}
               {stadium.zipCode}{" "}
@@ -379,13 +388,18 @@ export default function SingleCard({ token, userId, username }) {
                         className="img-upload"
                       />
                     )}
-                    <button type="submit" style={{ backgroundColor: stadiumColors[stadium.id]}} >Send</button>
                     <button
-                    onClick={handleClick}
-                    style={{ backgroundColor: stadiumColors[stadium.id] }}
-                  >
-                    Close
-                  </button>
+                      type="submit"
+                      style={{ backgroundColor: stadiumColors[stadium.id] }}
+                    >
+                      Send
+                    </button>
+                    <button
+                      onClick={handleClick}
+                      style={{ backgroundColor: stadiumColors[stadium.id] }}
+                    >
+                      Close
+                    </button>
                   </form>
                 )}
             </div>
@@ -404,7 +418,10 @@ export default function SingleCard({ token, userId, username }) {
             {stadium.name} Average Rating: {averageRating} / 10
           </p>
         </div>
-        <hr className="line-across" style={{ backgroundColor: stadiumColors[stadium.id] }}></hr>
+        <hr
+          className="line-across"
+          style={{ backgroundColor: stadiumColors[stadium.id] }}
+        ></hr>
         <header className="nearby-list-header">
           <h3>Restaurants Near The Stadium</h3>
         </header>
@@ -426,7 +443,10 @@ export default function SingleCard({ token, userId, username }) {
             </div>
           ))}
         </div>
-        <hr className="line-across" style={{ backgroundColor: stadiumColors[stadium.id] }}></hr>
+        <hr
+          className="line-across"
+          style={{ backgroundColor: stadiumColors[stadium.id] }}
+        ></hr>
         <header className="nearby-list-header">
           <h3>Hotels Near The Stadium</h3>
         </header>
@@ -448,7 +468,10 @@ export default function SingleCard({ token, userId, username }) {
             </div>
           ))}
         </div>
-        <hr className="line-across" style={{ backgroundColor: stadiumColors[stadium.id] }}></hr>
+        <hr
+          className="line-across"
+          style={{ backgroundColor: stadiumColors[stadium.id] }}
+        ></hr>
         <header className="nearby-list-header">
           <h3>Reviews</h3>
         </header>
@@ -496,7 +519,10 @@ export default function SingleCard({ token, userId, username }) {
                   >
                     Reply
                   </button>
-                  <hr className="line-across-reviews" style={{ backgroundColor: stadiumColors[stadium.id] }}></hr>
+                  <hr
+                    className="line-across-reviews"
+                    style={{ backgroundColor: stadiumColors[stadium.id] }}
+                  ></hr>
                 </div>
               ))}
           </div>
@@ -505,7 +531,11 @@ export default function SingleCard({ token, userId, username }) {
         <br />
       </div>
       <div>
-        <button id="back-button" style={{ backgroundColor: stadiumColors[stadium.id]}} onClick={() => navigate(-1)}>
+        <button
+          id="back-button"
+          style={{ backgroundColor: stadiumColors[stadium.id] }}
+          onClick={() => navigate(-1)}
+        >
           Back
         </button>
       </div>
