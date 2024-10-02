@@ -20,6 +20,7 @@ export default function SingleCard({ token, userId, username }) {
   const [totalRatings, setTotalRatings] = useState([]);
   const [buttonClicked, setButtonClicked] = useState(false);
   const [previewImage, setPreviewImage] = useState(null);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 600);
 
   let { id } = useParams();
   const navigate = useNavigate();
@@ -293,6 +294,14 @@ export default function SingleCard({ token, userId, username }) {
     setShowInput(!showInput);
     setButtonClicked(true);
   };
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 600);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   return (
     <>
@@ -307,25 +316,39 @@ export default function SingleCard({ token, userId, username }) {
             <img src={stadium.imageInsideURL} className="insideStadium-image" />
           </div>
           <div className="stadium-facts">
-            <p>Opened in {stadium.openYear}</p>
-            <div
-              className="vl"
-              style={{ backgroundColor: stadiumColors[stadium.id] }}
-            ></div>
-            <p>Capacity: {numberWithCommas(stadium.capacity)}</p>
-            <div
-              className="vl"
-              style={{ backgroundColor: stadiumColors[stadium.id] }}
-            ></div>
-            <p>Division: {stadium.division}</p>
-            <div
-              className="vl"
-              style={{ backgroundColor: stadiumColors[stadium.id] }}
-            ></div>
-            <p>
-              Address: {stadium.address}, {stadium.city}, {stadium.state},{" "}
-              {stadium.zipCode}{" "}
-            </p>
+            {isMobile ? (
+              <>
+                <p>Opened in {stadium.openYear}</p>
+                <p>Capacity: {numberWithCommas(stadium.capacity)}</p>
+                <p>Division: {stadium.division}</p>
+                <p>
+                  Address: {stadium.address}, {stadium.city}, {stadium.state},{" "}
+                  {stadium.zipCode}{" "}
+                </p>
+              </>
+            ) : (
+              <>
+                <p>Opened in {stadium.openYear}</p>
+                <div
+                  className="vl"
+                  style={{ backgroundColor: stadiumColors[stadium.id] }}
+                ></div>
+                <p>Capacity: {numberWithCommas(stadium.capacity)}</p>
+                <div
+                  className="vl"
+                  style={{ backgroundColor: stadiumColors[stadium.id] }}
+                ></div>
+                <p>Division: {stadium.division}</p>
+                <div
+                  className="vl"
+                  style={{ backgroundColor: stadiumColors[stadium.id] }}
+                ></div>
+                <p>
+                  Address: {stadium.address}, {stadium.city}, {stadium.state},{" "}
+                  {stadium.zipCode}{" "}
+                </p>
+              </>
+            )}
           </div>
 
           {token && ( //token check to display next information
