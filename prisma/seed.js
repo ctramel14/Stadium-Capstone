@@ -78,7 +78,7 @@ const createStadiums = async () => {
         capacity: 41649,
         openYear: 1914,
         imageOutsideURL:
-          "https://interactive.wttw.com/sites/default/files/cbl-lakeview-wrigleyville-hero_01.jpg",
+          "https://www.thorntontomasetti.com/sites/default/files/styles/paragraph_slideshow/public/wrigley_10.jpg?itok=yYwluceC",
         imageInsideURL:
           "https://www.ballparksofbaseball.com/wp-content/uploads/2016/03/wrig23main.jpg",
       },
@@ -245,7 +245,7 @@ const createStadiums = async () => {
         imageOutsideURL:
           "https://media.bizj.us/view/img/11911195/amfam-stadium-sign-1*1200xx4418-2485-41-0.jpg",
         imageInsideURL:
-          "https://i0.wp.com/www.perfuzion.com/wp-content/uploads/2021/05/051321-CardinalsBrewers13-scaled.jpg?ssl=1",
+          "https://ballparkratings.com/wp-content/uploads/349158756_227373340004542_7695516964225572821_n.jpg",
       },
       {
         name: "Target Field",
@@ -305,7 +305,7 @@ const createStadiums = async () => {
         imageOutsideURL:
           "https://img.mlbstatic.com/mlb-images/image/private/t_16x9/t_w2208/mlb/gq1j3kwwibteyx2n1eiy.jpg",
         imageInsideURL:
-          "https://i.guim.co.uk/img/media/76e819dd799079089ae6fae61184a611a227c87d/0_264_5860_[…]ity=85&auto=format&fit=crop&s=64616131ae1f220e85f3e11e7d3bb652",
+          "https://www.thereporter.com/wp-content/uploads/2020/06/SJM-L-OAKCOLISEUM-04XX-30-1.jpg?w=1024",
       },
       {
         name: "Citizens Bank Park",
@@ -335,7 +335,7 @@ const createStadiums = async () => {
         imageOutsideURL:
           "https://a.travel-assets.com/findyours-php/viewfinder/images/res70/473000/473767-Pnc-Park.jpg",
         imageInsideURL:
-          "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Pittsburgh_Pirates_park_%28Un[…]sh%29.jpg/640px-Pittsburgh_Pirates_park_%28Unsplash%29.jpg",
+          "https://cdn.vox-cdn.com/thumbor/HTK_CXzLwkfdJG6StG_ieWxHBLQ=/0x0:1200x800/1200x800/filters:focal(504x304:696x496)/cdn.vox-cdn.com/uploads/chorus_image/image/69405201/PNC.0.jpeg",
       },
       {
         name: "Petco Park",
@@ -365,7 +365,7 @@ const createStadiums = async () => {
         imageOutsideURL:
           "https://a.travel-assets.com/findyours-php/viewfinder/images/res70/475000/475766-San-Francisco-City.jpg",
         imageInsideURL:
-          "https://www.mercurynews.com/wp-content/uploads/2020/07/SJM-L-GIANTS-0722-45.jpg?w=515",
+          "https://upload.wikimedia.org/wikipedia/commons/8/8e/Oracle_Park_2021.jpg",
       },
       {
         name: "T-Mobile Park",
@@ -423,7 +423,7 @@ const createStadiums = async () => {
         capacity: 40300,
         openYear: 2020,
         imageOutsideURL:
-          "https://img.mlbstatic.com/mlb-images/image/private/t_4x1/t_w1536/mlb/ilvrq9o63imq1pxiujq5.jpg",
+          "https://mlblogstheballparkguide.wordpress.com/wp-content/uploads/2023/03/globe-life-field-field.jpg",
         imageInsideURL:
           "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/GlobeLifeField2021.jpg/1200px-GlobeLifeField2021.jpg",
       },
