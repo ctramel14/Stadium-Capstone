@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
-const Admin = ({ token }) => { 
+const Admin = ({ token }) => {
   const [users, setUsers] = useState([]);
   const [reviews, setReviews] = useState([]);
   const [contactMessages, setContactMessages] = useState([]);
@@ -14,9 +14,9 @@ const Admin = ({ token }) => {
   // Fetch all users
   const fetchUsers = async () => {
     try {
-      const response = await fetch('http://localhost:3000/api/users', {
+      const response = await fetch("http://localhost:3000/api/users", {
         headers: {
-          'Authorization': `Bearer ${token}`, 
+          Authorization: `Bearer ${token}`,
         },
       });
       const data = await response.json();
@@ -29,9 +29,9 @@ const Admin = ({ token }) => {
   // Fetch all reviews
   const fetchReviews = async () => {
     try {
-      const response = await fetch('http://localhost:3000/api/reviews', {
+      const response = await fetch("http://localhost:3000/api/reviews", {
         headers: {
-          'Authorization': `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
         },
       });
       const data = await response.json();
@@ -44,9 +44,9 @@ const Admin = ({ token }) => {
   // Fetch all contact messages
   const fetchContactMessages = async () => {
     try {
-      const response = await fetch('http://localhost:3000/api/contactus', {
+      const response = await fetch("http://localhost:3000/api/contactus", {
         headers: {
-          'Authorization': `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
         },
       });
       const data = await response.json();
@@ -60,9 +60,9 @@ const Admin = ({ token }) => {
   const deleteReview = async (reviewId) => {
     try {
       await fetch(`http://localhost:3000/api/reviews/${reviewId}`, {
-        method: 'DELETE',
+        method: "DELETE",
         headers: {
-          'Authorization': `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
         },
       });
       setReviews(reviews.filter((review) => review.id !== reviewId));
@@ -75,15 +75,17 @@ const Admin = ({ token }) => {
   const deleteComment = async (commentId) => {
     try {
       await fetch(`http://localhost:3000/api/comments/${commentId}`, {
-        method: 'DELETE',
+        method: "DELETE",
         headers: {
-          'Authorization': `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
         },
       });
       setReviews(
         reviews.map((review) => ({
           ...review,
-          comments: review.comments.filter((comment) => comment.id !== commentId),
+          comments: review.comments.filter(
+            (comment) => comment.id !== commentId
+          ),
         }))
       );
     } catch (error) {
@@ -93,16 +95,22 @@ const Admin = ({ token }) => {
 
   return (
     <div>
-      <h1>Admin Dashboard</h1>
+      <header className="admin-dashboard-header">
+        <h1>Admin Dashboard</h1>
+      </header>
 
-      <section>
+      <header className="admin-header">
         <h2>Manage Users</h2>
+      </header>
+      <section className="all-users">
         {users.length === 0 ? (
           <p>No users available.</p>
         ) : (
           users.map((user) => (
             <div key={user.id}>
-              <h3>{user.username} ({user.email})</h3>
+              <h3>
+                {user.username} ({user.email})
+              </h3>
               <p>First Name: {user.firstName}</p>
               <p>Last Name: {user.lastName}</p>
             </div>
@@ -110,18 +118,23 @@ const Admin = ({ token }) => {
         )}
       </section>
 
-      <section>
+      <header className="admin-header">
         <h2>Manage Reviews & Replies</h2>
+      </header>
+      <section className="all-reviews-replies">
         {reviews.length === 0 ? (
           <p>No reviews available.</p>
         ) : (
           reviews.map((review) => (
-            <div key={review.id}>
-              <h3>
-                {review.user?.username || "Unknown User"} on {review.stadium?.name || "Unknown Stadium"}:
+            <div key={review.id} id="single-review-admin">
+              <h3 className="single-review-admin-title">
+                {review.user?.username || "Unknown User"} on{" "}
+                {review.stadium?.name || "Unknown Stadium"}:
               </h3>
-              <p>
-                {review.comment} (Rating: {review.rating}/10)
+              <hr className="horiziontal-line-admin" />
+              <p id="review-content">
+                {review.comment} <br />
+                (Rating: {review.rating}/10)
                 {review.imageURL && (
                   <div className="review-image-container">
                     <img
@@ -130,35 +143,50 @@ const Admin = ({ token }) => {
                       className="review-image"
                     />
                   </div>
-                )}
-                <button onClick={() => deleteReview(review.id)}> Delete Review </button>
+                )}{" "}
+                <br />
+                <button onClick={() => deleteReview(review.id)}>
+                  {" "}
+                  Delete Review{" "}
+                </button>
               </p>
-              <h4>Replies:</h4>
-              <ul>
+              <h4 className="replies-to-review-admin">All Replies:</h4>
+              <div>
                 {review.comments && review.comments.length > 0 ? (
                   review.comments.map((comment) => (
-                    <li key={comment.id}>
-                      {comment.user?.username || "Unknown User"}: {comment.content}
-                      <button onClick={() => deleteComment(comment.id)}> Delete Reply </button>
-                    </li>
+                    <p key={comment.id} id="individual-reply">
+                      {comment.user?.username || "Unknown User"}:{" "}
+                      {comment.content} <br />
+                      <button
+                        id="admin-button"
+                        onClick={() => deleteComment(comment.id)}
+                      >
+                        {" "}
+                        Delete Reply{" "}
+                      </button>
+                    </p>
                   ))
                 ) : (
-                  <li>No replies on this review.</li>
+                  <p>No replies on this review.</p>
                 )}
-              </ul>
+              </div>
             </div>
           ))
         )}
       </section>
 
-      <section>
+      <header className="admin-header">
         <h2>Contact Us Messages</h2>
+      </header>
+      <section className="all-messages">
         {contactMessages.length === 0 ? (
           <p>No messages available.</p>
         ) : (
           contactMessages.map((message) => (
             <div key={message.id}>
-              <h3>{message.name} ({message.email})</h3>
+              <h3>
+                {message.name} ({message.email})
+              </h3>
               <p>Message: {message.message}</p>
             </div>
           ))

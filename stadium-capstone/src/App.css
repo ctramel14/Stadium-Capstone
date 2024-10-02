@@ -103,4 +103,145 @@ button:focus-visible {
   width: 100%;
   bottom: 0;
 }
-
+/* ADMIN PAGE */
+.admin-dashboard-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 40px;
+  background-color: #113311;
+  color: white;
+  font-size: 1.5em;
+  font-weight: 600;
+  letter-spacing: 1.6px;
+  font-family: "Roboto Condensed", sans-serif;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: #0051b6;
+  color: white;
+  font-size: 1.5em;
+  font-weight: 600;
+  letter-spacing: 1.6px;
+  font-family: "Roboto Condensed", sans-serif;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+.all-users {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  justify-content: center;
+  gap: 10px;
+  padding: 20px;
+  color: #113311;
+  font-size: 1em;
+  font-weight: 600;
+  letter-spacing: 1.6px;
+  font-family: "Roboto Condensed", sans-serif;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+.all-reviews-replies {
+  display: flex;
+  flex-direction: row;
+  align-items: left;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 30px;
+  padding: 20px;
+  color: #113311;
+  font-size: 1em;
+  font-weight: 600;
+  letter-spacing: 1.6px;
+  font-family: "Roboto Condensed", sans-serif;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+#single-review-admin {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  justify-content: space-between;
+  gap: 10px;
+  width: 500px;
+  border: 5px solid #113311;
+  border-radius: 10px;
+  padding: 20px;
+  color: #113311;
+  font-size: 1em;
+  letter-spacing: 1.6px;
+  font-family: "Roboto Condensed", sans-serif;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+.single-review-admin-title {
+  color: #113311;
+  font-size: 1.5em;
+  text-align: center;
+  letter-spacing: 1.6px;
+  font-family: "Roboto Condensed", sans-serif;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 0;
+  padding: 0;
+}
+.horiziontal-line-admin {
+  width: 100%;
+  height: 8px;
+  margin-bottom: 3em;
+  background-color: #113311;
+  border-radius: 75%;
+}
+#review-content {
+  color: #113311;
+  font-size: 1.3em;
+  font-family: "Roboto Condensed", sans-serif;
+  text-align: center;
+  background-color: #009aff;
+  color: #113311;
+  border: 2px solid #0051b6;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 0;
+}
+.replies-to-review-admin {
+  color: #113311;
+  font-size: 1.3em;
+  font-family: "Roboto Condensed", sans-serif;
+  text-align: center;
+  padding: 0;
+  margin-top: 20px;
+}
+#individual-reply {
+  border: 1px solid #113311;
+  border-radius: 10px;
+  padding: 10px;
+}
+#admin-button {
+  border-radius: 16px;
+  border: 1px solid transparent;
+  font-family: inherit;
+  margin: 0;
+  margin-top: 10px;
+  padding: 0.5em 1em;
+  background-color: #0051b6;
+  color: white;
+  cursor: pointer;
+  transition: border-color 0.25s;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+.all-messages {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  justify-content: center;
+  gap: 10px;
+  padding: 20px;
+  color: #113311;
+  font-size: 1em;
+  font-weight: 600;
+  letter-spacing: 1.6px;
+  font-family: "Roboto Condensed", sans-serif;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
