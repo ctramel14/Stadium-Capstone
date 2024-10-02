@@ -8,6 +8,10 @@
   position: fixed;
   z-index: 50;
   padding: 50px;
+  @media screen and (max-width: 450px) {
+    width: 100%;
+    padding-top: 40px;
+  }
 }
 
 .form-title {
@@ -122,6 +126,10 @@
   position: relative;
   overflow: hidden;
   z-index: 1;
+  @media screen and (max-width: 450px) {
+    width: 100%;
+    font-size: 14px;
+  }
 }
 
 #oauthButton::before {
