@@ -10,3 +10,7 @@ https://docs.google.com/document/d/161InawB7Z1tn8oBWDb_mXo0FdOTSBMZ3J7qxwts-xyk/
 
 Website Flowchart
 https://lucid.app/lucidspark/0d41a5ec-ab00-4eb1-a0a2-4bebf5d89743/edit?invitationId=inv_a2037660-f9c4-4a80-b491-1e83acb10166&page=0_0#
+
+![Screenshot-1](https://github.com/ctramel14/Stadium-capstone/blob/main/stadium-capstone/src/assets/Screenshot-1-readme.png "Screenshot-1-readme.png")
+![Screenshot-2](https://github.com/ctramel14/Stadium-capstone/blob/main/stadium-capstone/src/assets/Screenshot-2-readme.png "Screenshot-2-readme.png")
+![Screenshot-3](https://github.com/ctramel14/Stadium-capstone/blob/main/stadium-capstone/src/assets/Screenshot-3-readme.png "Screenshot-3-readme.png")
