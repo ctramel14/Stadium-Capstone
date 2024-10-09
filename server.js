@@ -49,7 +49,7 @@ app.use(async (req, res, next) => {
     req.path === "/api/stadiums" ||
     req.path === "/login" ||
     req.path === "/register" ||
-    req.path === "/api/users" ||
+    req.path === `/api/users/${req.params.id}` ||
     req.path === "/api/reviews" ||
     req.path === `/api/stadiums/${req.params.id}` ||
     req.path === `/api/comments/${req.params.id}` ||
@@ -561,35 +561,35 @@ app.delete(
 );
 
 // delete a user and all data related to this user
-app.delete("/api/user/:id", async (req, res, next) => {
+app.delete("/api/users/:id", async (req, res, next) => {
   try {
     const userId = +req.params.id;
 
     // delete comments
     await prisma.comment.deleteMany({
       where: {
-        userId: userId,
+        userId: userId
       },
     });
 
-    // delete reviews
+    delete reviews
     await prisma.review.deleteMany({
       where: {
-        userId: userId,
+        userId: userId
       },
     });
 
     // delete visited stadiums
     await prisma.visitedStadium.deleteMany({
       where: {
-        userId: userId,
+        userId: userId
       },
     });
 
     // delete the user
     await prisma.user.delete({
       where: {
-        id: userId,
+        id: userId
       },
     });
 

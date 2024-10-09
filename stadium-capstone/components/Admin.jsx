@@ -4,6 +4,7 @@ const Admin = ({ token }) => {
   const [users, setUsers] = useState([]);
   const [reviews, setReviews] = useState([]);
   const [contactMessages, setContactMessages] = useState([]);
+  console.log(token);
 
   useEffect(() => {
     fetchUsers();
@@ -21,6 +22,7 @@ const Admin = ({ token }) => {
       });
       const data = await response.json();
       setUsers(data);
+      console.log(data);
     } catch (error) {
       console.error("Failed to fetch users:", error);
     }
@@ -78,6 +80,7 @@ const Admin = ({ token }) => {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
         },
       });
       setReviews(
@@ -90,6 +93,20 @@ const Admin = ({ token }) => {
       );
     } catch (error) {
       console.error("Failed to delete comment:", error);
+    }
+  };
+
+  const deleteUser = async (userId) => {
+    try {
+      await fetch(`http://localhost:3000/api/users/${userId}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setUsers(users.filter((user) => user.id !== userId));
+    } catch (error) {
+      console.error("Failed to delete user:", error);
     }
   };
 
@@ -113,6 +130,7 @@ const Admin = ({ token }) => {
               </h3>
               <p>First Name: {user.firstName}</p>
               <p>Last Name: {user.lastName}</p>
+              <button onClick={() => deleteUser(user.id)}> Delete User </button>
             </div>
           ))
         )}
