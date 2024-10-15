@@ -1,6 +1,7 @@
 import { useState, useEffect, useLayoutEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import "./SingleCard.css";
+const apiUrl = "https://stadium-capstone.onrender.com"
 //pulling states from main
 export default function SingleCard({ token, userId, username }) {
   const [stadium, setStadium] = useState({});
@@ -81,7 +82,7 @@ export default function SingleCard({ token, userId, username }) {
       if (!token) return;
       try {
         const response = await fetch(
-          `${process.env.API_URL}/api/users/${userId}`,
+          `${apiUrl}/api/users/${userId}`,
           {
             method: "GET",
             headers: {
@@ -104,7 +105,7 @@ export default function SingleCard({ token, userId, username }) {
     async function getRestaurants() {
       try {
         const response = await fetch(
-          `${process.env.API_URL}/api/stadiums/${id}/restaurants`,
+          `${apiUrl}/api/stadiums/${id}/restaurants`,
           {
             headers: {
               "Content-Type": "application/json",
@@ -123,7 +124,7 @@ export default function SingleCard({ token, userId, username }) {
     async function getHotels() {
       try {
         const response = await fetch(
-          `${process.env.API_URL}/api/stadiums/${id}/hotels`,
+          `${apiUrl}/api/stadiums/${id}/hotels`,
           {
             headers: {
               "Content-Type": "application/json",
@@ -142,7 +143,7 @@ export default function SingleCard({ token, userId, username }) {
     async function getStadium() {
       try {
         const response = await fetch(
-          `${process.env.API_URL}/api/stadiums/${id}`,
+          `${apiUrl}/api/stadiums/${id}`,
           {
             headers: {
               "Content-Type": "application/json",
@@ -160,7 +161,7 @@ export default function SingleCard({ token, userId, username }) {
           const reviewsWithComments = await Promise.all(
             reviewIds.map(async (reviewId) => {
               const reviewResponse = await fetch(
-                `${process.env.API_URL}/api/reviews/${reviewId}`,
+                `${apiUrl}/api/reviews/${reviewId}`,
                 {
                   headers: {
                     "Content-Type": "application/json",
@@ -201,7 +202,7 @@ export default function SingleCard({ token, userId, username }) {
   async function visited() {
     try {
       await fetch(
-        `${process.env.API_URL}/api/users/${userId}/visitedstadiums/${id}`,
+        `${apiUrl}/api/users/${userId}/visitedstadiums/${id}`,
         {
           method: "POST",
           headers: {
@@ -243,7 +244,7 @@ export default function SingleCard({ token, userId, username }) {
 
     try {
       const response = await fetch(
-        `${process.env.API_URL}/api/stadium/${stadium.id}/reviews`,
+        `${apiUrl}/api/stadium/${stadium.id}/reviews`,
         {
           method: "POST",
           headers: {
@@ -528,7 +529,7 @@ export default function SingleCard({ token, userId, username }) {
                   {review.imageURL && (
                     <div className="review-image-container">
                       <img
-                        src={`${process.env.API_URL}${review.imageURL}`}
+                        src={`${apiUrl}${review.imageURL}`}
                         alt="Review Image"
                         className="review-image"
                       />

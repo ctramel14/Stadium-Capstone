@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import ReviewsTable from "./ReviewsTable";
 import { useNavigate } from "react-router-dom";
 import BallparkIcon from "../src/assets/ballpark-icon.png";
+const apiUrl = "https://stadium-capstone.onrender.com"
 
 const stadiumColors = {
   1: "rgb(156,41,59)",
@@ -58,7 +59,7 @@ const Account = ({
       if (!token || !userId) return;
       try {
         const response = await fetch(
-          `${process.env.API_URL}/api/users/${userId}`,
+          `${apiUrl}/api/users/${userId}`,
           {
             method: "GET",
             headers: {
@@ -84,7 +85,7 @@ const Account = ({
   async function deleteVisitedStadium(stadiumId) {
     try {
       await fetch(
-        `${process.env.API_URL}/api/user/${userId}/visitedstadium/${stadiumId}`,
+        `${apiUrl}/api/user/${userId}/visitedstadium/${stadiumId}`,
         {
           method: "DELETE",
           headers: {
@@ -101,7 +102,7 @@ const Account = ({
   //deletes replies based off of id
   async function deleteComment(commentId) {
     try {
-      await fetch(`${process.env.API_URL}/api/comments/${commentId}`, {
+      await fetch(`${apiUrl}/api/comments/${commentId}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -118,7 +119,7 @@ const Account = ({
     e.preventDefault();
     try {
       const response = await fetch(
-        `${process.env.API_URL}/api/comment/${commentId}`,
+        `${apiUrl}/api/comment/${commentId}`,
         {
           method: "PUT",
           headers: {

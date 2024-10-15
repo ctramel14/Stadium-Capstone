@@ -1,6 +1,7 @@
 import { useState } from "react";
 import ReviewItem from "./ReviewItem";
 import { useNavigate } from "react-router-dom";
+const apiUrl = "https://stadium-capstone.onrender.com"
 
 const Reviews = ({ reviews, setReviews, width, token }) => {
   const [editingReview, setEditingReview] = useState(null);
@@ -13,7 +14,7 @@ const Reviews = ({ reviews, setReviews, width, token }) => {
   async function deleteReview(reviewId) {
     if (reviewId) {
       try {
-        await fetch(`${process.env.API_URL}/api/reviews/${reviewId}`, {
+        await fetch(`${apiUrl}/api/reviews/${reviewId}`, {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",
@@ -31,7 +32,7 @@ const Reviews = ({ reviews, setReviews, width, token }) => {
     if (reviewId) {
       try {
         const response = await fetch(
-          `${process.env.API_URL}/api/review/${reviewId}`,
+          `${apiUrl}/api/review/${reviewId}`,
           {
             method: "PUT",
             headers: {
