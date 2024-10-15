@@ -44,8 +44,6 @@ export default function StadiumCards({ token, stadiums, setStadiums, userId }) {
   async function fetchAllStadiums() {
     try {
       const response = await fetch(`${apiUrl}/api/stadiums`);
-      console.log(response);
-      
       const result = await response.json();
       return result;
     } catch (error) {
