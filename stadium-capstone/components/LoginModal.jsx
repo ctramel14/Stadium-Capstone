@@ -44,7 +44,7 @@ const LoginModal = ({
             setUsername(res.data.email);
             setEmail(res.data.email);
             setGoogleId(res.data.id);
-            fetch("http://localhost:3000/register", {
+            fetch(`${process.env.API_URL}/register`, {
               method: "POST",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify({
@@ -60,7 +60,7 @@ const LoginModal = ({
                 const newUserId = json.newUser;
 //pushes forward to login if user is registered
                 if (json.error == "Username already exists") {
-                  fetch(`http://localhost:3000/login`, {
+                  fetch(`${process.env.API_URL}/login`, {
                     method: "POST",
                     headers: {
                       "Content-Type": "application/json",
@@ -93,7 +93,7 @@ const LoginModal = ({
     setLoginSeen(!loginSeen);
 
     try {
-      const result = await fetch(`http://localhost:3000/login`, {
+      const result = await fetch(`${process.env.API_URL}/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

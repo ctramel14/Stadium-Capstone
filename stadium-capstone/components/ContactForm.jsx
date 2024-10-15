@@ -15,7 +15,7 @@ export default function ContactForm() {
     e.preventDefault();
 
     try {
-      const result = await fetch("http://localhost:3000/api/contactus", {
+      const result = await fetch(`${process.env.API_URL}/api/contactus`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

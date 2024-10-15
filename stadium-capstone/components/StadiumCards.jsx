@@ -42,7 +42,7 @@ export default function StadiumCards({ token, stadiums, setStadiums, userId }) {
 
   async function fetchAllStadiums() {
     try {
-      const response = await fetch("http://localhost:3000/api/stadiums");
+      const response = await fetch(`${process.env.API_URL}/api/stadiums`);
       const result = await response.json();
       return result;
     } catch (error) {
@@ -57,7 +57,7 @@ export default function StadiumCards({ token, stadiums, setStadiums, userId }) {
       if (!token) return;
       try {
         const response = await fetch(
-          `http://localhost:3000/api/users/${userId}`,
+          `${process.env.API_URL}/api/users/${userId}`,
           {
             method: "GET",
             headers: {
@@ -95,7 +95,7 @@ export default function StadiumCards({ token, stadiums, setStadiums, userId }) {
 
     try {
       await fetch(
-        `http://localhost:3000/api/users/${userId}/visitedstadiums/${id}`,
+        `${process.env.API_URL}/api/users/${userId}/visitedstadiums/${id}`,
         {
           method: "POST",
           headers: {

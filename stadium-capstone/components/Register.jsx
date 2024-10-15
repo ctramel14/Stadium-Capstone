@@ -26,7 +26,7 @@ export default function Register({
     e.preventDefault();
 
     try {
-      const result = await fetch("http://localhost:3000/register", {
+      const result = await fetch(`${process.env.API_URL}/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

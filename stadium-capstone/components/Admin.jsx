@@ -15,7 +15,7 @@ const Admin = ({ token }) => {
   // Fetch all users
   const fetchUsers = async () => {
     try {
-      const response = await fetch("http://localhost:3000/api/users", {
+      const response = await fetch(`${process.env.API_URL}/api/users`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -31,7 +31,7 @@ const Admin = ({ token }) => {
   // Fetch all reviews
   const fetchReviews = async () => {
     try {
-      const response = await fetch("http://localhost:3000/api/reviews", {
+      const response = await fetch(`${process.env.API_URL}/api/reviews`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -46,7 +46,7 @@ const Admin = ({ token }) => {
   // Fetch all contact messages
   const fetchContactMessages = async () => {
     try {
-      const response = await fetch("http://localhost:3000/api/contactus", {
+      const response = await fetch(`${process.env.API_URL}/api/contactus`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -61,7 +61,7 @@ const Admin = ({ token }) => {
   // Delete a review
   const deleteReview = async (reviewId) => {
     try {
-      await fetch(`http://localhost:3000/api/reviews/${reviewId}`, {
+      await fetch(`${process.env.API_URL}/api/reviews/${reviewId}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -76,7 +76,7 @@ const Admin = ({ token }) => {
   // Delete a comment
   const deleteComment = async (commentId) => {
     try {
-      await fetch(`http://localhost:3000/api/comments/${commentId}`, {
+      await fetch(`${process.env.API_URL}/api/comments/${commentId}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -98,7 +98,7 @@ const Admin = ({ token }) => {
 
   const deleteUser = async (userId) => {
     try {
-      await fetch(`http://localhost:3000/api/users/${userId}`, {
+      await fetch(`${process.env.API_URL}/api/users/${userId}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -156,7 +156,7 @@ const Admin = ({ token }) => {
                 {review.imageURL && (
                   <div className="review-image-container">
                     <img
-                      src={`http://localhost:3000${review.imageURL}`}
+                      src={`${process.env.API_URL}${review.imageURL}`}
                       alt="Review Image"
                       className="review-image"
                     />

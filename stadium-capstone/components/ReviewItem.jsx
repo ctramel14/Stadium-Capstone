@@ -93,7 +93,7 @@ const ReviewItem = ({
             <br />
             {review.imageURL ? (
               <img
-                src={`http://localhost:3000${review.imageURL}`}
+                src={`${process.env.API_URL}${review.imageURL}`}
                 alt="Review Image"
                 style={{ width: "100px", height: "auto" }} // Adjust image size as needed
               />
