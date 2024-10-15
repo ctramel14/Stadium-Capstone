@@ -58,7 +58,7 @@ const Account = ({
       if (!token || !userId) return;
       try {
         const response = await fetch(
-          `http://localhost:3000/api/users/${userId}`,
+          `${process.env.API_URL}/api/users/${userId}`,
           {
             method: "GET",
             headers: {
@@ -84,7 +84,7 @@ const Account = ({
   async function deleteVisitedStadium(stadiumId) {
     try {
       await fetch(
-        `http://localhost:3000/api/user/${userId}/visitedstadium/${stadiumId}`,
+        `${process.env.API_URL}/api/user/${userId}/visitedstadium/${stadiumId}`,
         {
           method: "DELETE",
           headers: {
@@ -101,7 +101,7 @@ const Account = ({
   //deletes replies based off of id
   async function deleteComment(commentId) {
     try {
-      await fetch(`http://localhost:3000/api/comments/${commentId}`, {
+      await fetch(`${process.env.API_URL}/api/comments/${commentId}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -118,7 +118,7 @@ const Account = ({
     e.preventDefault();
     try {
       const response = await fetch(
-        `http://localhost:3000/api/comment/${commentId}`,
+        `${process.env.API_URL}/api/comment/${commentId}`,
         {
           method: "PUT",
           headers: {

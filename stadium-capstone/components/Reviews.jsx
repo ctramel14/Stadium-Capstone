@@ -14,7 +14,7 @@ export default function Reviews({ token, userId, username }) {
     async function getToken() {
       try {
         const response = await fetch(
-          `http://localhost:3000/api/users/${userId}`,
+          `${process.env.API_URL}/api/users/${userId}`,
           {
             method: "GET",
             headers: {
@@ -32,7 +32,7 @@ export default function Reviews({ token, userId, username }) {
     async function getReviews() {
       try {
         const response = await fetch(
-          `http://localhost:3000/api/reviews/${id}`,
+          `${process.env.API_URL}/api/reviews/${id}`,
           {
             headers: {
               "Content-Type": "application/json",
@@ -61,7 +61,7 @@ export default function Reviews({ token, userId, username }) {
 
     try {
       const response = await fetch(
-        `http://localhost:3000/api/reviews/${id}/comments`,
+        `${process.env.API_URL}/api/reviews/${id}/comments`,
         {
           method: "POST",
           headers: {

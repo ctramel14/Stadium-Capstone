@@ -13,7 +13,7 @@ const Reviews = ({ reviews, setReviews, width, token }) => {
   async function deleteReview(reviewId) {
     if (reviewId) {
       try {
-        await fetch(`http://localhost:3000/api/reviews/${reviewId}`, {
+        await fetch(`${process.env.API_URL}/api/reviews/${reviewId}`, {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",
@@ -31,7 +31,7 @@ const Reviews = ({ reviews, setReviews, width, token }) => {
     if (reviewId) {
       try {
         const response = await fetch(
-          `http://localhost:3000/api/review/${reviewId}`,
+          `${process.env.API_URL}/api/review/${reviewId}`,
           {
             method: "PUT",
             headers: {

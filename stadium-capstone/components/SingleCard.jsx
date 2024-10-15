@@ -81,7 +81,7 @@ export default function SingleCard({ token, userId, username }) {
       if (!token) return;
       try {
         const response = await fetch(
-          `http://localhost:3000/api/users/${userId}`,
+          `${process.env.API_URL}/api/users/${userId}`,
           {
             method: "GET",
             headers: {
@@ -104,7 +104,7 @@ export default function SingleCard({ token, userId, username }) {
     async function getRestaurants() {
       try {
         const response = await fetch(
-          `http://localhost:3000/api/stadiums/${id}/restaurants`,
+          `${process.env.API_URL}/api/stadiums/${id}/restaurants`,
           {
             headers: {
               "Content-Type": "application/json",
@@ -123,7 +123,7 @@ export default function SingleCard({ token, userId, username }) {
     async function getHotels() {
       try {
         const response = await fetch(
-          `http://localhost:3000/api/stadiums/${id}/hotels`,
+          `${process.env.API_URL}/api/stadiums/${id}/hotels`,
           {
             headers: {
               "Content-Type": "application/json",
@@ -142,7 +142,7 @@ export default function SingleCard({ token, userId, username }) {
     async function getStadium() {
       try {
         const response = await fetch(
-          `http://localhost:3000/api/stadiums/${id}`,
+          `${process.env.API_URL}/api/stadiums/${id}`,
           {
             headers: {
               "Content-Type": "application/json",
@@ -160,7 +160,7 @@ export default function SingleCard({ token, userId, username }) {
           const reviewsWithComments = await Promise.all(
             reviewIds.map(async (reviewId) => {
               const reviewResponse = await fetch(
-                `http://localhost:3000/api/reviews/${reviewId}`,
+                `${process.env.API_URL}/api/reviews/${reviewId}`,
                 {
                   headers: {
                     "Content-Type": "application/json",
@@ -201,7 +201,7 @@ export default function SingleCard({ token, userId, username }) {
   async function visited() {
     try {
       await fetch(
-        `http://localhost:3000/api/users/${userId}/visitedstadiums/${id}`,
+        `${process.env.API_URL}/api/users/${userId}/visitedstadiums/${id}`,
         {
           method: "POST",
           headers: {
@@ -243,7 +243,7 @@ export default function SingleCard({ token, userId, username }) {
 
     try {
       const response = await fetch(
-        `http://localhost:3000/api/stadium/${stadium.id}/reviews`,
+        `${process.env.API_URL}/api/stadium/${stadium.id}/reviews`,
         {
           method: "POST",
           headers: {
@@ -528,7 +528,7 @@ export default function SingleCard({ token, userId, username }) {
                   {review.imageURL && (
                     <div className="review-image-container">
                       <img
-                        src={`http://localhost:3000${review.imageURL}`}
+                        src={`${process.env.API_URL}${review.imageURL}`}
                         alt="Review Image"
                         className="review-image"
                       />
