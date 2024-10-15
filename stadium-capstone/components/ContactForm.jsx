@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./ContactForm.css";
 import { useNavigate } from "react-router-dom";
+const apiUrl = "https://stadium-capstone.onrender.com"
 
 export default function ContactForm() {
   const [name, setName] = useState("");
@@ -15,7 +16,7 @@ export default function ContactForm() {
     e.preventDefault();
 
     try {
-      const result = await fetch(`${process.env.API_URL}/api/contactus`, {
+      const result = await fetch(`${apiUrl}/api/contactus`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

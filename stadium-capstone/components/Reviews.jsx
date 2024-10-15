@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+const apiUrl = "https://stadium-capstone.onrender.com"
 
 export default function Reviews({ token, userId, username }) {
   const [review, setReview] = useState("");
@@ -14,7 +15,7 @@ export default function Reviews({ token, userId, username }) {
     async function getToken() {
       try {
         const response = await fetch(
-          `${process.env.API_URL}/api/users/${userId}`,
+          `${apiUrl}/api/users/${userId}`,
           {
             method: "GET",
             headers: {
@@ -32,7 +33,7 @@ export default function Reviews({ token, userId, username }) {
     async function getReviews() {
       try {
         const response = await fetch(
-          `${process.env.API_URL}/api/reviews/${id}`,
+          `${apiUrl}/api/reviews/${id}`,
           {
             headers: {
               "Content-Type": "application/json",
@@ -61,7 +62,7 @@ export default function Reviews({ token, userId, username }) {
 
     try {
       const response = await fetch(
-        `${process.env.API_URL}/api/reviews/${id}/comments`,
+        `${apiUrl}/api/reviews/${id}/comments`,
         {
           method: "POST",
           headers: {

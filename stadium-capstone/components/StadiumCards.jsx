@@ -1,6 +1,7 @@
 import "./StadiumCards.css";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+const apiUrl = "https://stadium-capstone.onrender.com"
 //colors of each stadium by team name alphabetically
 const stadiumColors = {
   1: "rgb(156,41,59)",
@@ -42,7 +43,9 @@ export default function StadiumCards({ token, stadiums, setStadiums, userId }) {
 
   async function fetchAllStadiums() {
     try {
-      const response = await fetch(`${process.env.API_URL}/api/stadiums`);
+      const response = await fetch(`${apiUrl}/api/stadiums`);
+      console.log(response);
+      
       const result = await response.json();
       return result;
     } catch (error) {
@@ -57,7 +60,7 @@ export default function StadiumCards({ token, stadiums, setStadiums, userId }) {
       if (!token) return;
       try {
         const response = await fetch(
-          `${process.env.API_URL}/api/users/${userId}`,
+          `${apiUrl}/api/users/${userId}`,
           {
             method: "GET",
             headers: {
@@ -95,7 +98,7 @@ export default function StadiumCards({ token, stadiums, setStadiums, userId }) {
 
     try {
       await fetch(
-        `${process.env.API_URL}/api/users/${userId}/visitedstadiums/${id}`,
+        `${apiUrl}/api/users/${userId}/visitedstadiums/${id}`,
         {
           method: "POST",
           headers: {

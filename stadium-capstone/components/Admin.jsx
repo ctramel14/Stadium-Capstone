@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+const apiUrl = "https://stadium-capstone.onrender.com"
 
 const Admin = ({ token }) => {
   const [users, setUsers] = useState([]);
@@ -15,7 +16,7 @@ const Admin = ({ token }) => {
   // Fetch all users
   const fetchUsers = async () => {
     try {
-      const response = await fetch(`${process.env.API_URL}/api/users`, {
+      const response = await fetch(`${apiUrl}/api/users`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -31,7 +32,7 @@ const Admin = ({ token }) => {
   // Fetch all reviews
   const fetchReviews = async () => {
     try {
-      const response = await fetch(`${process.env.API_URL}/api/reviews`, {
+      const response = await fetch(`${apiUrl}/api/reviews`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -46,7 +47,7 @@ const Admin = ({ token }) => {
   // Fetch all contact messages
   const fetchContactMessages = async () => {
     try {
-      const response = await fetch(`${process.env.API_URL}/api/contactus`, {
+      const response = await fetch(`${apiUrl}/api/contactus`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -61,7 +62,7 @@ const Admin = ({ token }) => {
   // Delete a review
   const deleteReview = async (reviewId) => {
     try {
-      await fetch(`${process.env.API_URL}/api/reviews/${reviewId}`, {
+      await fetch(`${apiUrl}/api/reviews/${reviewId}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -76,7 +77,7 @@ const Admin = ({ token }) => {
   // Delete a comment
   const deleteComment = async (commentId) => {
     try {
-      await fetch(`${process.env.API_URL}/api/comments/${commentId}`, {
+      await fetch(`${apiUrl}/api/comments/${commentId}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -98,7 +99,7 @@ const Admin = ({ token }) => {
 
   const deleteUser = async (userId) => {
     try {
-      await fetch(`${process.env.API_URL}/api/users/${userId}`, {
+      await fetch(`${apiUrl}/api/users/${userId}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -156,7 +157,7 @@ const Admin = ({ token }) => {
                 {review.imageURL && (
                   <div className="review-image-container">
                     <img
-                      src={`${process.env.API_URL}${review.imageURL}`}
+                      src={`${apiUrl}${review.imageURL}`}
                       alt="Review Image"
                       className="review-image"
                     />

@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useGoogleLogin } from "@react-oauth/google";
 import axios from "axios";
+const apiUrl = "https://stadium-capstone.onrender.com"
 
 const LoginModal = ({
   setToken,
@@ -44,7 +45,7 @@ const LoginModal = ({
             setUsername(res.data.email);
             setEmail(res.data.email);
             setGoogleId(res.data.id);
-            fetch(`${process.env.API_URL}/register`, {
+            fetch(`${apiUrl}/register`, {
               method: "POST",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify({
@@ -60,7 +61,7 @@ const LoginModal = ({
                 const newUserId = json.newUser;
 //pushes forward to login if user is registered
                 if (json.error == "Username already exists") {
-                  fetch(`${process.env.API_URL}/login`, {
+                  fetch(`${apiUrl}/login`, {
                     method: "POST",
                     headers: {
                       "Content-Type": "application/json",
@@ -93,7 +94,7 @@ const LoginModal = ({
     setLoginSeen(!loginSeen);
 
     try {
-      const result = await fetch(`${process.env.API_URL}/login`, {
+      const result = await fetch(`${apiUrl}/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

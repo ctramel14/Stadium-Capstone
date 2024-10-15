@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Register.css";
+const apiUrl = "https://stadium-capstone.onrender.com"
 
 export default function Register({
   setToken,
@@ -26,7 +27,7 @@ export default function Register({
     e.preventDefault();
 
     try {
-      const result = await fetch(`${process.env.API_URL}/register`, {
+      const result = await fetch(`${apiUrl}/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
