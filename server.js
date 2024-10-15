@@ -14,7 +14,7 @@ app.use(express.json());
 app.use(require("morgan")("dev"));
 app.use(
   cors({
-    origin: "https://ballparkballers.netlify.app/", // Only allow your frontend origin
+    origin: "https://ballparkballers.netlify.app", // Only allow your frontend origin
     credentials: true, // Allow credentials such as Authorization headers or cookies
   })
 );
