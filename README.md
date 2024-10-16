@@ -1,4 +1,5 @@
 **Ballpark Ballers**
+Deployed site: https://ballparkballers.netlify.app/
 
 This is a web application designed to keep track of all of the MLB Ballparks that you've visited and information for other ballparks with extra social features like submitting reviews and responding to other's reviews!
 Please run npm install on both the overall project folder as well as in the "stadium-capstone" folder that you will need to "cd" into.
