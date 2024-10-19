@@ -9,6 +9,10 @@
   width: 100%;
   padding: 0;
   margin: 0;
+  border-bottom-left-radius: 5%;
+  border-bottom-right-radius: 5%;
+  border: solid 1px #8d630fbb;
+  box-shadow: 2px 2px #80590c9f
 }
 .navbar-items {
   display: flex; 

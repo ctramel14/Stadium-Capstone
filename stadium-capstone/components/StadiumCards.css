@@ -137,8 +137,12 @@
   align-items: center;
   width: 200px;
   height: 40px;
-  background-color: #90b58a;
-  color: #113311;
-  font-size: 16px;
+  background-color: #ececdb;
+  color: #000000ce;
+  font-size: 20px;
+  font-weight: bolder;
+  border: solid 1px rgb(95, 95, 95);;
+  box-shadow: 1px 1px rgb(5, 5, 5);
+  border-radius: 5%;
 }
 
