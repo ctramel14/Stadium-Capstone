@@ -47,6 +47,20 @@ export default function Register({
     }
   }
 
+  function validate(inputId) {
+    const input = document.getElementById(inputId);
+    const validityState = input.validity;
+  
+    if (validityState.patternMismatch) {
+      input.setCustomValidity("Special characters not allowed");
+    } else if (validityState.tooShort) {
+      input.setCustomValidity("Inputted name is too short");
+    } else {
+      input.setCustomValidity("");
+    }
+    input.reportValidity();
+  }
+
   return (
     <>
       {!success ? (
@@ -65,7 +79,7 @@ export default function Register({
                   minLength="2"
                   value={firstName}
                   placeholder="First Name"
-                  required
+                  required pattern="[A-Za-z]+"
                   onChange={(e) => setFirstName(e.target.value)}
                 />
                 <span>First Name</span>
@@ -78,7 +92,7 @@ export default function Register({
                   minLength="2"
                   value={lastName}
                   placeholder="Last Name"
-                  required
+                  required pattern="[A-Za-z]+"
                   onChange={(e) => setLastName(e.target.value)}
                 />
                 <span>Last Name</span>
@@ -99,12 +113,14 @@ export default function Register({
 
             <label>
               <input
+                id="username-input"
                 className="input"
                 type="text"
-                minLength="2"
+                minLength="4"
                 value={username}
                 placeholder="Username"
-                required
+                required pattern="[a-zA-Z0-9]+"
+                onInvalid={() => validate("username-input")}
                 onChange={(e) => setUsername(e.target.value)}
               />
               <span>Username</span>

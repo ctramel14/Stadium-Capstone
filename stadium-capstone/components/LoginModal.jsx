@@ -111,6 +111,20 @@ const LoginModal = ({
     }
   }
 
+  function validate(inputId) {
+    const input = document.getElementById(inputId);
+    const validityState = input.validity;
+  
+    if (validityState.patternMismatch) {
+      input.setCustomValidity("Please use Google Login for Google Accounts");
+    } else if (validityState.tooShort) {
+      input.setCustomValidity("Username must be at least 4 characters");
+    } else {
+      input.setCustomValidity("");
+    }
+    input.reportValidity();
+  }
+
   return (
     <>
       <form className="form" onSubmit={handleSubmit}>
@@ -120,10 +134,11 @@ const LoginModal = ({
             <div className="input-container">
               <input
                 id="username-input"
-                minLength="2"
+                minLength="4"
                 value={username}
                 placeholder="Username"
-                required
+                required pattern="[a-zA-Z0-9]+"
+                onInvalid={() => validate("username-input")}
                 onChange={(e) => setUsername(e.target.value)}
               />
               <span>
@@ -161,7 +176,6 @@ const LoginModal = ({
                 </svg>
               </span>
             </div>
-
             <button className="submit" type="submit">
               Sign in
             </button>
