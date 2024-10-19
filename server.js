@@ -378,11 +378,11 @@ app.post("/login", async (req, res, next) => {
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
-    if (googleId === "") {
+    if (user.googleId.length < 1) {
     const isPasswordValid = await bcrypt.compare(password, user.password);
-      if (!isPasswordValid) {
-        return res.status(401).json({ error: "Invalid password" });
-      }
+    if (!isPasswordValid) {
+      return res.status(401).json({ error: "Invalid password" });
+    }
     }
     const token = jwt.sign({ userId: user.id }, SECRET_KEY, {
       expiresIn: "1h",
