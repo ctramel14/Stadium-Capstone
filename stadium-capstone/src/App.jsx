@@ -3,7 +3,7 @@ import "./App.css";
 import StadiumCards from "../components/StadiumCards";
 import SingleCard from "../components/SingleCard";
 import NavigationBar from "../components/NavigationBar";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Link } from "react-router-dom";
 import Register from "../components/Register";
 import ContactForm from "../components/ContactForm";
 import Account from "../components/Account";
@@ -145,9 +145,16 @@ function App() {
         )}
       </Routes>
       {!token && (
-          <h4 className="full-access-message">
-            Register Or Log In For Full Access!
-          </h4>
+        <h4 className="full-access-message">
+          <Link to="/users/register" onClick={() => setExpand(false)}>
+            Register&nbsp;
+          </Link>{" "}
+          Or{" "}
+          <span onClick={() => setLoginSeen(!loginSeen)} id="sign-in-login">
+          &nbsp;Log in&nbsp;
+          </span>
+          For Full Access!
+        </h4>
       )}
     </>
   );

@@ -98,6 +98,19 @@ button:focus-visible {
   width: 100%;
   margin: 0;
 }
+
+.full-access-message > a {
+  color:rgb(166, 197, 253);
+  text-shadow: 0.01em 0.01em rgb(130, 149, 151);
+  text-decoration: none;
+}
+
+.full-access-message > #sign-in-login {
+  color:rgb(166, 197, 253);
+  text-shadow: 0.01em 0.01em rgb(130, 149, 151);
+  text-decoration: none;
+}
+
 .full-access-container {
   display: flex;
   flex-direction: column;

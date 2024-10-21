@@ -22,6 +22,7 @@ export default function Register({
 }) {
   const navigate = useNavigate();
   const [success, setSuccess] = useState("");
+  const [fail, setFail] = useState("");
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -42,8 +43,10 @@ export default function Register({
       setToken(json.token);
       setUserId(json.newUser.id);
       setSuccess("Registration Successful");
+      console.log(json);
     } catch (error) {
       console.error(error);
+      setFail("Username or Email already exists. Please try again!")  
     }
   }
 
@@ -138,13 +141,14 @@ export default function Register({
               />
               <span>Password</span>
             </label>
+            {{fail} && <h3 className="register-fail">{fail}</h3>}
             <button className="submit" type="submit">
               Submit
             </button>
             <p className="signin">
               Already have an account?{" "}
               <span onClick={() => setLoginSeen(!loginSeen)} id="sign-in-login">
-                LogIn
+                Log in
               </span>
             </p>
           </form>
