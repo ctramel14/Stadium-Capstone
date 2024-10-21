@@ -158,3 +158,10 @@
   width: 1.5rem;
   height: 1.5rem;
 }
+
+.login-fail {
+  color: rgba(19, 18, 18, 0.904);
+  text-shadow: 0.01em 0.01 #948f8f;
+  font-weight: bolder;
+  }
+  

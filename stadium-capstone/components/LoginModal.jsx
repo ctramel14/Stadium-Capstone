@@ -23,6 +23,7 @@ const LoginModal = ({
   setEmail,
 }) => {
   const [lastName, setLastName] = useState("");
+  const [fail, setFail] = useState("");
 //login method for googleusers, can also auto-register
   const login = useGoogleLogin({
     onSuccess: (codeResponse) => {
@@ -91,7 +92,6 @@ const LoginModal = ({
 //login function for non-google
   async function handleSubmit(e) {
     e.preventDefault();
-    setLoginSeen(!loginSeen);
 
     try {
       const result = await fetch(`${apiUrl}/login`, {
@@ -106,8 +106,10 @@ const LoginModal = ({
       setUserId(json.user.id);
       setFirstName(json.user.firstName);
       setAdministrator(json.user.administrator);
+      setLoginSeen(!loginSeen);
     } catch (error) {
       console.error(error);
+      setFail("Username or Password invalid") 
     }
   }
 
@@ -158,24 +160,13 @@ const LoginModal = ({
                 id="password-input"
                 minLength="6"
                 value={password}
+                type="password"
                 placeholder="Password"
                 required
                 onChange={(e) => setPassword(e.target.value)}
               />
-              <span>
-                <svg
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                  ></path>
-                  <path
-                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
-                  ></path>
-                </svg>
-              </span>
             </div>
+            {{fail} && <h4 className="login-fail">{fail}</h4>}
             <button className="submit" type="submit">
               Sign in
             </button>
@@ -225,7 +216,7 @@ const LoginModal = ({
         </div>
         {!profile && (
           <p className="signup-link">
-            No account?
+            No account?&nbsp;
             <Link to="/users/register">Register</Link>
           </p>
         )}

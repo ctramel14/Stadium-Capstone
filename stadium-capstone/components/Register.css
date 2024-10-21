@@ -16,6 +16,12 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+.register-fail {
+color: rgba(19, 18, 18, 0.904);
+text-shadow: 1px 1px #948f8f;
+font-weight: bolder;
+}
+
 .registerContainer {
   display: flex;
   justify-content: center;
