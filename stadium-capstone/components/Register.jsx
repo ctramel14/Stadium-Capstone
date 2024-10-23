@@ -43,7 +43,6 @@ export default function Register({
       setToken(json.token);
       setUserId(json.newUser.id);
       setSuccess("Registration Successful");
-      console.log(json);
     } catch (error) {
       console.error(error);
       setFail("Username or Email already exists. Please try again!")  

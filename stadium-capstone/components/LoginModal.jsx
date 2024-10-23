@@ -21,8 +21,9 @@ const LoginModal = ({
   profile,
   setProfile,
   setEmail,
+  lastName,
+  setLastName,
 }) => {
-  const [lastName, setLastName] = useState("");
   const [fail, setFail] = useState("");
 //login method for googleusers, can also auto-register
   const login = useGoogleLogin({
@@ -61,7 +62,7 @@ const LoginModal = ({
               rest.json().then((json) => {
                 const newUserId = json.newUser;
 //pushes forward to login if user is registered
-                if (json.error == "Username already exists") {
+                if (codeResponse.access_token) {
                   fetch(`${apiUrl}/login`, {
                     method: "POST",
                     headers: {
@@ -105,7 +106,9 @@ const LoginModal = ({
       setToken(json.token);
       setUserId(json.user.id);
       setFirstName(json.user.firstName);
+      setLastName(json.user.lastName);
       setAdministrator(json.user.administrator);
+      setEmail(json.user.email);
       setLoginSeen(!loginSeen);
     } catch (error) {
       console.error(error);

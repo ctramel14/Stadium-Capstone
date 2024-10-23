@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const PORT = 10000 || 3000;
+const PORT = 3000;
 const prisma = require("./prisma");
 require("dotenv").config();
 const bcrypt = require("bcrypt");
@@ -703,6 +703,31 @@ app.put("/api/comment/:id", async (req, res, next) => {
     });
 
     res.status(200).json(updatedComment);
+  } catch (err) {
+    next(err);
+  }
+});
+
+app.put("/api/users/:id", async (req, res, next) => {
+  try {
+    const userId = +req.params.id;
+    const { username, password, firstName, lastName, email } = req.body;
+    const hashedPassword = await bcrypt.hash(password, 10);
+    // update user
+    const updatedUser = await prisma.user.update({
+      where: {
+        id: userId,
+      },
+      data: {
+        username,
+        password: hashedPassword,
+        firstName,
+        lastName,
+        email,
+      },
+    });
+
+    res.status(200).json(updatedUser);
   } catch (err) {
     next(err);
   }
