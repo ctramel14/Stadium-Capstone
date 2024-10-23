@@ -45,7 +45,6 @@ export default function Reviews({ token, userId, username }) {
         const allUsers = result.comments;
         const nextUsers = allUsers.map((u) => u.user);
         const themUsers = nextUsers.map((u) => u.username);
-        console.log(themUsers);
 
         setReview(result);
         setCommenters(themUsers);

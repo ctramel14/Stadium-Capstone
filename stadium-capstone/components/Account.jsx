@@ -42,8 +42,15 @@ const Account = ({
   username,
   setUsername,
   firstName,
+  setFirstName,
   userId,
   width,
+  googleId,
+  setGoogleId,
+  email,
+  setEmail,
+  lastName,
+  setLastName,
 }) => {
   const [visited, setVisited] = useState([]);
   const [reviews, setReviews] = useState([]);
@@ -51,6 +58,9 @@ const Account = ({
   const [editingComment, setEditingComment] = useState(null);
   const [searchParam, setSearchParam] = useState("");
   const [commentContent, setCommentContent] = useState("");
+  const [password, setPassword] = useState("");
+  const [success, setSuccess] = useState(null)
+  const [fail, setFail] = useState(null)
   const message = `Please log in to see your account details.`;
   const navigate = useNavigate();
   //fetch data, checking for token and username to show account details
@@ -69,9 +79,10 @@ const Account = ({
           }
         );
         const result = await response.json();
+        setGoogleId(result.googleId)
         setVisited(result.visitedStadiums.map((v) => v.stadium));
         setReviews(result.reviews);
-        setComments(result.comments);
+        setComments(result.comments); 
         if (!username) {
           setUsername(result.username);
         }
@@ -137,6 +148,33 @@ const Account = ({
       );
       setEditingComment(null);
       setCommentContent("");
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  async function editUser(e) {
+    e.preventDefault();
+    try {
+      const response = await fetch(
+        `${apiUrl}/api/users/${userId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ username, password, email, firstName, lastName }),
+        }
+      );
+      const json = await response.json();
+      if (json.username) {
+        setSuccess("User details updated!")
+        setFail(null)
+      } else {
+        setFail('Username or Email already taken')
+        setSuccess(null)
+      }
     } catch (error) {
       console.error(error);
     }
@@ -333,6 +371,82 @@ const Account = ({
           </div>
         )}
       </div>
+      {googleId.length < 1 && 
+      <div className="account-change-container">
+          <form id="form" onSubmit={editUser}>
+            <p className="title">Edit Account Details</p>
+            <div className="flex">
+              <label>
+                <input
+                  className="input"
+                  type="text"
+                  minLength="2"
+                  value={firstName}
+                  placeholder="First Name"
+                  required pattern="[A-Za-z]+"
+                  onChange={(e) => setFirstName(e.target.value)}
+                />
+                <span>First Name</span>
+              </label>
+
+              <label>
+                <input
+                  className="input"
+                  type="text"
+                  minLength="2"
+                  value={lastName}
+                  placeholder="Last Name"
+                  required pattern="[A-Za-z]+"
+                  onChange={(e) => setLastName(e.target.value)}
+                />
+                <span>Last Name</span>
+              </label>
+            </div>
+            <label>
+              <input
+                className="input"
+                type="email"
+                minLength="8"
+                value={email}
+                placeholder="Email"
+                required
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <span>Email</span>
+            </label>
+
+            <label>
+              <input
+                id="username-input"
+                className="input"
+                type="text"
+                minLength="4"
+                value={username}
+                placeholder="Username"
+                required 
+                pattern="[a-zA-Z0-9]+"
+                onChange={(e) => setUsername(e.target.value)}
+              />
+              <span>Username</span>
+            </label>
+            <label>
+              <input
+                className="input"
+                minLength="6"
+                value={password}
+                placeholder="Password"
+                required
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <span>Password</span>
+            </label>
+            {success && <h4>{success}</h4>}
+            {fail && <h4>{fail}</h4>}
+            <button className="submit" type="submit">
+              Submit
+            </button>
+            </form>
+            </div>}
     </>
   );
 };

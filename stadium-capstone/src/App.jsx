@@ -65,6 +65,8 @@ function App() {
           profile={profile}
           setProfile={setProfile}
           setEmail={setEmail}
+          lastName={lastName}
+          setLastName={setLastName}
         />
       ) : null}
       <Routes>
@@ -112,10 +114,17 @@ function App() {
             <Account
               token={token}
               firstName={firstName}
+              setFirstName={setFirstName}
               userId={userId}
               width={width}
               username={username}
               setUsername={setUsername}
+              googleId={googleId}
+              setGoogleId={setGoogleId}
+              lastName={lastName}
+              setLastName={setLastName}
+              email={email}
+              setEmail={setEmail}
             />
           }
         />
