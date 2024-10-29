@@ -287,3 +287,72 @@ button:focus-visible {
   font-family: "Roboto Condensed", sans-serif;
   letter-spacing: 1.5px;
 }
+
+.email-form {
+  max-width: 800px;
+  padding: 50px;
+  border: 2px solid #333;
+  border-radius: 8px;
+  background-color: #f7f7f7 transparent;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+  height: 350px;
+  z-index: 2;
+  text-align: center;
+}
+
+body > div.ReactModalPortal > div {
+max-width: 800px;
+height: 350px;
+justify-content: center;
+text-align: center;
+margin: 200px auto;
+z-index: 2;
+border-radius: 8px;
+}
+
+body > div.ReactModalPortal > div > div > form > p {
+  margin-top: 0;
+  color: #333;
+  font-size: 24px;
+  font-weight: bolder;
+  width: 83%;
+  margin-right: 0;
+  margin-left: 65px;
+  text-align: right;
+  cursor: pointer;
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+body > div.ReactModalPortal > div > div > form > h2 {
+  margin-top: 0;
+  color: #333;
+  font-size: 24px;
+  font-weight: bolder;
+  width: 83%;
+  text-align: center;
+  margin-left: 55px;
+}
+
+.email-form input[type="email"] {
+  margin-top: 0;
+  color: #333;
+  font-size: 22.9px;
+  font-family: "Roboto Condensed", sans-serif;
+}
+
+body > div.ReactModalPortal > div > div > form > button:nth-child(5) {
+  width: 75%;
+  padding: 10px;
+  margin: 0px;
+  margin-top: 4px;
+  border: none;
+  border-radius: 4px;
+  background-color: #ff6600;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+body > div.ReactModalPortal > div > div > form > button:nth-child(5):hover {
+  background-color: #ff8533;
+}

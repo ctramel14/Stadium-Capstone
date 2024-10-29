@@ -12,6 +12,7 @@ import Reviews from "../components/Reviews";
 import LoginModal from "../components/LoginModal";
 import Admin from "../components/Admin";
 import { googleLogout } from "@react-oauth/google";
+import EmailForm from '../components/EmailForm';
 
 //setting state here to make passing props between components easier
 function App() {
@@ -153,6 +154,7 @@ function App() {
           <Route path="/admin" element={<Admin token={token} />} />
         )}
       </Routes>
+      
       {!token && (
         <h4 className="full-access-message">
           <Link to="/users/register" onClick={() => setExpand(false)}>
@@ -165,6 +167,7 @@ function App() {
           For Full Access!
         </h4>
       )}
+      <EmailForm />
     </>
   );
 }
