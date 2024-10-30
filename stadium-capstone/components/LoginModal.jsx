@@ -69,14 +69,14 @@ const LoginModal = ({
                       "Content-Type": "application/json",
                     },
                     body: JSON.stringify({
-                      username: res.data.email,
-                      password,
+                      email: res.data.email,
                       googleId: res.data.id,
                     }),
                   }).then((result) => {
                     result.json().then((json) => {
                       setToken(json.token);
                       setUserId(json.user.id);
+                      setUsername(json.user.username)
                       setAdministrator(json.user.administrator);
                     });
                   });
@@ -112,7 +112,7 @@ const LoginModal = ({
       setLoginSeen(!loginSeen);
     } catch (error) {
       console.error(error);
-      setFail("Username or Password invalid") 
+      setFail("Username or Password invalid. Google users please Continue with Google") 
     }
   }
 
