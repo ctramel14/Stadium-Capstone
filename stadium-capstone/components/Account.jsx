@@ -370,8 +370,7 @@ const Account = ({
             )}
           </div>
         )}
-      </div>
-      {googleId.length < 1 && 
+      </div> 
       <div className="account-change-container">
           <form id="form" onSubmit={editUser}>
             <p className="title">Edit Account Details</p>
@@ -402,6 +401,7 @@ const Account = ({
                 <span>Last Name</span>
               </label>
             </div>
+            {googleId.length < 1 &&
             <label>
               <input
                 className="input"
@@ -413,7 +413,7 @@ const Account = ({
                 onChange={(e) => setEmail(e.target.value)}
               />
               <span>Email</span>
-            </label>
+            </label>}
 
             <label>
               <input
@@ -446,7 +446,7 @@ const Account = ({
               Submit
             </button>
             </form>
-            </div>}
+            </div>
     </>
   );
 };

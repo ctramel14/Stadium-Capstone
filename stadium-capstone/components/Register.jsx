@@ -140,7 +140,7 @@ export default function Register({
               />
               <span>Password</span>
             </label>
-            {{fail} && <h3 className="register-fail">{fail}</h3>}
+            {{fail} && <h3 style={{ color: "red" }} className="register-fail">{fail}</h3>}
             <button className="submit" type="submit">
               Submit
             </button>
