@@ -112,7 +112,7 @@ const LoginModal = ({
       setLoginSeen(!loginSeen);
     } catch (error) {
       console.error(error);
-      setFail("Username or Password invalid. Google users please Continue with Google") 
+      setFail("Username or Password invalid") 
     }
   }
 
@@ -169,7 +169,7 @@ const LoginModal = ({
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
-            {{fail} && <h4 className="login-fail">{fail}</h4>}
+            {{fail} && <h4 style={{ color: "red" }} className="login-fail">{fail}</h4>}
             <button className="submit" type="submit">
               Sign in
             </button>
