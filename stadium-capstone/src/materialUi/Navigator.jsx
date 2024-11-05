@@ -51,22 +51,22 @@ const categories = [
       {
         id: "Feed",
         icon: <FeedIcon />,
-        link: "/users/me/feed",
+        // link: "/users/me/feed",
       },
       { 
         id: "Followers", 
         icon: <PeopleIcon />,
-        link: "/users/me/followers"
+        // link: "/users/me/followers"
       },
       { 
         id: "Following", 
         icon: <PersonAddIcon />,
-        link: "/users/me/following"
+        // link: "/users/me/following"
       },
       {
         id: "Posts",
         icon: <ArticleIcon />,
-        link: "/users/me/posts"
+        // link: "/users/me/posts"
       },
     ],
   },
@@ -81,7 +81,7 @@ const categories = [
       { 
         id: "Login", 
         icon: <LoginIcon />, 
-        link: "/login" 
+        // link: "/login" 
       }
     ],
   },
