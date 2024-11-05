@@ -384,7 +384,7 @@ app.post("/login", async (req, res, next) => {
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
-    if (user.googleId.length < 1) {
+    if (user.googleId.length < 1 && password) {
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
       return res.status(401).json({ error: "Invalid password" });
