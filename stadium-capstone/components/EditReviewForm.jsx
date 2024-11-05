@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-const apiUrl = "https://stadium-capstone.onrender.com"
+import { apiUrl } from "../apiUrl";
 
 const EditReviewForm = ({
   review,

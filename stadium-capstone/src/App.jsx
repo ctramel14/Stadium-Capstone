@@ -7,11 +7,16 @@ import { Route, Routes, Link } from "react-router-dom";
 import Register from "../components/Register";
 import ContactForm from "../components/ContactForm";
 import Account from "../components/Account";
+import Ballpark from "../components/Ballpark";
+import Replies from "../components/Replies";
+import ReviewsTable from "../components/ReviewsTable";
 import LogOut from "../components/LogOut";
 import Reviews from "../components/Reviews";
 import LoginModal from "../components/LoginModal";
 import Admin from "../components/Admin";
 import { googleLogout } from "@react-oauth/google";
+import Paperbase from './materialUi/App'
+import MyAccount from "../components/MyAccount";
 
 //setting state here to make passing props between components easier
 function App() {
@@ -111,23 +116,31 @@ function App() {
         <Route
           path="/users/me"
           element={
-            <Account
-              token={token}
-              firstName={firstName}
-              setFirstName={setFirstName}
-              userId={userId}
-              width={width}
-              username={username}
-              setUsername={setUsername}
-              googleId={googleId}
-              setGoogleId={setGoogleId}
-              lastName={lastName}
-              setLastName={setLastName}
-              email={email}
-              setEmail={setEmail}
-            />
+            <Paperbase>
+              <Account
+                token={token}
+                firstName={firstName}
+                setFirstName={setFirstName}
+                userId={userId}
+                width={width}
+                username={username}
+                setUsername={setUsername}
+                googleId={googleId}
+                setGoogleId={setGoogleId}
+                lastName={lastName}
+                setLastName={setLastName}
+                email={email}
+                setEmail={setEmail}
+              />
+            </Paperbase>
           }
-        />
+        >
+          <Route index element={<MyAccount />} />
+          <Route path="ballpark" element={<Ballpark />} />
+          <Route path="reviews" element={<ReviewsTable />} />
+          <Route path="replies" element={<Replies />} />
+          <Route path="account-details" element={<Account />} />
+        </Route>
         <Route path="/contactform" element={<ContactForm />} />
         <Route
           path="/stadiums/reviews/:id"

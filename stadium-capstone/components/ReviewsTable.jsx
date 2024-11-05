@@ -1,9 +1,24 @@
 import { useState } from "react";
 import ReviewItem from "./ReviewItem";
-import { useNavigate } from "react-router-dom";
-const apiUrl = "https://stadium-capstone.onrender.com"
+import { useNavigate, useOutletContext } from "react-router-dom";
+import { apiUrl } from "../apiUrl";
+import {
+  Box,
+  Typography,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Card,
+  Button,
+} from '@mui/material';
+import BaseballIcon from '@mui/icons-material/SportsCricket'; // or another baseball-like icon
 
-const Reviews = ({ reviews, setReviews, width, token }) => {
+const Reviews = () => {
+  const { width, reviews, setReviews, token } = useOutletContext();
   const [editingReview, setEditingReview] = useState(null);
   const [reviewContent, setReviewContent] = useState({
     rating: "",
@@ -58,27 +73,47 @@ const Reviews = ({ reviews, setReviews, width, token }) => {
       }
     }
   }
-  //props will get passed to the ReviewItem component
+
   return (
-    <>
-      <header className="section-header">
-        <h3>Your Reviews</h3>
-      </header>
+    <Box sx={{ p: 3 }}>
+      <Box sx={{ 
+        display: 'flex', 
+        alignItems: 'center', 
+        justifyContent: 'center',
+        mb: 4 
+      }}>
+        <BaseballIcon sx={{ mr: 1, color: '#113311' }} />
+        <Typography variant="h4" component="h3" sx={{ 
+          color: '#113311',
+          fontFamily: '"Roboto Condensed", sans-serif',
+          letterSpacing: '1.5px'
+        }}>
+          Your Reviews
+        </Typography>
+      </Box>
+
       {reviews.length > 0 ? (
-        <div className="table-wrapper">
+        <TableContainer 
+          component={Paper} 
+          sx={{ 
+            boxShadow: 3,
+            borderRadius: 2,
+            overflow: 'hidden'
+          }}
+        >
           {width > 1000 ? (
-            <table className="reviews-table">
-              <thead>
-                <tr className="table-headers">
-                  <th>Ballpark</th>
-                  <th>Team</th>
-                  <th>Rating</th>
-                  <th>Your Review</th>
-                  <th>Date</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody className="table-body">
+            <Table sx={{ minWidth: 650 }}>
+              <TableHead>
+                <TableRow sx={{ backgroundColor: '#113311' }}>
+                  <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>Ballpark</TableCell>
+                  <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>Team</TableCell>
+                  <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>Rating</TableCell>
+                  <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>Your Review</TableCell>
+                  <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>Date</TableCell>
+                  <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>Actions</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
                 {reviews.map((review) => (
                   <ReviewItem
                     key={review.id}
@@ -94,10 +129,10 @@ const Reviews = ({ reviews, setReviews, width, token }) => {
                     }}
                   />
                 ))}
-              </tbody>
-            </table>
+              </TableBody>
+            </Table>
           ) : (
-            <div style={{ color: "black" }} id="small-screen-table">
+            <Box sx={{ p: 2 }}>
               {reviews.map((review) => (
                 <ReviewItem
                   key={review.id}
@@ -112,17 +147,34 @@ const Reviews = ({ reviews, setReviews, width, token }) => {
                   }}
                 />
               ))}
-            </div>
+            </Box>
           )}
-        </div>
+        </TableContainer>
       ) : (
-        <p id="nothingWarning">
-          Go to any <span onClick={() => navigate("/")}>ballpark</span> page to
-          leave your first review!
-        </p>
+        <Card sx={{ 
+          p: 4, 
+          textAlign: 'center',
+          backgroundColor: '#f5f5f5',
+          borderRadius: 2
+        }}>
+          <Typography variant="h6" sx={{ mb: 2 }}>
+            No Reviews Yet
+          </Typography>
+          <Button 
+            variant="contained" 
+            onClick={() => navigate("/")}
+            sx={{ 
+              backgroundColor: '#113311',
+              '&:hover': {
+                backgroundColor: '#1a4d1a'
+              }
+            }}
+          >
+            Visit Ballparks to Leave a Review
+          </Button>
+        </Card>
       )}
-      <hr className="line-across-account"></hr>
-    </>
+    </Box>
   );
 };
 
