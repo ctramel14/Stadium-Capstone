@@ -1,7 +1,10 @@
-import "./StadiumCards.css";
+// import "./StadiumCards.css";
+import "./stadiumCardsCopy.css";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-const apiUrl = "https://stadium-capstone.onrender.com"
+import { apiUrl } from "../apiUrl";
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
 //colors of each stadium by team name alphabetically
 const stadiumColors = {
   1: "rgb(156,41,59)",
@@ -43,14 +46,20 @@ export default function StadiumCards({ token, stadiums, setStadiums, userId }) {
 
   async function fetchAllStadiums() {
     try {
-      const response = await fetch(`${apiUrl}/api/stadiums`);
+      const response = await fetch(`${apiUrl}/api/stadiums`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      
       const result = await response.json();
       return result;
     } catch (error) {
       console.error(error);
     }
   }
-  fetchAllStadiums();
+  // fetchAllStadiums();
 
   useEffect(() => {
     async function fetchUserData() {
@@ -143,7 +152,7 @@ export default function StadiumCards({ token, stadiums, setStadiums, userId }) {
         </h3>
       </header>
       <div className="stadiums-grid-container">
-        {stadiumsToDisplay.map(
+        {Array.isArray(stadiumsToDisplay) && stadiumsToDisplay.map(
           (
             stadium // renders all stadiums, starting with grey unless visited
           ) => (
@@ -154,6 +163,13 @@ export default function StadiumCards({ token, stadiums, setStadiums, userId }) {
               key={stadium.id}
               style={{ backgroundColor: "grey" }}
             >
+              <div className="stadium-status-icon">
+                {stadiumsVisited.includes(stadium.id) ? (
+                  <CheckCircleIcon className="visited-icon" />
+                ) : (
+                  <LocationOnIcon className="not-visited-icon" />
+                )}
+              </div>
               <img
                 src={stadium.imageOutsideURL}
                 alt={`${stadium.name} outside view`}

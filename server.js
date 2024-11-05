@@ -9,12 +9,13 @@ const SECRET_KEY = process.env.SECRET_KEY;
 const cors = require("cors");
 const multer = require("multer");
 const path = require("path");
+const { origin } = require("./origin");
 
 app.use(express.json());
 app.use(require("morgan")("dev"));
 app.use(
   cors({
-    origin: "https://ballparkballers.netlify.app", // Only allow your frontend origin
+    origin: origin, // Only allow your frontend origin
     credentials: true, // Allow credentials such as Authorization headers or cookies
   })
 );

@@ -1,0 +1,24 @@
+.navbar-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: #081627; /* Match Material UI theme */
+    z-index: 1200; /* Ensure it's above other Material UI components */
+  }
+  
+  .navbar-items {
+    max-width: 1200px; /* Or your preferred max width */
+    margin: 0 auto;
+    padding: 0 16px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 20px;
+  }
+  
+  .navbar-items a {
+    color: white;
+    text-decoration: none;
+    padding: 12px 0;
+    font-family: inherit;
+  }

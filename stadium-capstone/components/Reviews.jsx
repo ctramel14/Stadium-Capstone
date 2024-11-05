@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-const apiUrl = "https://stadium-capstone.onrender.com"
+import { apiUrl } from "../apiUrl";
 
 export default function Reviews({ token, userId, username }) {
   const [review, setReview] = useState("");

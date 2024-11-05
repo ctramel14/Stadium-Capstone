@@ -1,7 +1,7 @@
 import { useState, useEffect, useLayoutEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import "./SingleCard.css";
-const apiUrl = "https://stadium-capstone.onrender.com"
+import { apiUrl } from "../apiUrl";
 //pulling states from main
 export default function SingleCard({ token, userId, username }) {
   const [stadium, setStadium] = useState({});

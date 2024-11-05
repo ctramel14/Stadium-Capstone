@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-const apiUrl = "https://stadium-capstone.onrender.com"
+import { apiUrl } from "../apiUrl";
 
 const Admin = ({ token }) => {
   const [users, setUsers] = useState([]);

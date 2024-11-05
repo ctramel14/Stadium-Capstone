@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./ContactForm.css";
 import { useNavigate } from "react-router-dom";
-const apiUrl = "https://stadium-capstone.onrender.com"
+import { apiUrl } from "../apiUrl";
 
 export default function ContactForm() {
   const [name, setName] = useState("");
