@@ -356,3 +356,8 @@ body > div.ReactModalPortal > div > div > form > button:nth-child(5) {
 body > div.ReactModalPortal > div > div > form > button:nth-child(5):hover {
   background-color: #ff8533;
 }
+
+.map { 
+  height: 400px;
+  width: 426px; 
+}

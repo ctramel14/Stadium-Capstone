@@ -38,6 +38,7 @@ export default function NavigationBar({
                 <Link to="/" onClick={() => setExpand(false)}>BALLPARKS</Link>
                 <Link to="/users/logout" onClick={() => setExpand(false)}>LOGOUT</Link>
                 <Link to="/users/me" onClick={() => setExpand(false)}>ACCOUNT</Link>
+                {/* <Link to="/users/map" onClick={() => setExpand(false)}>MAP</Link> */}
                 {administrator && <Link to="/admin">ADMIN</Link>}
                 <Link to="/contactform" onClick={() => setExpand(false)}>CONTACT US</Link>
               </div>
@@ -46,6 +47,7 @@ export default function NavigationBar({
                 <Link to="/" onClick={() => setExpand(false)}>BALLPARKS</Link>
                 <Link onClick={() => { setLoginSeen((v) => !v); setExpand(false); }}>LOG IN</Link>
                 <Link to="/users/register" onClick={() => setExpand(false)}>REGISTER</Link>
+                {/* <Link to="/users/map" onClick={() => setExpand(false)}>MAP</Link> */}
                 <Link to="/contactform" onClick={() => setExpand(false)}>CONTACT US</Link>
               </div>
             )}
