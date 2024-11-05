@@ -69,14 +69,14 @@ const LoginModal = ({
                       "Content-Type": "application/json",
                     },
                     body: JSON.stringify({
-                      username: res.data.email,
-                      password,
+                      email: res.data.email,
                       googleId: res.data.id,
                     }),
                   }).then((result) => {
                     result.json().then((json) => {
                       setToken(json.token);
                       setUserId(json.user.id);
+                      setUsername(json.user.username)
                       setAdministrator(json.user.administrator);
                     });
                   });
@@ -169,7 +169,7 @@ const LoginModal = ({
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
-            {{fail} && <h4 className="login-fail">{fail}</h4>}
+            {{fail} && <h4 style={{ color: "red" }} className="login-fail">{fail}</h4>}
             <button className="submit" type="submit">
               Sign in
             </button>

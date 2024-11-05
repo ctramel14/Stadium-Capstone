@@ -372,9 +372,14 @@ app.post("/register", async (req, res, next) => {
 // Login a user
 app.post("/login", async (req, res, next) => {
   try {
-    const { username, password, googleId } = req.body;
+    const { username, password, googleId, email } = req.body;
     const user = await prisma.user.findFirst({
-      where: { username },
+      where: {
+        OR: [
+          {username},
+          {email},
+        ]
+      }
     });
     if (!user) {
       return res.status(404).json({ error: "User not found" });
@@ -385,11 +390,17 @@ app.post("/login", async (req, res, next) => {
       return res.status(401).json({ error: "Invalid password" });
     }
     }
+    if (user.googleId.length > 1 && password) {
+      const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) {
+      return res.status(401).json({ error: "Invalid password. Please sign in with Google" });
+    }
+    }
     const token = jwt.sign({ userId: user.id }, SECRET_KEY, {
       expiresIn: "1h",
     });
     console.log(token);
-    res.json({ token, user });
+    res.json({ token, user});
   } catch (err) {
     next(err);
   }

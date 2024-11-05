@@ -176,7 +176,6 @@ const Account = ({
                     }}
                     fullWidth
                   />
-
                   <TextField
                     label="Password"
                     type="password"
@@ -261,6 +260,169 @@ const Account = ({
         />
       </div>
     </div>
+                </label>
+              </div>
+            </header>
+            {commentsToDisplay.length > 0 ? (
+              <div className="table-wrapper">
+                <table className="comments-table">
+                  <thead>
+                    <tr className="table-headers">
+                      <th>Ballpark</th>
+                      <th>Review</th>
+                      <th>Your Reply</th>
+                      <th>Date</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody className="table-body">
+                    {commentsToDisplay.map((comment) => (
+                      <tr key={comment.id}>
+                        {editingComment === comment.id ? (
+                          <td colSpan="4">
+                            <section className="edit-form-container">
+                              <form
+                                onSubmit={(e) => editComment(e, comment.id)}
+                                className="edit-form"
+                              >
+                                <h4>Edit Reply</h4>
+                                <label>
+                                  Reply:
+                                  <textarea
+                                    value={commentContent}
+                                    onChange={(e) =>
+                                      setCommentContent(e.target.value)
+                                    }
+                                  />
+                                </label>
+                                <div className="edit-form-buttons">
+                                  <button type="submit">Save</button>
+                                  <button
+                                    type="button"
+                                    onClick={() => setEditingComment(null)}
+                                  >
+                                    Cancel
+                                  </button>
+                                </div>
+                              </form>
+                            </section>
+                          </td>
+                        ) : (
+                          <>
+                            <td>{comment.review.stadium.name}</td>
+                            <td>{comment.review.comment}</td>
+                            <td>
+                              <strong>{comment.content}</strong>
+                            </td>
+                            <td>
+                              {new Date(comment.date).toLocaleDateString()}
+                            </td>
+                            <td>
+                              <button
+                                onClick={() => {
+                                  setEditingComment(comment.id);
+                                  setCommentContent(comment.content);
+                                }}
+                              >
+                                Edit
+                              </button>
+                              <button onClick={() => deleteComment(comment.id)}>
+                                Delete
+                              </button>
+                            </td>
+                          </>
+                        )}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            ) : (
+              <p id="nothingWarning">
+                Go to any <span onClick={() => navigate("/")}>ballpark</span>{" "}
+                page and reply to a user's review to see your replies here
+              </p>
+            )}
+          </div>
+        )}
+      </div> 
+      <div className="account-change-container">
+          <form id="form" onSubmit={editUser}>
+            <p className="title">Edit Account Details</p>
+            <div className="flex">
+              <label>
+                <input
+                  className="input"
+                  type="text"
+                  minLength="2"
+                  value={firstName}
+                  placeholder="First Name"
+                  required pattern="[A-Za-z]+"
+                  onChange={(e) => setFirstName(e.target.value)}
+                />
+                <span>First Name</span>
+              </label>
+
+              <label>
+                <input
+                  className="input"
+                  type="text"
+                  minLength="2"
+                  value={lastName}
+                  placeholder="Last Name"
+                  required pattern="[A-Za-z]+"
+                  onChange={(e) => setLastName(e.target.value)}
+                />
+                <span>Last Name</span>
+              </label>
+            </div>
+            {googleId.length < 1 &&
+            <label>
+              <input
+                className="input"
+                type="email"
+                minLength="8"
+                value={email}
+                placeholder="Email"
+                required
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <span>Email</span>
+            </label>}
+
+            <label>
+              <input
+                id="username-input"
+                className="input"
+                type="text"
+                minLength="4"
+                value={username}
+                placeholder="Username"
+                required 
+                pattern="[a-zA-Z0-9]+"
+                onChange={(e) => setUsername(e.target.value)}
+              />
+              <span>Username</span>
+            </label>
+            <label>
+              <input
+                className="input"
+                minLength="6"
+                value={password}
+                placeholder="Password"
+                required
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <span>Password</span>
+            </label>
+            {success && <h4>{success}</h4>}
+            {fail && <h4>{fail}</h4>}
+            <button className="submit" type="submit">
+              Submit
+            </button>
+            </form>
+            </div>
+    </>
   );
 };
 
