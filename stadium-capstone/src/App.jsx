@@ -18,6 +18,7 @@ import { googleLogout } from "@react-oauth/google";
 import Paperbase from './materialUi/App'
 import MyAccount from "../components/MyAccount";
 import EmailForm from '../components/EmailForm';
+import Map from "../components/Map";
 
 //setting state here to make passing props between components easier
 function App() {
@@ -111,6 +112,10 @@ function App() {
               setUserId={setUserId}
               setLoginSeen={setLoginSeen}
               loginSeen={loginSeen}
+              setGoogleId={setGoogleId}
+              setUser={setUser}
+              profile={profile}
+              setProfile={setProfile}
             />
           }
         />
@@ -163,6 +168,19 @@ function App() {
             }
           />
         )}
+        <Route
+          path="/users/map"
+          element={
+            <Map 
+            token={token}
+            username={username}
+            setUsername={setUsername}
+            userId={userId}
+            stadiums={stadiums}
+            setStadiums={setStadiums}
+            />
+          } 
+        />
         {administrator && (
           <Route path="/admin" element={<Admin token={token} />} />
         )}
