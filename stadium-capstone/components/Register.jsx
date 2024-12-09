@@ -23,7 +23,6 @@ export default function Register({
   setLoginSeen,
   setGoogleId,
   setUser,
-  profile,
   setProfile
 }) {
   const navigate = useNavigate();

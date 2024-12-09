@@ -267,20 +267,6 @@ export default function Map ({
     }
   ]
 
-  // const myCustomColour = '#583470'
-  // const markerHtmlStyles = `
-  // background-color: ${myCustomColour};
-  // width: 3rem;
-  // height: 3rem;
-  // display: block;
-  // left: -1.5rem;
-  // top: -1.5rem;
-  // position: relative;
-  // border-radius: 3rem 3rem 0;
-  // transform: rotate(45deg);
-  // border: 1px solid #FFFFFF`
-
-
   const notVisited = new Icon({
     iconSize: [38, 38],
     iconUrl: markerImg
