@@ -142,7 +142,7 @@ const LoginModal = ({
                 minLength="4"
                 value={username}
                 placeholder="Username"
-                required pattern="[a-zA-Z0-9]+"
+                required
                 onInvalid={() => validate("username-input")}
                 onChange={(e) => setUsername(e.target.value)}
               />
@@ -183,8 +183,6 @@ const LoginModal = ({
               <h3>User Logged in</h3>
               <p>Name: {profile.name}</p>
               <p>Email Address: {profile.email}</p>
-              <br />
-              <br />
             </div>
           ) : (
             <>

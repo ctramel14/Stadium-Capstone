@@ -182,8 +182,7 @@ const Account = ({
                     onChange={(e) => setUsername(e.target.value)}
                     required
                     inputProps={{
-                      minLength: 4,
-                      pattern: "[a-zA-Z0-9]+",
+                      minLength: 4
                     }}
                     fullWidth
                   />

@@ -1,0 +1,16 @@
+
+.leaflet-container {
+    box-sizing: border-box;
+    margin-top: 40px;
+    padding: 0;
+    height: 92vh;
+}
+
+
+.custom-marker-cluster {
+    background-color: blue;
+    color: blue;
+    border-radius: 0%;
+    width: 90px;
+    height: 90px
+}
